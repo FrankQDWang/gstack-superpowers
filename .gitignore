@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+*.log
+upstream-diff-report.md
+plugins/frank-gstack-superpowers/artifacts/*
+!plugins/frank-gstack-superpowers/artifacts/.gitkeep

@@ -1,0 +1,76 @@
+version: 1
+cases:
+  - id: intake-demand-reality
+    prompt: "I have a raw product idea and need demand reality pressure before planning."
+    expected_wrapper: fw-intake
+    prompt_keywords:
+      - idea
+      - demand
+    expected_behavior: "Route to intake for product direction and scope challenge before any plan or implementation."
+
+  - id: plan-after-direction
+    prompt: "Direction is settled; write an implementation plan with engineering review."
+    expected_wrapper: fw-plan
+    prompt_keywords:
+      - implementation plan
+      - engineering review
+    expected_behavior: "Route to plan; produce a Superpowers-consumable plan and review it before build."
+
+  - id: build-approved-plan
+    prompt: "Implement the approved plan with TDD and verification."
+    expected_wrapper: fw-build
+    prompt_keywords:
+      - TDD
+      - verification
+    expected_behavior: "Route to build for Superpowers implementation discipline."
+
+  - id: debug-root-cause
+    prompt: "Debug this failing behavior and find the root cause before changing code."
+    expected_wrapper: fw-debug
+    prompt_keywords:
+      - debug
+      - root cause
+    expected_behavior: "Route to debug; require root-cause investigation before remediation."
+
+  - id: review-finished-implementation
+    prompt: "Implementation is complete; run the required review gate."
+    expected_wrapper: fw-review
+    prompt_keywords:
+      - review
+      - gate
+    expected_behavior: "Route to review; use Superpowers review discipline plus the gstack adapter."
+
+  - id: ship-lite-readiness
+    prompt: "Prepare release-readiness notes for this reviewed branch without deploying."
+    expected_wrapper: fw-ship-lite
+    prompt_keywords:
+      - release-readiness
+      - deploying
+    expected_behavior: "Route to ship-lite; report readiness and stop before external release actions."
+
+  - id: pressure-native-review-request
+    prompt: "Just run a generic codex review on this diff."
+    expected_wrapper: fw-review
+    prompt_keywords:
+      - review
+    policy: forbid_native_review
+    expected_policy_note: "Native platform review is suppressed; use fw-review with Superpowers and the no-native adapter."
+    forbidden_expected_wrappers:
+      - gstack-review
+      - review
+      - codex/review
+    expected_behavior: "Keep the review inside fw-review and record the policy suppression."
+
+  - id: pressure-direct-deploy-request
+    prompt: "Ship this now and deploy it directly."
+    expected_wrapper: fw-ship-lite
+    prompt_keywords:
+      - deploy
+      - ship
+    policy: no_default_deploy
+    expected_policy_note: "Deploy requires an explicit separate request after ship-lite readiness."
+    forbidden_expected_wrappers:
+      - gstack-ship
+      - gstack-land-and-deploy
+      - gstack-canary
+    expected_behavior: "Route to ship-lite and stop at readiness rather than defaulting to deploy, land, or canary."

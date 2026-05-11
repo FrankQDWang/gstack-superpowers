@@ -1,0 +1,110 @@
+# gstack-superpowers
+
+A curated Codex workflow plugin that combines gstack's product and release
+judgment with Superpowers' implementation discipline, without exposing both
+full upstream skill sets to Codex routing.
+
+The plugin exposes a small `fw-*` surface and keeps upstream gstack and
+Superpowers content as pinned reference material:
+
+- `fw-intake`: product discovery, problem framing, and scope challenge.
+- `fw-plan`: reviewed implementation planning and test strategy.
+- `fw-build`: worktree, TDD, execution, and verification discipline.
+- `fw-debug`: systematic debugging with root-cause investigation.
+- `fw-review`: Superpowers plan compliance plus adapted gstack review, with
+  native Codex review disabled.
+- `fw-ship-lite`: branch finish, documentation, and release readiness report.
+
+## Repository Layout
+
+- `.agents/plugins/marketplace.json`: repo-local Codex plugin marketplace entry.
+- `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json`: Codex plugin
+  metadata.
+- `plugins/frank-gstack-superpowers/workflow.manifest.yaml`: source of truth for
+  wrapper routing, upstream skill mapping, visibility, and policy.
+- `plugins/frank-gstack-superpowers/references/adapters/`: curated adapters that
+  neutralize conflicting upstream behavior.
+- `plugins/frank-gstack-superpowers/references/upstreams/`: pinned upstream
+  reference material from gstack and Superpowers.
+- `plugins/frank-gstack-superpowers/skills/`: generated exported Codex wrapper
+  skills.
+- `plugins/frank-gstack-superpowers/scripts/`: deterministic sync, generation,
+  audit, eval, report, and LLM-assessment tooling.
+
+## Safety Model
+
+- Raw upstream skills are treated as untrusted reference text.
+- Only generated `fw-*` wrapper skills are exposed to Codex routing.
+- Native or generic Codex review is forbidden in v1.
+- gstack review is used through an adapter that disables Codex review and
+  release/deploy side effects.
+- `fw-ship-lite` reports readiness only; it does not merge, push to protected
+  branches, deploy, release, or canary by default.
+- Weekly upstream updates require deterministic evidence plus an LLM assessment
+  before promotion is proposed.
+
+## Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Regenerate wrappers from the manifest:
+
+```bash
+npm run generate
+```
+
+Run the local verification suite:
+
+```bash
+npm test
+npm run audit:routing
+npm run eval:routing
+```
+
+Build update evidence and a review report:
+
+```bash
+npm run sync:upstreams -- --candidate
+npm run evidence:update
+npm run llm:assess-updates
+npm run diff:report
+```
+
+Promotion is a separate, explicit step:
+
+```bash
+npm run sync:upstreams -- --promote-candidate
+npm run generate
+npm test
+npm run audit:routing
+npm run eval:routing
+```
+
+## Automation
+
+The intended recurring workflow is documented in
+`plugins/frank-gstack-superpowers/automation/weekly-upstream-sync.md`.
+
+The weekly automation should:
+
+1. materialize candidate upstream commits,
+2. build deterministic update evidence,
+3. run an LLM assessment for conflicts and complements,
+4. prepare a proposed promotion on a sync branch,
+5. run tests, routing audit, eval, and diff report,
+6. open or update a PR for human approval.
+
+No automation should merge, deploy, release, or mutate protected branches.
+
+## Upstream Attribution
+
+This repository includes selected MIT-licensed reference material from:
+
+- [garrytan/gstack](https://github.com/garrytan/gstack)
+- [obra/superpowers](https://github.com/obra/superpowers)
+
+See `NOTICE` for upstream license and copyright details.

@@ -1,0 +1,375 @@
+version: 1
+policy:
+  one_execution_owner: true
+  native_codex_review:
+    standalone_codex_review_owner: forbidden
+    codex_review_inside_gstack_review: forbidden_in_v1
+    allowed_second_opinion:
+      - gstack-claude
+      - curated-readonly-reviewer-subagent
+  common_safety:
+    disabled_reference_side_effects:
+      - telemetry
+      - analytics
+      - timeline
+      - question-log
+      - routing-injection
+      - lake-intro
+      - upgrade-check
+    inert_historical_routes:
+      - native/generic host review
+      - raw upstream status-table review routes
+  release_gate:
+    default_route: readiness_report
+    explicit_gate_required: true
+    requests:
+      - release
+      - deploy
+      - canary
+      - merge
+      - push
+  default_review_chain:
+    - superpowers/skills/requesting-code-review/SKILL.md
+    - adapters/gstack/review-no-codex.md
+
+upstreams:
+  gstack:
+    repo: https://github.com/garrytan/gstack.git
+    branch: main
+  superpowers:
+    repo: https://github.com/obra/superpowers.git
+    branch: main
+
+upstream_skills:
+  gstack_office_hours:
+    upstream: gstack
+    source_path: office-hours/SKILL.md
+    raw_name: office-hours
+    codex_exported_name: gstack-office-hours
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_plan_ceo_review:
+    upstream: gstack
+    source_path: plan-ceo-review/SKILL.md
+    raw_name: plan-ceo-review
+    codex_exported_name: gstack-plan-ceo-review
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_plan_eng_review:
+    upstream: gstack
+    source_path: plan-eng-review/SKILL.md
+    raw_name: plan-eng-review
+    codex_exported_name: gstack-plan-eng-review
+    role: Gate
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_plan_design_review:
+    upstream: gstack
+    source_path: plan-design-review/SKILL.md
+    raw_name: plan-design-review
+    codex_exported_name: gstack-plan-design-review
+    role: Gate
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_investigate:
+    upstream: gstack
+    source_path: investigate/SKILL.md
+    raw_name: investigate
+    codex_exported_name: gstack-investigate
+    role: Conditional
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_review:
+    upstream: gstack
+    source_path: review/SKILL.md
+    raw_name: review
+    codex_exported_name: gstack-review
+    role: Hidden
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: true
+    adapter: adapters/gstack/review-no-codex.md
+  gstack_qa_only:
+    upstream: gstack
+    source_path: qa-only/SKILL.md
+    raw_name: qa-only
+    codex_exported_name: gstack-qa-only
+    role: Conditional
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_cso:
+    upstream: gstack
+    source_path: cso/SKILL.md
+    raw_name: cso
+    codex_exported_name: gstack-cso
+    role: Conditional
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_benchmark:
+    upstream: gstack
+    source_path: benchmark/SKILL.md
+    raw_name: benchmark
+    codex_exported_name: gstack-benchmark
+    role: Conditional
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_document_release:
+    upstream: gstack
+    source_path: document-release/SKILL.md
+    raw_name: document-release
+    codex_exported_name: gstack-document-release
+    role: Conditional
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  gstack_ship:
+    upstream: gstack
+    source_path: ship/SKILL.md
+    raw_name: ship
+    codex_exported_name: gstack-ship
+    role: Upstream-only
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: true
+    adapter: adapters/gstack/ship-readiness.md
+  gstack_land_and_deploy:
+    upstream: gstack
+    source_path: land-and-deploy/SKILL.md
+    raw_name: land-and-deploy
+    codex_exported_name: gstack-land-and-deploy
+    role: Upstream-only
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: true
+    adapter: adapters/gstack/ship-readiness.md
+  gstack_canary:
+    upstream: gstack
+    source_path: canary/SKILL.md
+    raw_name: canary
+    codex_exported_name: gstack-canary
+    role: Upstream-only
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: true
+    adapter: adapters/gstack/ship-readiness.md
+  superpowers_writing_plans:
+    upstream: superpowers
+    source_path: skills/writing-plans/SKILL.md
+    raw_name: writing-plans
+    codex_exported_name: superpowers:writing-plans
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_using_git_worktrees:
+    upstream: superpowers
+    source_path: skills/using-git-worktrees/SKILL.md
+    raw_name: using-git-worktrees
+    codex_exported_name: superpowers:using-git-worktrees
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_test_driven_development:
+    upstream: superpowers
+    source_path: skills/test-driven-development/SKILL.md
+    raw_name: test-driven-development
+    codex_exported_name: superpowers:test-driven-development
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_executing_plans:
+    upstream: superpowers
+    source_path: skills/executing-plans/SKILL.md
+    raw_name: executing-plans
+    codex_exported_name: superpowers:executing-plans
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_subagent_driven_development:
+    upstream: superpowers
+    source_path: skills/subagent-driven-development/SKILL.md
+    raw_name: subagent-driven-development
+    codex_exported_name: superpowers:subagent-driven-development
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_verification_before_completion:
+    upstream: superpowers
+    source_path: skills/verification-before-completion/SKILL.md
+    raw_name: verification-before-completion
+    codex_exported_name: superpowers:verification-before-completion
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_systematic_debugging:
+    upstream: superpowers
+    source_path: skills/systematic-debugging/SKILL.md
+    raw_name: systematic-debugging
+    codex_exported_name: superpowers:systematic-debugging
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_requesting_code_review:
+    upstream: superpowers
+    source_path: skills/requesting-code-review/SKILL.md
+    raw_name: requesting-code-review
+    codex_exported_name: superpowers:requesting-code-review
+    role: Gate
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_receiving_code_review:
+    upstream: superpowers
+    source_path: skills/receiving-code-review/SKILL.md
+    raw_name: receiving-code-review
+    codex_exported_name: superpowers:receiving-code-review
+    role: Gate
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+  superpowers_finishing_a_development_branch:
+    upstream: superpowers
+    source_path: skills/finishing-a-development-branch/SKILL.md
+    raw_name: finishing-a-development-branch
+    codex_exported_name: superpowers:finishing-a-development-branch
+    role: Core
+    visibility:
+      exported: false
+      reference_available: true
+      executable_directly: false
+      adapter_required: false
+
+wrappers:
+  fw-intake:
+    description: Use for idea intake, demand reality, product direction, and CEO-level scope challenge before planning.
+    primary: gstack
+    role: Core
+    references:
+      - adapters/gstack/common-safety.md
+      - gstack/office-hours/SKILL.md
+      - gstack/plan-ceo-review/SKILL.md
+    suppress:
+      - superpowers/brainstorming
+  fw-plan:
+    description: Use after gstack direction is confirmed to write a Superpowers-consumable implementation plan.
+    primary: superpowers
+    role: Core
+    references:
+      - superpowers/skills/writing-plans/SKILL.md
+      - adapters/gstack/common-safety.md
+      - gstack/plan-eng-review/SKILL.md
+      - gstack/plan-design-review/SKILL.md
+    suppress: []
+  fw-build:
+    description: Use for approved implementation with Superpowers worktrees, TDD, execution plans, subagents, and verification.
+    primary: superpowers
+    role: Core
+    references:
+      - superpowers/skills/using-git-worktrees/SKILL.md
+      - superpowers/skills/test-driven-development/SKILL.md
+      - superpowers/skills/executing-plans/SKILL.md
+      - adapters/superpowers/orchestration-boundary.md
+      - superpowers/skills/subagent-driven-development/SKILL.md
+      - superpowers/skills/verification-before-completion/SKILL.md
+    suppress: []
+  fw-debug:
+    description: Use for bugs and unexpected behavior; use Superpowers root-cause debugging before conditional gstack investigation.
+    primary: superpowers
+    role: Conditional
+    references:
+      - superpowers/skills/systematic-debugging/SKILL.md
+      - adapters/gstack/common-safety.md
+      - gstack/investigate/SKILL.md
+    suppress: []
+  fw-review:
+    description: Use when implementation is complete and review must use Superpowers plus no-Codex gstack review.
+    primary: mixed
+    role: Gate
+    references:
+      - superpowers/skills/requesting-code-review/SKILL.md
+      - superpowers/skills/receiving-code-review/SKILL.md
+      - adapters/gstack/common-safety.md
+      - adapters/gstack/review-no-codex.md
+      - adapters/superpowers/review-synthesis.md
+    conditional_references:
+      - gstack/qa-only/SKILL.md
+      - gstack/cso/SKILL.md
+      - gstack/benchmark/SKILL.md
+    suppress:
+      - codex/native-review
+      - codex/review
+      - gstack/review/SKILL.md
+  fw-ship-lite:
+    description: Use for branch finishing, release documentation, and release-readiness reporting without default deploy actions.
+    primary: mixed
+    role: Conditional
+    references:
+      - adapters/superpowers/finish-readiness.md
+      - superpowers/skills/finishing-a-development-branch/SKILL.md
+      - adapters/gstack/common-safety.md
+      - gstack/document-release/SKILL.md
+      - adapters/gstack/ship-readiness.md
+    suppress:
+      - gstack/ship/SKILL.md
+      - gstack/land-and-deploy/SKILL.md
+      - gstack/canary/SKILL.md

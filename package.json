@@ -1,0 +1,22 @@
+{
+  "name": "frank-gstack-superpowers-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node plugins/frank-gstack-superpowers/scripts/generate-plugin.mjs",
+    "audit:routing": "node plugins/frank-gstack-superpowers/scripts/audit-routing.mjs",
+    "eval:routing": "node plugins/frank-gstack-superpowers/scripts/eval-routing.mjs",
+    "evidence:update": "node plugins/frank-gstack-superpowers/scripts/build-update-evidence.mjs",
+    "llm:assess-updates": "node plugins/frank-gstack-superpowers/scripts/llm-assess-updates.mjs",
+    "diff:report": "node plugins/frank-gstack-superpowers/scripts/diff-report.mjs",
+    "sync:upstreams": "node plugins/frank-gstack-superpowers/scripts/sync-upstreams.mjs",
+    "test": "node --test plugins/frank-gstack-superpowers/test/*.test.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "fast-glob": "^3.3.3",
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.7.0"
+  }
+}

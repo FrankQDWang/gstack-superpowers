@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/frank-gstack-superpowers/workflow.schema.json",
+  "type": "object",
+  "required": [
+    "version",
+    "policy",
+    "upstreams",
+    "upstream_skills",
+    "wrappers"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "one_execution_owner",
+        "native_codex_review",
+        "default_review_chain"
+      ],
+      "properties": {
+        "one_execution_owner": {
+          "type": "boolean"
+        },
+        "native_codex_review": {
+          "type": "object",
+          "required": [
+            "standalone_codex_review_owner",
+            "codex_review_inside_gstack_review",
+            "allowed_second_opinion"
+          ],
+          "properties": {
+            "standalone_codex_review_owner": {
+              "type": "string",
+              "const": "forbidden"
+            },
+            "codex_review_inside_gstack_review": {
+              "type": "string",
+              "const": "forbidden_in_v1"
+            },
+            "allowed_second_opinion": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "default_review_chain": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/referencePath"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "upstreams": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "repo",
+          "branch"
+        ],
+        "properties": {
+          "repo": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "upstream_skills": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/upstreamSkill"
+      }
+    },
+    "wrappers": {
+      "type": "object",
+      "required": [
+        "fw-intake",
+        "fw-plan",
+        "fw-build",
+        "fw-debug",
+        "fw-review",
+        "fw-ship-lite"
+      ],
+      "properties": {
+        "fw-intake": {
+          "$ref": "#/$defs/wrapper"
+        },
+        "fw-plan": {
+          "$ref": "#/$defs/wrapper"
+        },
+        "fw-build": {
+          "$ref": "#/$defs/wrapper"
+        },
+        "fw-debug": {
+          "$ref": "#/$defs/wrapper"
+        },
+        "fw-review": {
+          "$ref": "#/$defs/wrapper"
+        },
+        "fw-ship-lite": {
+          "$ref": "#/$defs/wrapper"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "visibility": {
+      "type": "object",
+      "required": [
+        "exported",
+        "reference_available",
+        "executable_directly",
+        "adapter_required"
+      ],
+      "properties": {
+        "exported": {
+          "type": "boolean"
+        },
+        "reference_available": {
+          "type": "boolean"
+        },
+        "executable_directly": {
+          "type": "boolean"
+        },
+        "adapter_required": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "upstreamSkill": {
+      "type": "object",
+      "required": [
+        "upstream",
+        "source_path",
+        "raw_name",
+        "codex_exported_name",
+        "role",
+        "visibility"
+      ],
+      "properties": {
+        "upstream": {
+          "type": "string",
+          "enum": [
+            "gstack",
+            "superpowers"
+          ]
+        },
+        "source_path": {
+          "type": "string"
+        },
+        "raw_name": {
+          "type": "string"
+        },
+        "codex_exported_name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "Core",
+            "Gate",
+            "Conditional",
+            "Hidden",
+            "Upstream-only"
+          ]
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibility"
+        },
+        "adapter": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "wrapper": {
+      "type": "object",
+      "required": [
+        "description",
+        "primary",
+        "role",
+        "references",
+        "suppress"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary": {
+          "type": "string",
+          "enum": [
+            "gstack",
+            "superpowers",
+            "mixed"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "Core",
+            "Gate",
+            "Conditional",
+            "Hidden",
+            "Upstream-only"
+          ]
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/referencePath"
+          }
+        },
+        "conditional_references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/referencePath"
+          }
+        },
+        "suppress": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "referencePath": {
+      "type": "string",
+      "pattern": "^(?:(?:gstack|superpowers)/.+/SKILL\\.md|adapters/.+\\.md)$"
+    }
+  }
+}
