@@ -16,7 +16,8 @@
 
 | File | Responsibility | Action |
 |---|---|---|
-| `scripts/global-install.mjs` | Global installer, verifier, and uninstaller for the home-local Codex plugin marketplace | Create |
+| `scripts/global-install.mjs` | Global installer, verifier, and uninstaller for the home-local Codex plugin marketplace, config registration, and local plugin cache | Create |
+| `scripts/global-surface.mjs` | Global active-surface manager for hiding/restoring raw gstack skills plus raw Superpowers plugin/skills, with prompt-surface verification | Create |
 | `package.json` | Root script aliases for plugin generation, audit, eval, and sync | Create |
 | `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json` | Codex plugin entrypoint | Create |
 | `plugins/frank-gstack-superpowers/workflow.manifest.yaml` | Source of truth for routing, visibility, policies, upstream mappings, and wrappers | Create |
@@ -128,6 +129,9 @@ Write:
     "install:global": "node scripts/global-install.mjs install",
     "verify:global": "node scripts/global-install.mjs verify",
     "uninstall:global": "node scripts/global-install.mjs uninstall",
+    "activate:curated": "npm run install:global && node scripts/global-surface.mjs activate",
+    "restore:raw": "node scripts/global-surface.mjs restore",
+    "verify:surface": "node scripts/global-surface.mjs verify",
     "generate": "node plugins/frank-gstack-superpowers/scripts/generate-plugin.mjs",
     "audit:routing": "node plugins/frank-gstack-superpowers/scripts/audit-routing.mjs",
     "eval:routing": "node plugins/frank-gstack-superpowers/scripts/eval-routing.mjs",

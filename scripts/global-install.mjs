@@ -6,8 +6,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const PLUGIN_NAME = "frank-gstack-superpowers";
+const MARKETPLACE_NAME = "frankqdwang-local";
 const DEFAULT_MARKETPLACE = Object.freeze({
-  name: "frankqdwang-local",
+  name: MARKETPLACE_NAME,
   interface: {
     displayName: "FrankQDWang Local Plugins",
   },
@@ -26,6 +27,9 @@ function paths() {
     homePluginsDir: path.join(home, "plugins"),
     globalPluginPath: path.join(home, "plugins", PLUGIN_NAME),
     marketplacePath: path.join(home, ".agents", "plugins", "marketplace.json"),
+    marketplaceRoot: home,
+    codexConfigPath: path.join(home, ".codex", "config.toml"),
+    pluginCacheRoot: path.join(home, ".codex", "plugins", "cache", MARKETPLACE_NAME, PLUGIN_NAME),
   };
 }
 
@@ -43,10 +47,31 @@ async function readJson(filePath) {
   return JSON.parse(await fs.readFile(filePath, "utf8"));
 }
 
+async function readPluginJson(pluginPath) {
+  const pluginJsonPath = path.join(pluginPath, ".codex-plugin", "plugin.json");
+  const pluginJson = await readJson(pluginJsonPath);
+  if (!pluginJson.version) {
+    throw new Error(`${pluginJsonPath} is missing version`);
+  }
+  return pluginJson;
+}
+
 async function writeJsonAtomic(filePath, value) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   const tempPath = `${filePath}.tmp-${process.pid}`;
   await fs.writeFile(tempPath, `${JSON.stringify(value, null, 2)}\n`);
+  await fs.rename(tempPath, filePath);
+}
+
+async function readTextIfPresent(filePath) {
+  if (!(await pathExists(filePath))) return "";
+  return fs.readFile(filePath, "utf8");
+}
+
+async function writeTextAtomic(filePath, value) {
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  const tempPath = `${filePath}.tmp-${process.pid}`;
+  await fs.writeFile(tempPath, value);
   await fs.rename(tempPath, filePath);
 }
 
@@ -95,6 +120,58 @@ async function upsertMarketplaceEntry(filePath) {
     marketplace.plugins[index] = entry;
   }
   await writeJsonAtomic(filePath, marketplace);
+}
+
+function upsertTomlTable(source, header, assignments) {
+  const lines = source.split(/\r?\n/);
+  const start = lines.findIndex((line) => line.trim() === header);
+  const renderedAssignments = Object.entries(assignments).map(([key, value]) => `${key} = ${value}`);
+
+  if (start === -1) {
+    const prefix = source.endsWith("\n") || source.length === 0 ? source : `${source}\n`;
+    return `${prefix}\n${header}\n${renderedAssignments.join("\n")}\n`;
+  }
+
+  let end = lines.length;
+  for (let index = start + 1; index < lines.length; index += 1) {
+    if (/^\s*\[/.test(lines[index])) {
+      end = index;
+      break;
+    }
+  }
+
+  const block = lines.slice(start, end);
+  for (const [key, value] of Object.entries(assignments)) {
+    const assignment = `${key} = ${value}`;
+    const assignmentIndex = block.findIndex((line) => new RegExp(`^\\s*${key}\\s*=`).test(line));
+    if (assignmentIndex === -1) {
+      block.push(assignment);
+    } else {
+      block[assignmentIndex] = assignment;
+    }
+  }
+
+  return [...lines.slice(0, start), ...block, ...lines.slice(end)].join("\n");
+}
+
+async function registerMarketplaceInCodexConfig({ codexConfigPath, marketplaceRoot }) {
+  const existing = await readTextIfPresent(codexConfigPath);
+  const updated = upsertTomlTable(existing, `[marketplaces.${MARKETPLACE_NAME}]`, {
+    last_updated: `"${new Date().toISOString().replace(/\.\d{3}Z$/, "Z")}"`,
+    source_type: "\"local\"",
+    source: JSON.stringify(marketplaceRoot),
+  });
+  if (updated !== existing) {
+    await writeTextAtomic(codexConfigPath, updated);
+  }
+}
+
+async function materializeLocalPluginCache({ pluginSource, pluginCacheRoot }) {
+  const pluginJson = await readPluginJson(pluginSource);
+  const cachePath = path.join(pluginCacheRoot, pluginJson.version);
+  await fs.rm(cachePath, { recursive: true, force: true });
+  await fs.mkdir(path.dirname(cachePath), { recursive: true });
+  await fs.cp(pluginSource, cachePath, { recursive: true, dereference: false });
 }
 
 async function removeMarketplaceEntry(filePath) {
@@ -148,17 +225,34 @@ async function uninstallSymlink({ force = false } = {}) {
 }
 
 async function install(options) {
-  const { marketplacePath } = paths();
+  const { marketplacePath, codexConfigPath, marketplaceRoot, pluginSource, pluginCacheRoot } = paths();
   await installSymlink(options);
   await upsertMarketplaceEntry(marketplacePath);
+  await registerMarketplaceInCodexConfig({ codexConfigPath, marketplaceRoot });
+  await materializeLocalPluginCache({ pluginSource, pluginCacheRoot });
   return verify();
 }
 
 async function uninstall(options) {
-  const { marketplacePath } = paths();
+  const { marketplacePath, pluginCacheRoot } = paths();
   await uninstallSymlink(options);
   await removeMarketplaceEntry(marketplacePath);
+  await fs.rm(pluginCacheRoot, { recursive: true, force: true });
   return verify({ expectInstalled: false });
+}
+
+function tomlTableBlock(source, header) {
+  const lines = source.split(/\r?\n/);
+  const start = lines.findIndex((line) => line.trim() === header);
+  if (start === -1) return "";
+  let end = lines.length;
+  for (let index = start + 1; index < lines.length; index += 1) {
+    if (/^\s*\[/.test(lines[index])) {
+      end = index;
+      break;
+    }
+  }
+  return lines.slice(start, end).join("\n");
 }
 
 async function verify({ expectInstalled = true } = {}) {
@@ -170,6 +264,8 @@ async function verify({ expectInstalled = true } = {}) {
     plugin_source: current.pluginSource,
     global_plugin_path: current.globalPluginPath,
     marketplace_path: current.marketplacePath,
+    marketplace_root: current.marketplaceRoot,
+    codex_config_path: current.codexConfigPath,
     checks: {},
   };
 
@@ -200,12 +296,31 @@ async function verify({ expectInstalled = true } = {}) {
     result.checks.marketplace_entry_global_default = false;
   }
 
+  const configText = await readTextIfPresent(current.codexConfigPath);
+  const marketplaceConfigBlock = tomlTableBlock(configText, `[marketplaces.${MARKETPLACE_NAME}]`);
+  result.checks.marketplace_registered_in_config =
+    /^\s*source_type\s*=\s*"local"\s*$/m.test(marketplaceConfigBlock) &&
+    new RegExp(`^\\s*source\\s*=\\s*${JSON.stringify(current.marketplaceRoot).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`, "m").test(
+      marketplaceConfigBlock,
+    );
+
+  let pluginVersion = null;
+  if (result.checks.plugin_source_present) {
+    pluginVersion = (await readPluginJson(current.pluginSource)).version;
+  }
+  result.checks.plugin_cache_path = pluginVersion ? path.join(current.pluginCacheRoot, pluginVersion) : null;
+  result.checks.plugin_cache_present = pluginVersion
+    ? await pathExists(path.join(current.pluginCacheRoot, pluginVersion, ".codex-plugin", "plugin.json"))
+    : false;
+
   const installed =
     result.checks.plugin_source_present &&
     result.checks.global_symlink_present &&
     result.checks.global_symlink_target_matches &&
     result.checks.marketplace_entry_present &&
-    result.checks.marketplace_entry_global_default;
+    result.checks.marketplace_entry_global_default &&
+    result.checks.marketplace_registered_in_config &&
+    result.checks.plugin_cache_present;
 
   result.status = expectInstalled ? (installed ? "installed" : "not-installed") : installed ? "still-installed" : "uninstalled";
   return result;

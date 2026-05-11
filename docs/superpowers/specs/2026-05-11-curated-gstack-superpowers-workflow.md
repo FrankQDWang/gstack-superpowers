@@ -427,7 +427,8 @@ The generated `upstream-diff-report.md` must flag supply-chain risk markers befo
 
 | Path | Purpose |
 |---|---|
-| `scripts/global-install.mjs` | Global installer that symlinks the plugin into `~/plugins/frank-gstack-superpowers` and updates `~/.agents/plugins/marketplace.json`. |
+| `scripts/global-install.mjs` | Global installer that symlinks the plugin into `~/plugins/frank-gstack-superpowers`, updates `~/.agents/plugins/marketplace.json`, registers `frankqdwang-local` in `~/.codex/config.toml`, and materializes the Codex plugin cache. |
+| `scripts/global-surface.mjs` | Global surface manager that hides raw gstack skills, the raw Superpowers plugin manifest, and the raw Superpowers skills directory from active Codex routing, then verifies the real `codex debug prompt-input` skill surface. |
 | `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json` | Codex plugin entrypoint for the curated workflow. |
 | `plugins/frank-gstack-superpowers/skills/fw-intake/SKILL.md` | Visible wrapper for gstack intake. |
 | `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers plan creation after gstack direction approval. |

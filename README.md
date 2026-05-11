@@ -59,6 +59,34 @@ Verify that all projects can see the same global plugin registration:
 npm run verify:global
 ```
 
+Reduce the active Codex skill surface to the curated workflow:
+
+```bash
+npm run activate:curated
+```
+
+This moves raw `gstack*` entries out of `~/.codex/skills`, disables the
+Superpowers Codex plugin manifest and raw `~/.codex/superpowers/skills`
+directory, registers `frankqdwang-local` in `~/.codex/config.toml`,
+materializes the plugin under `~/.codex/plugins/cache/`, and explicitly
+enables `frank-gstack-superpowers@frankqdwang-local`.
+
+Verify that the raw upstream surface is hidden:
+
+```bash
+npm run verify:surface
+```
+
+This verification uses `codex debug prompt-input` and fails unless all six
+`frank-gstack-superpowers:fw-*` skills are visible and raw gstack/Superpowers
+skills are absent from the next-session prompt surface.
+
+Restore the original raw gstack/Superpowers surface:
+
+```bash
+npm run restore:raw
+```
+
 Remove the global registration:
 
 ```bash
@@ -69,6 +97,8 @@ npm run uninstall:global
 
 - Raw upstream skills are treated as untrusted reference text.
 - Only generated `fw-*` wrapper skills are exposed to Codex routing.
+- The global curated mode hides raw gstack and Superpowers from Codex's active
+  skill/plugin surface while preserving their source files for update sync.
 - Native or generic Codex review is forbidden in v1.
 - gstack review is used through an adapter that disables Codex review and
   release/deploy side effects.
