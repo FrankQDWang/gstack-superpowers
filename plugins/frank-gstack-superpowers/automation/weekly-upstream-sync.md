@@ -14,7 +14,7 @@ Run this prompt as the recurring Codex automation for the `frank-gstack-superpow
 ## Required Steps
 
 1. Create or reuse an isolated worktree or branch for the weekly sync.
-2. Confirm the working tree is not `main` and that repo-local changes are limited to the sync branch.
+2. Confirm the working tree is not `main` and that source-repo changes are limited to the sync branch.
 3. Run candidate sync:
 
    ```bash

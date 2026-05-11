@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` for implementation when tasks can be split by file ownership. Use `superpowers:executing-plans` only when implementing inline. Track progress with the checkbox items in this file.
 
-**Goal:** Build a repo-local Codex plugin that exposes a small `fw-*` workflow surface while keeping gstack and Superpowers as pinned, materialized upstream dependencies.
+**Goal:** Build a global Codex plugin that exposes a small `fw-*` workflow surface to every project while keeping gstack and Superpowers as pinned, materialized upstream dependencies.
 
 **Architecture:** The plugin is generated from `workflow.manifest.yaml`. Raw upstream skills are copied into `references/upstreams/`, adapter files transform risky upstream behavior into curated stage contracts, and only six wrapper skills are exported to Codex routing. `fw-review` must use Superpowers plus a no-Codex gstack review adapter. `fw-ship-lite` must produce release readiness only, with no default deploy, merge, PR, or canary side effect.
 
-**Tech Stack:** Node.js ESM scripts, YAML, JSON Schema, Markdown, Codex Automations, Codex repo-local plugin marketplace
+**Tech Stack:** Node.js ESM scripts, YAML, JSON Schema, Markdown, Codex Automations, Codex global home-local plugin marketplace
 
 **Spec:** `docs/superpowers/specs/2026-05-11-curated-gstack-superpowers-workflow.md`
 
@@ -16,7 +16,7 @@
 
 | File | Responsibility | Action |
 |---|---|---|
-| `.agents/plugins/marketplace.json` | Repo-local Codex plugin marketplace entry | Create |
+| `scripts/global-install.mjs` | Global installer, verifier, and uninstaller for the home-local Codex plugin marketplace | Create |
 | `package.json` | Root script aliases for plugin generation, audit, eval, and sync | Create |
 | `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json` | Codex plugin entrypoint | Create |
 | `plugins/frank-gstack-superpowers/workflow.manifest.yaml` | Source of truth for routing, visibility, policies, upstream mappings, and wrappers | Create |
@@ -82,10 +82,10 @@ git commit -m "docs: specify curated gstack superpowers workflow"
 
 ---
 
-## Task 1: Create Repo-Local Plugin Skeleton
+## Task 1: Create Global Plugin Source and Installer
 
 **Files:**
-- Create: `.agents/plugins/marketplace.json`
+- Create: `scripts/global-install.mjs`
 - Create: `package.json`
 - Create: `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json`
 
@@ -94,33 +94,12 @@ git commit -m "docs: specify curated gstack superpowers workflow"
 Run:
 
 ```bash
-mkdir -p .agents/plugins plugins/frank-gstack-superpowers/.codex-plugin
+mkdir -p scripts plugins/frank-gstack-superpowers/.codex-plugin
 ```
 
-- [ ] **Step 2: Create `.agents/plugins/marketplace.json`**
+- [ ] **Step 2: Create `scripts/global-install.mjs`**
 
-Write:
-
-```json
-{
-  "version": 1,
-  "plugins": [
-    {
-      "name": "frank-gstack-superpowers",
-      "description": "Curated Codex workflow combining gstack judgment with Superpowers execution discipline.",
-      "source": {
-        "type": "path",
-        "path": "./plugins/frank-gstack-superpowers"
-      },
-      "category": "workflow",
-      "policy": {
-        "installation": "local",
-        "authentication": "none"
-      }
-    }
-  ]
-}
-```
+Write an installer that symlinks `plugins/frank-gstack-superpowers` to `~/plugins/frank-gstack-superpowers` and upserts a global marketplace entry in `~/.agents/plugins/marketplace.json` with `policy.installation: INSTALLED_BY_DEFAULT`.
 
 - [ ] **Step 3: Create `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json`**
 
@@ -146,6 +125,9 @@ Write:
   "private": true,
   "type": "module",
   "scripts": {
+    "install:global": "node scripts/global-install.mjs install",
+    "verify:global": "node scripts/global-install.mjs verify",
+    "uninstall:global": "node scripts/global-install.mjs uninstall",
     "generate": "node plugins/frank-gstack-superpowers/scripts/generate-plugin.mjs",
     "audit:routing": "node plugins/frank-gstack-superpowers/scripts/audit-routing.mjs",
     "eval:routing": "node plugins/frank-gstack-superpowers/scripts/eval-routing.mjs",
@@ -169,7 +151,7 @@ Write:
 Run:
 
 ```bash
-node -e 'for (const f of [".agents/plugins/marketplace.json","package.json","plugins/frank-gstack-superpowers/.codex-plugin/plugin.json"]) JSON.parse(require("fs").readFileSync(f,"utf8")); console.log("json ok")'
+node -e 'for (const f of ["package.json","plugins/frank-gstack-superpowers/.codex-plugin/plugin.json"]) JSON.parse(require("fs").readFileSync(f,"utf8")); console.log("json ok")'
 ```
 
 Expected:

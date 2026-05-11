@@ -5,7 +5,7 @@ Status: REVISED AFTER REVIEW
 
 ## Goal
 
-Build one curated Codex workflow that combines gstack and Superpowers without exposing two overlapping end-to-end workflow systems to Codex routing.
+Build one curated global Codex workflow that combines gstack and Superpowers without exposing two overlapping end-to-end workflow systems to Codex routing.
 
 The workflow must preserve the user's operating model:
 
@@ -427,7 +427,7 @@ The generated `upstream-diff-report.md` must flag supply-chain risk markers befo
 
 | Path | Purpose |
 |---|---|
-| `.agents/plugins/marketplace.json` | Repo-local marketplace entry that exposes the plugin to Codex. |
+| `scripts/global-install.mjs` | Global installer that symlinks the plugin into `~/plugins/frank-gstack-superpowers` and updates `~/.agents/plugins/marketplace.json`. |
 | `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json` | Codex plugin entrypoint for the curated workflow. |
 | `plugins/frank-gstack-superpowers/skills/fw-intake/SKILL.md` | Visible wrapper for gstack intake. |
 | `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers plan creation after gstack direction approval. |
@@ -584,7 +584,7 @@ The first eval set must include these cases:
 
 ## Open Decisions
 
-1. Whether `fw-checkpoint` should be added in v1.1 for repo-local stage snapshots.
+1. Whether `fw-checkpoint` should be added in v1.1 for project-local stage snapshots produced by the global workflow.
 2. Whether `gstack-context-save` and `gstack-context-restore` should remain hidden permanently or become conditional through `fw-checkpoint`.
 3. Whether a future manifest version may allow a gstack-managed Codex review pass as an auxiliary signal after explicit review.
 4. Whether this curated workflow should include CE later as a knowledge-compounding layer, or keep v1 strictly to gstack plus Superpowers.

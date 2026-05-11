@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "install:global": "node scripts/global-install.mjs install",
+    "verify:global": "node scripts/global-install.mjs verify",
+    "uninstall:global": "node scripts/global-install.mjs uninstall",
     "generate": "node plugins/frank-gstack-superpowers/scripts/generate-plugin.mjs",
     "audit:routing": "node plugins/frank-gstack-superpowers/scripts/audit-routing.mjs",
     "eval:routing": "node plugins/frank-gstack-superpowers/scripts/eval-routing.mjs",

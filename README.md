@@ -1,8 +1,8 @@
 # gstack-superpowers
 
-A curated Codex workflow plugin that combines gstack's product and release
-judgment with Superpowers' implementation discipline, without exposing both
-full upstream skill sets to Codex routing.
+A curated global Codex workflow plugin that combines gstack's product and
+release judgment with Superpowers' implementation discipline, without exposing
+both full upstream skill sets to Codex routing.
 
 The plugin exposes a small `fw-*` surface and keeps upstream gstack and
 Superpowers content as pinned reference material:
@@ -17,7 +17,8 @@ Superpowers content as pinned reference material:
 
 ## Repository Layout
 
-- `.agents/plugins/marketplace.json`: repo-local Codex plugin marketplace entry.
+- `scripts/global-install.mjs`: installs this plugin into the user's global
+  Codex plugin marketplace so every project can use it.
 - `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json`: Codex plugin
   metadata.
 - `plugins/frank-gstack-superpowers/workflow.manifest.yaml`: source of truth for
@@ -30,6 +31,39 @@ Superpowers content as pinned reference material:
   skills.
 - `plugins/frank-gstack-superpowers/scripts/`: deterministic sync, generation,
   audit, eval, report, and LLM-assessment tooling.
+
+## Global Installation
+
+This repository is the source of truth, but the runtime install is global. The
+installer symlinks the plugin to:
+
+```text
+~/plugins/frank-gstack-superpowers
+```
+
+and registers it in:
+
+```text
+~/.agents/plugins/marketplace.json
+```
+
+Install or refresh the global plugin:
+
+```bash
+npm run install:global
+```
+
+Verify that all projects can see the same global plugin registration:
+
+```bash
+npm run verify:global
+```
+
+Remove the global registration:
+
+```bash
+npm run uninstall:global
+```
 
 ## Safety Model
 
@@ -45,7 +79,7 @@ Superpowers content as pinned reference material:
 
 ## Development
 
-Install dependencies:
+Install dependencies in this source repo:
 
 ```bash
 npm install
@@ -98,7 +132,9 @@ The weekly automation should:
 5. run tests, routing audit, eval, and diff report,
 6. open or update a PR for human approval.
 
-No automation should merge, deploy, release, or mutate protected branches.
+No automation should merge, deploy, release, or mutate protected branches. When
+the source repo is updated, the global symlinked install sees the same plugin
+contents without copying workflow files into individual project repositories.
 
 ## Upstream Attribution
 
