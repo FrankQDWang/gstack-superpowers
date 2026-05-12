@@ -177,7 +177,7 @@ test("evidence hash ignores volatile fields and changes with candidate content",
 });
 
 test("update evidence includes wrapper and adapter mitigation context", async () => {
-  const { evidence } = await buildEvidence();
+  const { evidence } = await buildEvidence({ write: false });
 
   assert.ok(evidence.mitigation_context, "mitigation_context must be present");
   assert.ok(evidence.mitigation_context.manifest_policy_summary.one_execution_owner);

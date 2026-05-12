@@ -429,7 +429,7 @@ function skillFor(manifest, upstream, sourcePath) {
   );
 }
 
-export async function buildEvidence() {
+export async function buildEvidence({ write = true } = {}) {
   const state = await loadProjectState(DEFAULT_PLUGIN_ROOT);
   const repoRoot = repoRootFromPluginRoot(state.pluginRoot);
   const evidence = {
@@ -546,7 +546,9 @@ export async function buildEvidence() {
 
   evidence.evidence_hash = computeEvidenceHash(evidence);
   const outputPath = path.join(state.pluginRoot, "artifacts", "update-evidence.json");
-  await writeJsonAtomic(outputPath, evidence);
+  if (write) {
+    await writeJsonAtomic(outputPath, evidence);
+  }
   return { output_path: repoRelative(repoRoot, outputPath), evidence };
 }
 
