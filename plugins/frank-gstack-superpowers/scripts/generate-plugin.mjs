@@ -151,17 +151,21 @@ const STAGE_CONTRACTS = Object.freeze({
     stage: "intake",
     owner: "gstack",
     inputs: ["Raw idea, product question, demand signal, or scope uncertainty."],
-    outputs: ["Direction decision, scope challenge notes, and planning handoff criteria."],
-    contract: "Clarify product direction before planning. Do not produce implementation changes.",
+    outputs: [
+      "Office-hours notes, CEO review notes, and explicit user confirmation or block before fw-plan.",
+    ],
+    contract:
+      "Run a two-step intake gate: office-hours, stop for user confirmation, plan-ceo-review, then stop again before fw-plan. Do not produce implementation changes.",
   },
   "fw-plan": {
     stage: "plan",
     owner: "superpowers",
     inputs: ["Confirmed direction, scope boundaries, and enough constraints to write the spec and implementation plan."],
     outputs: [
-      "Superpowers-consumable spec in docs/superpowers/specs/ plus linked implementation plan in docs/superpowers/plans/, with engineering and design review notes.",
+      "Confirmed spec in docs/superpowers/specs/, linked implementation plan in docs/superpowers/plans/, gstack eng/design gate notes, and explicit user confirmation or block before fw-build.",
     ],
-    contract: "Write and harden the spec and implementation plan. Do not execute implementation.",
+    contract:
+      "Write the spec first, stop for user confirmation, then write the linked implementation plan and run gstack eng/design review as gates. Do not execute implementation.",
   },
   "fw-build": {
     stage: "build",
@@ -293,6 +297,15 @@ function wrapperPolicyNotes(wrapperName, wrapper, manifest) {
   if (wrapperName === "fw-plan") {
     notes.push(
       "fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec.",
+    );
+    notes.push(
+      "fw-plan must write or update the spec before the plan, stop for user confirmation after the spec, write the linked plan, treat gstack plan-eng-review and plan-design-review as gates rather than execution owners, and stop again before fw-build.",
+    );
+  }
+
+  if (wrapperName === "fw-intake") {
+    notes.push(
+      "fw-intake must not automatically continue from office-hours to plan-ceo-review; stop for user confirmation after office-hours, then stop again before fw-plan.",
     );
   }
 

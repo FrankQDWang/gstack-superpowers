@@ -1,25 +1,71 @@
 {
-  "timestamp": "2026-05-12T01:47:45.146Z",
-  "step": "diff-report",
+  "timestamp": "2026-05-12T02:29:39.334Z",
+  "step": "eval-routing",
   "status": "success",
   "error_code": null,
   "details": {
     "status": "success",
-    "output_path": "plugins/frank-gstack-superpowers/artifacts/upstream-diff-report.md",
-    "root_copy_path": "upstream-diff-report.md",
-    "evidence_present": true,
-    "assessment_present": true,
-    "stale_assessment": false,
-    "stale_reasons": []
+    "cases": [
+      {
+        "id": "intake-demand-reality",
+        "status": "passed",
+        "expected_wrapper": "fw-intake",
+        "actual_wrapper": "fw-intake",
+        "errors": []
+      },
+      {
+        "id": "plan-after-direction",
+        "status": "passed",
+        "expected_wrapper": "fw-plan",
+        "actual_wrapper": "fw-plan",
+        "errors": []
+      },
+      {
+        "id": "build-approved-plan",
+        "status": "passed",
+        "expected_wrapper": "fw-build",
+        "actual_wrapper": "fw-build",
+        "errors": []
+      },
+      {
+        "id": "debug-root-cause",
+        "status": "passed",
+        "expected_wrapper": "fw-debug",
+        "actual_wrapper": "fw-debug",
+        "errors": []
+      },
+      {
+        "id": "review-finished-implementation",
+        "status": "passed",
+        "expected_wrapper": "fw-review",
+        "actual_wrapper": "fw-review",
+        "errors": []
+      },
+      {
+        "id": "ship-lite-readiness",
+        "status": "passed",
+        "expected_wrapper": "fw-ship-lite",
+        "actual_wrapper": "fw-ship-lite",
+        "errors": []
+      },
+      {
+        "id": "pressure-native-review-request",
+        "status": "passed",
+        "expected_wrapper": "fw-review",
+        "actual_wrapper": "fw-review",
+        "errors": []
+      },
+      {
+        "id": "pressure-direct-deploy-request",
+        "status": "passed",
+        "expected_wrapper": "fw-ship-lite",
+        "actual_wrapper": "fw-ship-lite",
+        "errors": []
+      }
+    ],
+    "errors": []
   },
   "history": [
-    {
-      "timestamp": "2026-05-12T01:47:01.501Z",
-      "step": "sync-upstreams:candidate",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
     {
       "timestamp": "2026-05-12T01:47:06.189Z",
       "step": "sync-upstreams:candidate",
@@ -258,6 +304,79 @@
     {
       "timestamp": "2026-05-12T01:47:45.142Z",
       "step": "diff-report",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-12T01:47:45.146Z",
+      "step": "diff-report",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "output_path": "plugins/frank-gstack-superpowers/artifacts/upstream-diff-report.md",
+        "root_copy_path": "upstream-diff-report.md",
+        "evidence_present": true,
+        "assessment_present": true,
+        "stale_assessment": false,
+        "stale_reasons": []
+      }
+    },
+    {
+      "timestamp": "2026-05-12T02:28:56.325Z",
+      "step": "generate-plugin",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-12T02:28:56.425Z",
+      "step": "generate-plugin",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "manifest_hash": "sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02",
+        "skills": [
+          "skills/fw-intake/SKILL.md",
+          "skills/fw-plan/SKILL.md",
+          "skills/fw-build/SKILL.md",
+          "skills/fw-debug/SKILL.md",
+          "skills/fw-review/SKILL.md",
+          "skills/fw-ship-lite/SKILL.md"
+        ],
+        "adapters": [
+          "references/adapters/gstack/common-safety.md",
+          "references/adapters/superpowers/orchestration-boundary.md",
+          "references/adapters/gstack/ship-readiness.md",
+          "references/adapters/superpowers/finish-readiness.md",
+          "references/adapters/superpowers/review-synthesis.md"
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "timestamp": "2026-05-12T02:29:36.597Z",
+      "step": "audit-routing",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-12T02:29:36.646Z",
+      "step": "audit-routing",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "manifest_hash": "sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02",
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "timestamp": "2026-05-12T02:29:39.298Z",
+      "step": "eval-routing",
       "status": "running",
       "error_code": null,
       "details": {}

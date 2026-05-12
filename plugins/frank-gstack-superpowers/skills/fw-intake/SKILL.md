@@ -1,7 +1,7 @@
 ---
 name: fw-intake
-description: "Use for idea intake, demand reality, product direction, and CEO-level scope challenge before planning."
-manifest_hash: sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495
+description: "Use for idea intake through office-hours, then confirmed CEO-level scope challenge before planning."
+manifest_hash: sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02
 generated_from: workflow.manifest.yaml
 ---
 
@@ -15,7 +15,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 - Owner: gstack
 - Role: Core
 - Primary system: gstack
-- Contract: Clarify product direction before planning. Do not produce implementation changes.
+- Contract: Run a two-step intake gate: office-hours, stop for user confirmation, plan-ceo-review, then stop again before fw-plan. Do not produce implementation changes.
 
 ## Inputs
 
@@ -23,7 +23,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Outputs
 
-- Direction decision, scope challenge notes, and planning handoff criteria.
+- Office-hours notes, CEO review notes, and explicit user confirmation or block before fw-plan.
 
 ## Required References
 
@@ -45,7 +45,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Policy Notes
 
-- None
+- fw-intake must not automatically continue from office-hours to plan-ceo-review; stop for user confirmation after office-hours, then stop again before fw-plan.
 
 ## Execution Rules
 
@@ -65,14 +65,16 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "intake",
   "owner": "gstack",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495",
+  "manifest_hash": "sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02",
   "inputs": [],
   "outputs": [],
   "references_read": [],
   "suppressed_routes": [
     "superpowers/brainstorming"
   ],
-  "policy_notes": [],
+  "policy_notes": [
+    "fw-intake must not automatically continue from office-hours to plan-ceo-review; stop for user confirmation after office-hours, then stop again before fw-plan."
+  ],
   "verification": {
     "commands": [],
     "artifacts": []

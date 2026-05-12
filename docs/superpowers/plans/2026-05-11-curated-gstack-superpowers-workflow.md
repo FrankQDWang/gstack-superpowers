@@ -12,6 +12,23 @@
 
 ---
 
+## Current Refinement: Intake and Plan Stop Gates
+
+This small follow-up keeps the six-wrapper surface unchanged and tightens only the internal stage boundaries:
+
+- `fw-intake` remains one visible wrapper, but it must run `office-hours`, stop for user confirmation, then run `plan-ceo-review`, and stop again before `fw-plan`.
+- `fw-plan` must write or update the `spec` first, stop for user confirmation, then write the linked `plan`; `plan-eng-review` and `plan-design-review` are gates, not execution owners.
+- `fw-build`, `fw-review`, and `fw-ship-lite` keep their current structure.
+
+Implementation scope:
+
+- Update generator stage contracts and policy notes.
+- Regenerate wrapper skills from the manifest and generator.
+- Update this plan and the linked spec so neither document implies automatic serial execution through intake or planning.
+- Add static test coverage that generated `fw-intake` and `fw-plan` contain the confirmation gate text.
+
+---
+
 ## File Structure
 
 | File | Responsibility | Action |
@@ -253,7 +270,7 @@ upstream_skills:
 
 wrappers:
   fw-intake:
-    description: Use for idea intake, demand reality, product direction, and CEO-level scope challenge before planning.
+    description: Use for idea intake through office-hours, then confirmed CEO-level scope challenge before planning.
     primary: gstack
     role: Core
     references:
@@ -262,7 +279,7 @@ wrappers:
     suppress:
       - superpowers/brainstorming
   fw-plan:
-    description: Use after office-hours or plan-ceo-review confirms direction to write a Superpowers-consumable spec and implementation plan.
+    description: Use after office-hours and plan-ceo-review confirm direction to write a confirmed spec, linked plan, and gstack plan gates.
     primary: superpowers
     role: Core
     references:

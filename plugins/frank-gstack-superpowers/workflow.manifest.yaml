@@ -302,7 +302,7 @@ upstream_skills:
 
 wrappers:
   fw-intake:
-    description: Use for idea intake, demand reality, product direction, and CEO-level scope challenge before planning.
+    description: Use for idea intake through office-hours, then confirmed CEO-level scope challenge before planning.
     primary: gstack
     role: Core
     references:
@@ -312,7 +312,7 @@ wrappers:
     suppress:
       - superpowers/brainstorming
   fw-plan:
-    description: Use after office-hours or plan-ceo-review confirms direction to write a Superpowers-consumable spec and implementation plan.
+    description: Use after office-hours and plan-ceo-review confirm direction to write a confirmed spec, linked plan, and gstack plan gates.
     primary: superpowers
     role: Core
     references:

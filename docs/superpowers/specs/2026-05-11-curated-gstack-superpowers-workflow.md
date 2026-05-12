@@ -29,19 +29,35 @@ This revised design adds three hard requirements:
 ```mermaid
 flowchart TD
   A["Idea or user request"] --> B["gstack office-hours"]
-  B --> C["gstack plan-ceo-review"]
-  C --> D{"User confirms direction and scope"}
-  D -- "No" --> B
-  D -- "Yes" --> E["Superpowers spec + writing-plans"]
-  E --> F["Superpowers execution"]
-  F --> G["Superpowers requesting-code-review"]
-  G --> H["raw gstack review"]
-  H --> I{"Need browser QA, security, perf, or release gate"}
-  I -- "Yes" --> J["gstack qa-only / cso / benchmark / ship-readiness"]
-  I -- "No" --> K["Superpowers verification-before-completion"]
-  J --> K
-  K --> L["User decides merge or release"]
+  B --> C{"User confirms office-hours direction"}
+  C -- "No" --> B
+  C -- "Yes" --> D["gstack plan-ceo-review"]
+  D --> E{"User confirms scope and ambition"}
+  E -- "No" --> B
+  E -- "Yes" --> F["Superpowers spec"]
+  F --> G{"User confirms spec"}
+  G -- "No" --> F
+  G -- "Yes" --> H["Superpowers writing-plans"]
+  H --> I["gstack plan-eng-review gate"]
+  I --> J{"UI or UX affected"}
+  J -- "Yes" --> K["gstack plan-design-review gate"]
+  J -- "No" --> L{"User approves plan for build"}
+  K --> L
+  L -- "No" --> F
+  L -- "Yes" --> M["Superpowers execution"]
+  M --> N["Superpowers requesting-code-review"]
+  N --> O["raw gstack review"]
+  O --> P{"Need browser QA, security, perf, or release gate"}
+  P -- "Yes" --> Q["gstack qa-only / cso / benchmark / ship-readiness"]
+  P -- "No" --> R["Superpowers verification-before-completion"]
+  Q --> R
+  R --> S["User decides merge or release"]
 ```
+
+## Stage Gate Rules
+
+- `fw-intake` is one wrapper with two internal stops: run `office-hours`, wait for user confirmation, then run `plan-ceo-review`, and wait again before `fw-plan`.
+- `fw-plan` must write or update the `spec` first, wait for user confirmation, then write the linked `plan`. `plan-eng-review` and `plan-design-review` are gates, not execution owners, and the workflow stops again before `fw-build`.
 
 ## Review Flow
 
@@ -140,8 +156,8 @@ visibility:
 
 | Wrapper | Purpose | Included upstream skills |
 |---|---|---|
-| `fw-intake` | Clarify idea, demand, user, and scope before planning. | `gstack-office-hours`, `gstack-plan-ceo-review` |
-| `fw-plan` | Convert approved direction into a Superpowers-consumable spec plus linked execution plan. | `superpowers:writing-plans`, `gstack-plan-eng-review`, `gstack-plan-design-review` |
+| `fw-intake` | Clarify idea and demand with `office-hours`, stop for confirmation, then run CEO-level scope review and stop again before planning. | `gstack-office-hours`, `gstack-plan-ceo-review` |
+| `fw-plan` | Write the spec first, stop for confirmation, then write the linked plan and use gstack eng/design reviews as gates before build. | `superpowers:writing-plans`, `gstack-plan-eng-review`, `gstack-plan-design-review` |
 | `fw-build` | Execute approved plans using Superpowers discipline. | `superpowers:using-git-worktrees`, `superpowers:test-driven-development`, `superpowers:executing-plans`, `superpowers:subagent-driven-development`, `superpowers:verification-before-completion` |
 | `fw-debug` | Investigate bugs with Superpowers first; escalate to gstack only when conditions require it. | `superpowers:systematic-debugging`, `gstack-investigate` |
 | `fw-review` | Run plan-compliance review plus final diff/risk review by combining Superpowers with raw gstack review. | `superpowers:requesting-code-review`, raw `gstack-review`, `superpowers:receiving-code-review`, conditional `gstack-qa-only`, conditional `gstack-cso`, conditional `gstack-benchmark` |
@@ -152,7 +168,7 @@ visibility:
 | Skill | Role | Driver | Notes |
 |---|---|---|---|
 | `brainstorming` | Hidden | gstack | Hidden by default because `office-hours` and `plan-ceo-review` own product discovery. May be used as upstream reference for creative prompts. |
-| `writing-plans` | Core | Superpowers | Main bridge from confirmed gstack direction into Superpowers spec and executable plan docs. |
+| `writing-plans` | Core | Superpowers | Main bridge from confirmed gstack direction into a confirmed Superpowers spec and linked executable plan docs. |
 | `using-git-worktrees` | Core | Superpowers | Used at execution time to isolate work when the host environment requires it. |
 | `test-driven-development` | Core | Superpowers | Default implementation discipline for features and bug fixes. |
 | `executing-plans` | Core | Superpowers | Inline execution path for saved plans. |
@@ -170,10 +186,10 @@ visibility:
 
 | Skill | Role | Driver | Notes |
 |---|---|---|---|
-| `gstack-office-hours` | Core | gstack | First stage for ideas, problem framing, and demand reality. |
-| `gstack-plan-ceo-review` | Core | gstack | Second stage for scope, ambition, and premise challenge. |
-| `gstack-plan-eng-review` | Gate | gstack | Engineering gate before or during `fw-plan`, not an implementation owner. |
-| `gstack-plan-design-review` | Gate | gstack | Design gate for UI or UX-affecting work. |
+| `gstack-office-hours` | Core | gstack | First intake substage for ideas, problem framing, and demand reality; must stop for user confirmation before `plan-ceo-review`. |
+| `gstack-plan-ceo-review` | Core | gstack | Second intake substage for scope, ambition, and premise challenge; must stop for user confirmation before `fw-plan`. |
+| `gstack-plan-eng-review` | Gate | gstack | Engineering gate during `fw-plan`, not an implementation owner. |
+| `gstack-plan-design-review` | Gate | gstack | Conditional design gate for UI or UX-affecting work, not a default execution owner. |
 | `gstack-plan-devex-review` | Conditional | gstack | Use for developer-facing workflow or docs. |
 | `gstack-autoplan` | Hidden | gstack | Hidden because it overlaps with the curated staged workflow. May inform future review chains. |
 | `gstack-review` | Gate reference | gstack | Raw upstream review is not exported directly, but `fw-review` reads and uses it as the gstack review gate after Superpowers review request setup. |

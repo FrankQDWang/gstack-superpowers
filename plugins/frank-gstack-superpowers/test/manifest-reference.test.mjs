@@ -100,6 +100,17 @@ test("fw-build places the Superpowers orchestration boundary before subagent gui
   );
 });
 
+test("generated fw-intake and fw-plan wrappers require confirmation gates", async () => {
+  const intake = await fs.readFile(path.join(pluginRoot, "skills", "fw-intake", "SKILL.md"), "utf8");
+  const plan = await fs.readFile(path.join(pluginRoot, "skills", "fw-plan", "SKILL.md"), "utf8");
+
+  assert.match(intake, /stop for user confirmation after office-hours/i);
+  assert.match(intake, /stop again before fw-plan/i);
+  assert.match(plan, /stop for user confirmation after the spec/i);
+  assert.match(plan, /plan-eng-review and plan-design-review as gates rather than execution owners/i);
+  assert.match(plan, /stop again before fw-build/i);
+});
+
 test("manifest records release gate and common safety policy notes", async () => {
   const { manifest } = await loadManifest(pluginRoot);
 

@@ -39,6 +39,17 @@ const ALLOWED_WORKFLOW_STATUSES = new Set([
   RUN_STATUS.NEEDS_USER,
   RUN_STATUS.FAILED,
 ]);
+const REQUIRED_STAGE_GATE_TEXT = Object.freeze({
+  "fw-intake": [
+    /stop for user confirmation after office-hours/i,
+    /stop again before fw-plan/i,
+  ],
+  "fw-plan": [
+    /stop for user confirmation after the spec/i,
+    /plan-eng-review and plan-design-review as gates rather than execution owners/i,
+    /stop again before fw-build/i,
+  ],
+});
 
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
@@ -235,6 +246,11 @@ async function auditGeneratedSkills(state, manifestHash, errors) {
     }
     if (frontmatter.manifest_hash !== `sha256:${manifestHash}`) {
       fail(errors, `manifest hash mismatch in ${wrapperName}`);
+    }
+    for (const requiredText of REQUIRED_STAGE_GATE_TEXT[wrapperName] ?? []) {
+      if (!requiredText.test(source)) {
+        fail(errors, `${wrapperName} is missing required stage gate text: ${requiredText}`);
+      }
     }
   }
 }

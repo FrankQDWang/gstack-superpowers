@@ -1,7 +1,7 @@
 ---
 name: fw-plan
-description: "Use after office-hours or plan-ceo-review confirms direction to write a Superpowers-consumable spec and implementation plan."
-manifest_hash: sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495
+description: "Use after office-hours and plan-ceo-review confirm direction to write a confirmed spec, linked plan, and gstack plan gates."
+manifest_hash: sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02
 generated_from: workflow.manifest.yaml
 ---
 
@@ -15,7 +15,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 - Owner: superpowers
 - Role: Core
 - Primary system: superpowers
-- Contract: Write and harden the spec and implementation plan. Do not execute implementation.
+- Contract: Write the spec first, stop for user confirmation, then write the linked implementation plan and run gstack eng/design review as gates. Do not execute implementation.
 
 ## Inputs
 
@@ -23,7 +23,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Outputs
 
-- Superpowers-consumable spec in docs/superpowers/specs/ plus linked implementation plan in docs/superpowers/plans/, with engineering and design review notes.
+- Confirmed spec in docs/superpowers/specs/, linked implementation plan in docs/superpowers/plans/, gstack eng/design gate notes, and explicit user confirmation or block before fw-build.
 
 ## Required References
 
@@ -48,6 +48,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 ## Policy Notes
 
 - fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec.
+- fw-plan must write or update the spec before the plan, stop for user confirmation after the spec, write the linked plan, treat gstack plan-eng-review and plan-design-review as gates rather than execution owners, and stop again before fw-build.
 
 ## Execution Rules
 
@@ -67,13 +68,14 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "plan",
   "owner": "superpowers",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495",
+  "manifest_hash": "sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02",
   "inputs": [],
   "outputs": [],
   "references_read": [],
   "suppressed_routes": [],
   "policy_notes": [
-    "fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec."
+    "fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec.",
+    "fw-plan must write or update the spec before the plan, stop for user confirmation after the spec, write the linked plan, treat gstack plan-eng-review and plan-design-review as gates rather than execution owners, and stop again before fw-build."
   ],
   "verification": {
     "commands": [],

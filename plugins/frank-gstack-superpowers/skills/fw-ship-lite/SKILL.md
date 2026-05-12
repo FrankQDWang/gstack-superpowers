@@ -1,7 +1,7 @@
 ---
 name: fw-ship-lite
 description: "Use for branch finishing, release documentation, and release-readiness reporting without default deploy actions."
-manifest_hash: sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495
+manifest_hash: sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02
 generated_from: workflow.manifest.yaml
 ---
 
@@ -71,7 +71,7 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "ship-lite",
   "owner": "mixed",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495",
+  "manifest_hash": "sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02",
   "inputs": [],
   "outputs": [],
   "references_read": [],

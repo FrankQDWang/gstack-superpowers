@@ -6,7 +6,7 @@ cases:
     prompt_keywords:
       - idea
       - demand
-    expected_behavior: "Route to intake for product direction and scope challenge before any plan or implementation."
+    expected_behavior: "Route to intake for office-hours first, require confirmation, then CEO-level scope challenge before any plan or implementation."
 
   - id: plan-after-direction
     prompt: "office-hours and plan-ceo-review are confirmed; write the spec and implementation plan with engineering review."
@@ -17,7 +17,7 @@ cases:
       - plan-ceo-review
       - implementation plan
       - engineering review
-    expected_behavior: "Route to plan; produce a Superpowers-consumable spec plus linked plan and review them before build."
+    expected_behavior: "Route to plan; write and confirm the spec first, then produce a linked plan and run gstack plan gates before build."
 
   - id: build-approved-plan
     prompt: "Implement the approved plan with TDD and verification."
