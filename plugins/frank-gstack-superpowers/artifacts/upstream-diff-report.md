@@ -1,0 +1,116 @@
+# Upstream Diff Report
+
+## Verdict
+
+Assessment recommendation: promote.
+
+## Commits
+
+- `gstack`: active=`49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8` candidate=`74895062fb8a3acbf9f66cd088a83359aaaa56cd` checked=`2026-05-12T01:47:01.529Z`
+- `superpowers`: active=`f2cbfbefebbfef77321e4c9abc9e949826bea9d7` candidate=`f2cbfbefebbfef77321e4c9abc9e949826bea9d7` checked=`2026-05-12T01:47:01.529Z`
+
+## Risk Markers
+
+- None
+
+## LLM Assessment
+
+- Status: `ready`
+- Recommendation: `promote`
+- LLM used: true
+- Summary: GStack advances from 49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8 to 74895062fb8a3acbf9f66cd088a83359aaaa56cd; Superpowers is unchanged. The changed gstack skills are compatible with the curated wrapper model. Raw release/deploy/canary side effects are present in upstream descriptions, but the affected upstream-only skills remain non-exported, non-directly executable, adapter-required, and covered by ship-readiness plus common-safety mitigations. No risk markers, policy violations, missing files, or generated forbidden-pattern matches were reported.
+
+Findings:
+````json
+[
+  {
+    "severity": "info",
+    "title": "Upstream-only shipping changes remain mitigated",
+    "detail": "canary, land-and-deploy, and ship changed and include raw deploy, merge, production monitoring, push, PR, or canary language. Current visibility keeps them reference-only and non-executable, while adapters/gstack/ship-readiness.md suppresses those side effects unless a later explicit gate permits them.",
+    "upstream": "gstack",
+    "source_path": "canary/SKILL.md; land-and-deploy/SKILL.md; ship/SKILL.md"
+  },
+  {
+    "severity": "info",
+    "title": "Raw gstack review remains inside curated review chain",
+    "detail": "review, qa-only, and cso changed, but the manifest policy and fw-review wrapper keep raw gstack review as a component of the curated Superpowers/gstack/Superpowers chain and suppress standalone native Codex review routes.",
+    "upstream": "gstack",
+    "source_path": "review/SKILL.md; qa-only/SKILL.md; cso/SKILL.md"
+  },
+  {
+    "severity": "info",
+    "title": "Proactive raw invocation language is neutralized by wrappers",
+    "detail": "Several changed descriptions include proactive invocation guidance. The mapped skills are not exported or directly executable, and common-safety says upstream invocation guidance is overridden when it conflicts with the active wrapper.",
+    "upstream": "gstack",
+    "source_path": "investigate/SKILL.md; office-hours/SKILL.md; plan-eng-review/SKILL.md; plan-design-review/SKILL.md; document-release/SKILL.md"
+  }
+]
+````
+
+Adapter updates:
+````json
+[]
+````
+
+Manifest updates:
+````json
+[
+  "Update the curated gstack candidate/active commit reference to 74895062fb8a3acbf9f66cd088a83359aaaa56cd after promotion.",
+  "Refresh recorded SHA-256 values for the 12 changed gstack allowlisted files.",
+  "No Superpowers manifest update is needed because active and candidate commits are identical."
+]
+````
+
+Routing risks:
+````json
+[
+  "Release/deploy/canary/merge/push trigger phrases remain present in raw upstream shipping skills, but routing is mitigated by fw-ship-lite defaulting to readiness_report and requiring an explicit release gate.",
+  "Raw gstack review and conditional qa/cso material must continue to be reachable only through fw-review, not as standalone/native Codex review ownership.",
+  "Proactive invocation text in raw gstack skills should remain advisory reference material under wrapper control, not direct routing authority."
+]
+````
+
+Policy risks:
+````json
+[
+  "Raw upstream allowed-tools and preamble-tier declarations include Bash and deployment-oriented workflows; common-safety and ship-readiness currently override these permissions.",
+  "cso security-audit language may imply active scanning or pentest behavior; current conditional fw-review use and common-safety constraints should keep it review-bound unless explicitly authorized.",
+  "No unmitigated policy risk is evidenced by the provided risk markers, policy scan, or adapter context."
+]
+````
+
+## Policy Violations
+
+- None
+
+## Wrapper Impact
+
+- `gstack_canary` requires adapter review via `adapters/gstack/ship-readiness.md`.
+- `gstack_cso` changed; verify any wrapper references that depend on it.
+- `gstack_document_release` changed; verify any wrapper references that depend on it.
+- `gstack_investigate` changed; verify any wrapper references that depend on it.
+- `gstack_land_and_deploy` requires adapter review via `adapters/gstack/ship-readiness.md`.
+- `gstack_office_hours` changed; verify any wrapper references that depend on it.
+- `gstack_plan_ceo_review` changed; verify any wrapper references that depend on it.
+- `gstack_plan_design_review` changed; verify any wrapper references that depend on it.
+- `gstack_plan_eng_review` changed; verify any wrapper references that depend on it.
+- `gstack_qa_only` changed; verify any wrapper references that depend on it.
+- `gstack_review` changed; verify any wrapper references that depend on it.
+- `gstack_ship` requires adapter review via `adapters/gstack/ship-readiness.md`.
+
+## Changed Files
+
+- modified `gstack/canary/SKILL.md` role=`Upstream-only` adapter_required=`true`
+- modified `gstack/cso/SKILL.md` role=`Conditional` adapter_required=`false`
+- modified `gstack/document-release/SKILL.md` role=`Conditional` adapter_required=`false`
+- modified `gstack/investigate/SKILL.md` role=`Conditional` adapter_required=`false`
+- modified `gstack/land-and-deploy/SKILL.md` role=`Upstream-only` adapter_required=`true`
+- modified `gstack/office-hours/SKILL.md` role=`Core` adapter_required=`false`
+- modified `gstack/plan-ceo-review/SKILL.md` role=`Core` adapter_required=`false`
+- modified `gstack/plan-design-review/SKILL.md` role=`Gate` adapter_required=`false`
+- modified `gstack/plan-eng-review/SKILL.md` role=`Gate` adapter_required=`false`
+- modified `gstack/qa-only/SKILL.md` role=`Conditional` adapter_required=`false`
+- modified `gstack/review/SKILL.md` role=`Gate` adapter_required=`false`
+- modified `gstack/ship/SKILL.md` role=`Upstream-only` adapter_required=`true`
+
+<!-- artifact_presence {"evidence":true,"assessment":true} -->
