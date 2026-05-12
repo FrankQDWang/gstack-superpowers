@@ -124,10 +124,22 @@ function deployPressure(prompt) {
   return /\b(deploy|land|canary|production|release\s+now|ship\s+this\s+now)\b/i.test(text);
 }
 
+function planReviewPressure(prompt) {
+  const text = normalize(prompt);
+  return (
+    /\bplan-eng-review\b/i.test(text) ||
+    /\bplan-design-review\b/i.test(text) ||
+    /\bplan-review\b/i.test(text) ||
+    /\b(?:engineering|architecture|design|ui|ux)\s+review\b/i.test(text)
+  );
+}
+
 function wrapperHints(wrapperName) {
   return {
-    "fw-intake": ["idea", "demand", "scope", "product", "direction", "intake", "reality"],
-    "fw-plan": ["plan", "planning", "implementation", "engineering", "design", "write", "spec", "office-hours", "plan-ceo-review"],
+    "fw-office-hours": ["idea", "demand", "product", "direction", "intake", "reality", "office-hours"],
+    "fw-ceo-review": ["ceo", "scope", "ambition", "premise", "challenge", "plan-ceo-review"],
+    "fw-plan": ["plan", "planning", "implementation", "write", "spec", "linked"],
+    "fw-plan-review": ["plan-review", "plan-eng-review", "plan-design-review", "engineering", "architecture", "design", "ui", "ux", "gate"],
     "fw-build": ["implement", "approved", "tdd", "verification", "build", "execute"],
     "fw-debug": ["debug", "bug", "failing", "failure", "root", "cause", "unexpected"],
     "fw-review": ["review", "diff", "complete", "gate", "finished", "implementation"],
@@ -138,6 +150,7 @@ function wrapperHints(wrapperName) {
 export function routePrompt(prompt, manifest) {
   if (nativeReviewPressure(prompt)) return "fw-review";
   if (deployPressure(prompt)) return "fw-ship-lite";
+  if (planReviewPressure(prompt)) return "fw-plan-review";
 
   const promptTokens = tokenize(prompt);
   const wrappers = manifest.wrappers ?? {};
@@ -153,7 +166,7 @@ export function routePrompt(prompt, manifest) {
   });
 
   scores.sort((a, b) => b.score - a.score || EXPECTED_WRAPPERS.indexOf(a.wrapperName) - EXPECTED_WRAPPERS.indexOf(b.wrapperName));
-  return scores[0]?.score > 0 ? scores[0].wrapperName : "fw-intake";
+  return scores[0]?.score > 0 ? scores[0].wrapperName : "fw-office-hours";
 }
 
 function caseHasPromptKeyword(testCase) {

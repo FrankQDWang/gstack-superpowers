@@ -13,7 +13,16 @@ const MARKETPLACE_NAME = "frankqdwang-local";
 const MANAGED_ROOT_NAME = "frank-gstack-superpowers";
 const SUPERPOWERS_DISABLED_NAME = ".codex-plugin.disabled-by-frank-gstack-superpowers";
 const SUPERPOWERS_SKILLS_DISABLED_NAME = "skills.disabled-by-frank-gstack-superpowers";
-const REQUIRED_FW_SKILLS = Object.freeze(["fw-build", "fw-debug", "fw-intake", "fw-plan", "fw-review", "fw-ship-lite"]);
+const REQUIRED_FW_SKILLS = Object.freeze([
+  "fw-build",
+  "fw-ceo-review",
+  "fw-debug",
+  "fw-office-hours",
+  "fw-plan",
+  "fw-plan-review",
+  "fw-review",
+  "fw-ship-lite",
+]);
 const execFileAsync = promisify(execFile);
 
 function repoRoot() {

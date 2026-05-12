@@ -24,7 +24,7 @@ test("manifest exposes exactly the curated wrappers and keeps upstream skills hi
   const { manifest } = await loadManifest(pluginRoot);
 
   assert.deepEqual(Object.keys(manifest.wrappers).sort(), [...EXPECTED_WRAPPERS].sort());
-  assert.equal(EXPECTED_WRAPPERS.length, 6);
+  assert.equal(EXPECTED_WRAPPERS.length, 8);
 
   const upstreamEntries = listUpstreamSkillEntries(manifest);
   assert.ok(upstreamEntries.length > 0);
@@ -53,7 +53,14 @@ test("manifest exposes exactly the curated wrappers and keeps upstream skills hi
 test("gstack wrappers read common safety before any raw gstack reference", async () => {
   const { manifest } = await loadManifest(pluginRoot);
   const commonSafety = "adapters/gstack/common-safety.md";
-  const wrappersWithGstackRefs = ["fw-intake", "fw-plan", "fw-debug", "fw-review", "fw-ship-lite"];
+  const wrappersWithGstackRefs = [
+    "fw-office-hours",
+    "fw-ceo-review",
+    "fw-plan-review",
+    "fw-debug",
+    "fw-review",
+    "fw-ship-lite",
+  ];
 
   for (const wrapperName of wrappersWithGstackRefs) {
     const wrapper = manifest.wrappers[wrapperName];
@@ -84,6 +91,10 @@ test("gstack wrappers read common safety before any raw gstack reference", async
     !(manifest.wrappers["fw-build"].references ?? []).includes(commonSafety),
     "fw-build should not include the gstack safety adapter because it has no raw gstack references",
   );
+  assert.ok(
+    !(manifest.wrappers["fw-plan"].references ?? []).includes(commonSafety),
+    "fw-plan should not include the gstack safety adapter because plan review moved to fw-plan-review",
+  );
 });
 
 test("fw-build places the Superpowers orchestration boundary before subagent guidance", async () => {
@@ -100,15 +111,21 @@ test("fw-build places the Superpowers orchestration boundary before subagent gui
   );
 });
 
-test("generated fw-intake and fw-plan wrappers require confirmation gates", async () => {
-  const intake = await fs.readFile(path.join(pluginRoot, "skills", "fw-intake", "SKILL.md"), "utf8");
+test("generated office-hours, CEO review, plan, and plan-review wrappers require stage gates", async () => {
+  const officeHours = await fs.readFile(path.join(pluginRoot, "skills", "fw-office-hours", "SKILL.md"), "utf8");
+  const ceoReview = await fs.readFile(path.join(pluginRoot, "skills", "fw-ceo-review", "SKILL.md"), "utf8");
   const plan = await fs.readFile(path.join(pluginRoot, "skills", "fw-plan", "SKILL.md"), "utf8");
+  const planReview = await fs.readFile(path.join(pluginRoot, "skills", "fw-plan-review", "SKILL.md"), "utf8");
 
-  assert.match(intake, /stop for user confirmation after office-hours/i);
-  assert.match(intake, /stop again before fw-plan/i);
-  assert.match(plan, /stop for user confirmation after the spec/i);
-  assert.match(plan, /plan-eng-review and plan-design-review as gates rather than execution owners/i);
-  assert.match(plan, /stop again before fw-build/i);
+  assert.match(officeHours, /stop for user confirmation before fw-ceo-review/i);
+  assert.match(ceoReview, /stop for user confirmation before fw-plan/i);
+  assert.match(plan, /produce or update both docs\/superpowers\/specs/i);
+  assert.match(plan, /do not run gstack plan-eng-review or plan-design-review inside fw-plan/i);
+  assert.doesNotMatch(plan, /gstack\/plan-eng-review\/SKILL\.md/);
+  assert.doesNotMatch(plan, /gstack\/plan-design-review\/SKILL\.md/);
+  assert.match(planReview, /run plan-eng-review/i);
+  assert.match(planReview, /plan-design-review only when UI\/UX is affected/i);
+  assert.match(planReview, /stop for user confirmation before fw-build/i);
 });
 
 test("manifest records release gate and common safety policy notes", async () => {

@@ -93,18 +93,26 @@
     "wrappers": {
       "type": "object",
       "required": [
-        "fw-intake",
+        "fw-office-hours",
+        "fw-ceo-review",
         "fw-plan",
+        "fw-plan-review",
         "fw-build",
         "fw-debug",
         "fw-review",
         "fw-ship-lite"
       ],
       "properties": {
-        "fw-intake": {
+        "fw-office-hours": {
+          "$ref": "#/$defs/wrapper"
+        },
+        "fw-ceo-review": {
           "$ref": "#/$defs/wrapper"
         },
         "fw-plan": {
+          "$ref": "#/$defs/wrapper"
+        },
+        "fw-plan-review": {
           "$ref": "#/$defs/wrapper"
         },
         "fw-build": {

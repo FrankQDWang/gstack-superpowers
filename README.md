@@ -7,8 +7,10 @@ both full upstream skill sets to Codex routing.
 The plugin exposes a small `fw-*` surface and keeps upstream gstack and
 Superpowers content as pinned reference material:
 
-- `fw-intake`: product discovery, problem framing, and scope challenge.
-- `fw-plan`: reviewed Superpowers spec plus linked implementation plan.
+- `fw-office-hours`: product discovery, problem framing, and demand reality.
+- `fw-ceo-review`: CEO-level scope, ambition, and premise challenge.
+- `fw-plan`: Superpowers spec plus linked implementation plan.
+- `fw-plan-review`: gstack plan engineering review and conditional design review.
 - `fw-build`: worktree, TDD, execution, and verification discipline.
 - `fw-debug`: systematic debugging with root-cause investigation.
 - `fw-review`: Superpowers review discipline plus raw gstack review, with
@@ -77,7 +79,7 @@ Verify that the raw upstream surface is hidden:
 npm run verify:surface
 ```
 
-This verification uses `codex debug prompt-input` and fails unless all six
+This verification uses `codex debug prompt-input` and fails unless all eight
 `frank-gstack-superpowers:fw-*` skills are visible and raw gstack/Superpowers
 skills are absent from the next-session prompt surface.
 

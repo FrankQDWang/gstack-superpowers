@@ -4,7 +4,7 @@
 
 **Goal:** Build a global Codex plugin that exposes a small `fw-*` workflow surface to every project while keeping gstack and Superpowers as pinned, materialized upstream dependencies.
 
-**Architecture:** The plugin is generated from `workflow.manifest.yaml`. Raw upstream skills are copied into `references/upstreams/`, adapter files transform risky upstream behavior into curated stage contracts, and only six wrapper skills are exported to Codex routing. `fw-review` must use Superpowers plus raw gstack review, while standalone/native Codex review remains forbidden as an independent owner. `fw-ship-lite` must produce release readiness only, with no default deploy, merge, PR, or canary side effect.
+**Architecture:** The plugin is generated from `workflow.manifest.yaml`. Raw upstream skills are copied into `references/upstreams/`, adapter files transform risky upstream behavior into curated stage contracts, and only eight wrapper skills are exported to Codex routing. `fw-review` must use Superpowers plus raw gstack review, while standalone/native Codex review remains forbidden as an independent owner. `fw-ship-lite` must produce release readiness only, with no default deploy, merge, PR, or canary side effect.
 
 **Tech Stack:** Node.js ESM scripts, YAML, JSON Schema, Markdown, Codex Automations, Codex global home-local plugin marketplace
 
@@ -12,20 +12,22 @@
 
 ---
 
-## Current Refinement: Intake and Plan Stop Gates
+## Current Refinement: Split Intake and Plan Review Gates
 
-This small follow-up keeps the six-wrapper surface unchanged and tightens only the internal stage boundaries:
+This follow-up keeps `fw-plan` aligned with Superpowers `writing-plans`, but splits the human decision gates into explicit wrapper boundaries:
 
-- `fw-intake` remains one visible wrapper, but it must run `office-hours`, stop for user confirmation, then run `plan-ceo-review`, and stop again before `fw-plan`.
-- `fw-plan` must write or update the `spec` first, stop for user confirmation, then write the linked `plan`; `plan-eng-review` and `plan-design-review` are gates, not execution owners.
+- `fw-office-hours` runs `office-hours` only, then stops for confirmation before `fw-ceo-review`.
+- `fw-ceo-review` runs `plan-ceo-review` only, then stops for confirmation before `fw-plan`.
+- `fw-plan` keeps `spec + plan` together and uses only Superpowers `writing-plans`.
+- `fw-plan-review` owns `plan-eng-review` and conditional `plan-design-review` as gstack gates.
 - `fw-build`, `fw-review`, and `fw-ship-lite` keep their current structure.
 
 Implementation scope:
 
 - Update generator stage contracts and policy notes.
 - Regenerate wrapper skills from the manifest and generator.
-- Update this plan and the linked spec so neither document implies automatic serial execution through intake or planning.
-- Add static test coverage that generated `fw-intake` and `fw-plan` contain the confirmation gate text.
+- Update this plan and the linked spec so neither document implies `fw-plan` runs gstack planning review.
+- Add static test coverage that generated office-hours, CEO review, plan, and plan-review wrappers contain the correct gate text.
 
 ---
 
@@ -46,8 +48,10 @@ Implementation scope:
 | `plugins/frank-gstack-superpowers/artifacts/update-evidence.json` | Deterministic evidence bundle for LLM update review | Generate |
 | `plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.json` | Machine-readable LLM judgment about upstream update fit | Generate |
 | `plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.md` | Human-readable LLM recommendation included in sync PR | Generate |
-| `plugins/frank-gstack-superpowers/skills/fw-intake/SKILL.md` | Visible wrapper for gstack intake | Generate |
+| `plugins/frank-gstack-superpowers/skills/fw-office-hours/SKILL.md` | Visible wrapper for gstack office-hours intake | Generate |
+| `plugins/frank-gstack-superpowers/skills/fw-ceo-review/SKILL.md` | Visible wrapper for gstack CEO-level direction review | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers spec and plan creation after gstack approval | Generate |
+| `plugins/frank-gstack-superpowers/skills/fw-plan-review/SKILL.md` | Visible wrapper for gstack plan review gates | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-build/SKILL.md` | Visible wrapper for Superpowers execution | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-debug/SKILL.md` | Visible wrapper for Superpowers debugging and conditional gstack investigation | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers review plus raw gstack review | Generate |
@@ -269,22 +273,36 @@ upstream_skills:
       adapter_required: false
 
 wrappers:
-  fw-intake:
-    description: Use for idea intake through office-hours, then confirmed CEO-level scope challenge before planning.
+  fw-office-hours:
+    description: Use for gstack office-hours idea intake, demand reality, product direction, and problem framing before CEO review.
     primary: gstack
     role: Core
     references:
       - gstack/office-hours/SKILL.md
+    suppress:
+      - superpowers/brainstorming
+  fw-ceo-review:
+    description: Use after office-hours confirms direction to run gstack CEO-level scope, ambition, and premise review before planning.
+    primary: gstack
+    role: Core
+    references:
       - gstack/plan-ceo-review/SKILL.md
     suppress:
       - superpowers/brainstorming
   fw-plan:
-    description: Use after office-hours and plan-ceo-review confirm direction to write a confirmed spec, linked plan, and gstack plan gates.
+    description: Use after CEO review confirms direction to write Superpowers spec and linked implementation plan.
     primary: superpowers
     role: Core
     references:
       - superpowers/skills/writing-plans/SKILL.md
+    suppress: []
+  fw-plan-review:
+    description: Use after fw-plan to run gstack plan-eng-review and conditional plan-design-review before build.
+    primary: gstack
+    role: Gate
+    references:
       - gstack/plan-eng-review/SKILL.md
+    conditional_references:
       - gstack/plan-design-review/SKILL.md
     suppress: []
   fw-build:
@@ -541,9 +559,11 @@ Expected:
 
 ```text
 plugins/frank-gstack-superpowers/skills/fw-build/SKILL.md
+plugins/frank-gstack-superpowers/skills/fw-ceo-review/SKILL.md
 plugins/frank-gstack-superpowers/skills/fw-debug/SKILL.md
-plugins/frank-gstack-superpowers/skills/fw-intake/SKILL.md
+plugins/frank-gstack-superpowers/skills/fw-office-hours/SKILL.md
 plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md
+plugins/frank-gstack-superpowers/skills/fw-plan-review/SKILL.md
 plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md
 plugins/frank-gstack-superpowers/skills/fw-ship-lite/SKILL.md
 ```
@@ -560,7 +580,7 @@ plugins/frank-gstack-superpowers/skills/fw-ship-lite/SKILL.md
 The audit must fail unless all conditions are true:
 
 - `plugin.json.skills` points to an existing generated `skills/` directory.
-- The exported skill directories are exactly `fw-intake`, `fw-plan`, `fw-build`, `fw-debug`, `fw-review`, and `fw-ship-lite`.
+- The exported skill directories are exactly `fw-office-hours`, `fw-ceo-review`, `fw-plan`, `fw-plan-review`, `fw-build`, `fw-debug`, `fw-review`, and `fw-ship-lite`.
 - Every generated `SKILL.md` frontmatter `name` equals its directory name.
 - Every generated description is present and stays under the configured length budget.
 - Every generated wrapper contains the current manifest hash.
@@ -604,9 +624,13 @@ Include at least:
 ```yaml
 cases:
   - prompt: "我有一个想法，但还不确定该不该做"
-    expected: fw-intake
+    expected: fw-office-hours
+  - prompt: "office-hours 已确认，请做 CEO scope review"
+    expected: fw-ceo-review
   - prompt: "office-hours 和 plan-ceo-review 已确认，请写成 Superpowers 后续可执行的 spec 和 plan"
     expected: fw-plan
+  - prompt: "spec 和 plan 写好了，请做 plan-eng-review"
+    expected: fw-plan-review
   - prompt: "计划已经批准，开始按 TDD 实现"
     expected: fw-build
   - prompt: "这个 bug 复现了，先找根因再修"
@@ -804,7 +828,7 @@ Required cases:
 
 Required cases:
 
-- Audit passes with exactly six generated `fw-*` skills.
+- Audit passes with exactly eight generated `fw-*` skills.
 - Audit fails when any raw upstream skill appears under generated `skills/`.
 - Audit fails when generated wrapper hash does not match the current manifest.
 - Audit fails when scripts hand-build `references/upstreams/` paths outside `scripts/lib/reference-resolver.mjs`.
@@ -911,9 +935,11 @@ Expected:
 ```text
 plugins/frank-gstack-superpowers/skills
 plugins/frank-gstack-superpowers/skills/fw-build
+plugins/frank-gstack-superpowers/skills/fw-ceo-review
 plugins/frank-gstack-superpowers/skills/fw-debug
-plugins/frank-gstack-superpowers/skills/fw-intake
+plugins/frank-gstack-superpowers/skills/fw-office-hours
 plugins/frank-gstack-superpowers/skills/fw-plan
+plugins/frank-gstack-superpowers/skills/fw-plan-review
 plugins/frank-gstack-superpowers/skills/fw-review
 plugins/frank-gstack-superpowers/skills/fw-ship-lite
 ```

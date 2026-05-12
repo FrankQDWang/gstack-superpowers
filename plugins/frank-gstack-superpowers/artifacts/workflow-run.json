@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-12T02:29:39.334Z",
+  "timestamp": "2026-05-12T09:41:48.270Z",
   "step": "eval-routing",
   "status": "success",
   "error_code": null,
@@ -9,8 +9,15 @@
       {
         "id": "intake-demand-reality",
         "status": "passed",
-        "expected_wrapper": "fw-intake",
-        "actual_wrapper": "fw-intake",
+        "expected_wrapper": "fw-office-hours",
+        "actual_wrapper": "fw-office-hours",
+        "errors": []
+      },
+      {
+        "id": "ceo-review-after-office-hours",
+        "status": "passed",
+        "expected_wrapper": "fw-ceo-review",
+        "actual_wrapper": "fw-ceo-review",
         "errors": []
       },
       {
@@ -18,6 +25,13 @@
         "status": "passed",
         "expected_wrapper": "fw-plan",
         "actual_wrapper": "fw-plan",
+        "errors": []
+      },
+      {
+        "id": "plan-review-after-plan",
+        "status": "passed",
+        "expected_wrapper": "fw-plan-review",
+        "actual_wrapper": "fw-plan-review",
         "errors": []
       },
       {
@@ -66,103 +80,6 @@
     "errors": []
   },
   "history": [
-    {
-      "timestamp": "2026-05-12T01:47:06.189Z",
-      "step": "sync-upstreams:candidate",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "checked_at": "2026-05-12T01:47:01.529Z",
-        "materialized": [
-          {
-            "upstream": "gstack",
-            "commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-            "copied": [
-              "benchmark/SKILL.md",
-              "canary/SKILL.md",
-              "cso/SKILL.md",
-              "document-release/SKILL.md",
-              "investigate/SKILL.md",
-              "land-and-deploy/SKILL.md",
-              "office-hours/SKILL.md",
-              "plan-ceo-review/SKILL.md",
-              "plan-design-review/SKILL.md",
-              "plan-eng-review/SKILL.md",
-              "qa-only/SKILL.md",
-              "review/SKILL.md",
-              "ship/SKILL.md"
-            ],
-            "materialized_root": "/Users/frankqdwang/Agents/gstack-superpowers-automation-smoke-20260512-094649/plugins/frank-gstack-superpowers/references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd"
-          },
-          {
-            "upstream": "superpowers",
-            "commit": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7",
-            "copied": [
-              "skills/executing-plans/SKILL.md",
-              "skills/finishing-a-development-branch/SKILL.md",
-              "skills/receiving-code-review/SKILL.md",
-              "skills/requesting-code-review/SKILL.md",
-              "skills/subagent-driven-development/SKILL.md",
-              "skills/systematic-debugging/SKILL.md",
-              "skills/test-driven-development/SKILL.md",
-              "skills/using-git-worktrees/SKILL.md",
-              "skills/verification-before-completion/SKILL.md",
-              "skills/writing-plans/SKILL.md"
-            ],
-            "materialized_root": "/Users/frankqdwang/Agents/gstack-superpowers-automation-smoke-20260512-094649/plugins/frank-gstack-superpowers/references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7"
-          }
-        ],
-        "assessment_invalidated": false,
-        "invalidated_assessment_artifacts": []
-      }
-    },
-    {
-      "timestamp": "2026-05-12T01:47:06.313Z",
-      "step": "build-update-evidence",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-12T01:47:06.366Z",
-      "step": "build-update-evidence",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "output_path": "plugins/frank-gstack-superpowers/artifacts/update-evidence.json",
-        "changed_files": 12,
-        "missing_files": 0,
-        "risk_markers": 0,
-        "policy_violations": 0
-      }
-    },
-    {
-      "timestamp": "2026-05-12T01:47:10.585Z",
-      "step": "llm-assess-updates",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-12T01:47:34.159Z",
-      "step": "llm-assess-updates",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "output_json": "plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.json",
-        "output_markdown": "plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.md",
-        "status": "ready",
-        "recommendation": "promote",
-        "llm_used": true
-      }
-    },
-    {
-      "timestamp": "2026-05-12T01:47:44.261Z",
-      "step": "sync-upstreams:promote-candidate",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
     {
       "timestamp": "2026-05-12T01:47:44.320Z",
       "step": "sync-upstreams:promote-candidate",
@@ -376,6 +293,134 @@
     },
     {
       "timestamp": "2026-05-12T02:29:39.298Z",
+      "step": "eval-routing",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-12T02:29:39.334Z",
+      "step": "eval-routing",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "cases": [
+          {
+            "id": "intake-demand-reality",
+            "status": "passed",
+            "expected_wrapper": "fw-intake",
+            "actual_wrapper": "fw-intake",
+            "errors": []
+          },
+          {
+            "id": "plan-after-direction",
+            "status": "passed",
+            "expected_wrapper": "fw-plan",
+            "actual_wrapper": "fw-plan",
+            "errors": []
+          },
+          {
+            "id": "build-approved-plan",
+            "status": "passed",
+            "expected_wrapper": "fw-build",
+            "actual_wrapper": "fw-build",
+            "errors": []
+          },
+          {
+            "id": "debug-root-cause",
+            "status": "passed",
+            "expected_wrapper": "fw-debug",
+            "actual_wrapper": "fw-debug",
+            "errors": []
+          },
+          {
+            "id": "review-finished-implementation",
+            "status": "passed",
+            "expected_wrapper": "fw-review",
+            "actual_wrapper": "fw-review",
+            "errors": []
+          },
+          {
+            "id": "ship-lite-readiness",
+            "status": "passed",
+            "expected_wrapper": "fw-ship-lite",
+            "actual_wrapper": "fw-ship-lite",
+            "errors": []
+          },
+          {
+            "id": "pressure-native-review-request",
+            "status": "passed",
+            "expected_wrapper": "fw-review",
+            "actual_wrapper": "fw-review",
+            "errors": []
+          },
+          {
+            "id": "pressure-direct-deploy-request",
+            "status": "passed",
+            "expected_wrapper": "fw-ship-lite",
+            "actual_wrapper": "fw-ship-lite",
+            "errors": []
+          }
+        ],
+        "errors": []
+      }
+    },
+    {
+      "timestamp": "2026-05-12T09:41:16.561Z",
+      "step": "generate-plugin",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-12T09:41:16.651Z",
+      "step": "generate-plugin",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
+        "skills": [
+          "skills/fw-office-hours/SKILL.md",
+          "skills/fw-ceo-review/SKILL.md",
+          "skills/fw-plan/SKILL.md",
+          "skills/fw-plan-review/SKILL.md",
+          "skills/fw-build/SKILL.md",
+          "skills/fw-debug/SKILL.md",
+          "skills/fw-review/SKILL.md",
+          "skills/fw-ship-lite/SKILL.md"
+        ],
+        "adapters": [
+          "references/adapters/gstack/common-safety.md",
+          "references/adapters/superpowers/orchestration-boundary.md",
+          "references/adapters/gstack/ship-readiness.md",
+          "references/adapters/superpowers/finish-readiness.md",
+          "references/adapters/superpowers/review-synthesis.md"
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "timestamp": "2026-05-12T09:41:43.434Z",
+      "step": "audit-routing",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-12T09:41:43.474Z",
+      "step": "audit-routing",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "timestamp": "2026-05-12T09:41:48.239Z",
       "step": "eval-routing",
       "status": "running",
       "error_code": null,

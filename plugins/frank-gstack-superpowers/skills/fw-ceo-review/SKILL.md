@@ -1,38 +1,36 @@
 ---
-name: fw-debug
-description: "Use for bugs and unexpected behavior; use Superpowers root-cause debugging before conditional gstack investigation."
+name: fw-ceo-review
+description: "Use after office-hours confirms direction to run gstack CEO-level scope, ambition, and premise review before planning."
 manifest_hash: sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4
 generated_from: workflow.manifest.yaml
 ---
 
-# fw-debug
+# fw-ceo-review
 
 Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Stage Contract
 
-- Stage: debug
-- Owner: superpowers
-- Role: Conditional
-- Primary system: superpowers
-- Contract: Find root cause before fixing. Use gstack investigation only as conditional support.
+- Stage: ceo-review
+- Owner: gstack
+- Role: Core
+- Primary system: gstack
+- Contract: Run gstack plan-ceo-review only, then stop for user confirmation before fw-plan. Do not write implementation specs or plans inside this wrapper.
 
 ## Inputs
 
-- Bug report, failing test, unexpected behavior, or repro evidence.
+- User-confirmed office-hours direction, scope notes, and unresolved premise risks.
 
 ## Outputs
 
-- Root cause, fix, regression verification, and any conditional investigation findings.
+- CEO-level scope challenge, ambition and premise notes, and explicit user confirmation or block before fw-plan.
 
 ## Required References
 
-- superpowers/skills/systematic-debugging/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/systematic-debugging/SKILL.md`
 - adapters/gstack/common-safety.md
   - Read: `references/adapters/gstack/common-safety.md`
-- gstack/investigate/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/investigate/SKILL.md`
+- gstack/plan-ceo-review/SKILL.md
+  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/plan-ceo-review/SKILL.md`
 
 ## Conditional References
 
@@ -40,12 +38,12 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Suppressed Routes
 
-- None
+- superpowers/brainstorming
 
 
 ## Policy Notes
 
-- None
+- fw-ceo-review must not write specs or plans; stop for user confirmation before fw-plan.
 
 ## Execution Rules
 
@@ -61,16 +59,20 @@ Every run of this wrapper should be able to produce a machine-readable stage art
 
 ```json
 {
-  "wrapper": "fw-debug",
-  "stage": "debug",
-  "owner": "superpowers",
+  "wrapper": "fw-ceo-review",
+  "stage": "ceo-review",
+  "owner": "gstack",
   "status": "success|needs-user|blocked|failed",
   "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
   "inputs": [],
   "outputs": [],
   "references_read": [],
-  "suppressed_routes": [],
-  "policy_notes": [],
+  "suppressed_routes": [
+    "superpowers/brainstorming"
+  ],
+  "policy_notes": [
+    "fw-ceo-review must not write specs or plans; stop for user confirmation before fw-plan."
+  ],
   "verification": {
     "commands": [],
     "artifacts": []

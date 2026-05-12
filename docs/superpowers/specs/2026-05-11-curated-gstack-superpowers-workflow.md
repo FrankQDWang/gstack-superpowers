@@ -34,11 +34,11 @@ flowchart TD
   C -- "Yes" --> D["gstack plan-ceo-review"]
   D --> E{"User confirms scope and ambition"}
   E -- "No" --> B
-  E -- "Yes" --> F["Superpowers spec"]
-  F --> G{"User confirms spec"}
-  G -- "No" --> F
-  G -- "Yes" --> H["Superpowers writing-plans"]
-  H --> I["gstack plan-eng-review gate"]
+  E -- "Yes" --> F["Superpowers writing-plans"]
+  F --> G["spec + linked implementation plan"]
+  G --> H{"User requests plan review"}
+  H -- "No" --> G
+  H -- "Yes" --> I["gstack plan-eng-review gate"]
   I --> J{"UI or UX affected"}
   J -- "Yes" --> K["gstack plan-design-review gate"]
   J -- "No" --> L{"User approves plan for build"}
@@ -56,8 +56,10 @@ flowchart TD
 
 ## Stage Gate Rules
 
-- `fw-intake` is one wrapper with two internal stops: run `office-hours`, wait for user confirmation, then run `plan-ceo-review`, and wait again before `fw-plan`.
-- `fw-plan` must write or update the `spec` first, wait for user confirmation, then write the linked `plan`. `plan-eng-review` and `plan-design-review` are gates, not execution owners, and the workflow stops again before `fw-build`.
+- `fw-office-hours` runs `office-hours` only, then stops for user confirmation before `fw-ceo-review`.
+- `fw-ceo-review` runs `plan-ceo-review` only, then stops for user confirmation before `fw-plan`.
+- `fw-plan` uses Superpowers `writing-plans` to write or update the `spec` plus linked `plan`; it does not run gstack planning review.
+- `fw-plan-review` runs `plan-eng-review`, uses `plan-design-review` only when UI/UX is affected, and stops before `fw-build`.
 
 ## Review Flow
 
@@ -84,12 +86,14 @@ The curated workflow exposes a small wrapper surface. Upstream skills remain ava
 ```mermaid
 flowchart TB
   subgraph CodexVisible["Codex-visible wrapper skills"]
-    FW1["fw-intake"]
-    FW2["fw-plan"]
-    FW3["fw-build"]
-    FW4["fw-debug"]
-    FW5["fw-review"]
-    FW6["fw-ship-lite"]
+    FW1["fw-office-hours"]
+    FW2["fw-ceo-review"]
+    FW3["fw-plan"]
+    FW4["fw-plan-review"]
+    FW5["fw-build"]
+    FW6["fw-debug"]
+    FW7["fw-review"]
+    FW8["fw-ship-lite"]
   end
 
   subgraph Manifest["workflow.manifest.yaml"]
@@ -109,8 +113,10 @@ flowchart TB
   FW2 --> M1
   FW3 --> M1
   FW4 --> M3
-  FW5 --> M2
+  FW5 --> M1
   FW6 --> M3
+  FW7 --> M2
+  FW8 --> M3
   M1 --> GS
   M1 --> SP
   M2 --> GS
@@ -156,8 +162,10 @@ visibility:
 
 | Wrapper | Purpose | Included upstream skills |
 |---|---|---|
-| `fw-intake` | Clarify idea and demand with `office-hours`, stop for confirmation, then run CEO-level scope review and stop again before planning. | `gstack-office-hours`, `gstack-plan-ceo-review` |
-| `fw-plan` | Write the spec first, stop for confirmation, then write the linked plan and use gstack eng/design reviews as gates before build. | `superpowers:writing-plans`, `gstack-plan-eng-review`, `gstack-plan-design-review` |
+| `fw-office-hours` | Clarify idea, demand, product direction, and problem framing before CEO review. | `gstack-office-hours` |
+| `fw-ceo-review` | Challenge confirmed direction for scope, ambition, and premise quality before planning. | `gstack-plan-ceo-review` |
+| `fw-plan` | Convert approved direction into a Superpowers spec plus linked execution plan. | `superpowers:writing-plans` |
+| `fw-plan-review` | Review the saved spec/plan as a gstack planning gate before build. | `gstack-plan-eng-review`, conditional `gstack-plan-design-review` |
 | `fw-build` | Execute approved plans using Superpowers discipline. | `superpowers:using-git-worktrees`, `superpowers:test-driven-development`, `superpowers:executing-plans`, `superpowers:subagent-driven-development`, `superpowers:verification-before-completion` |
 | `fw-debug` | Investigate bugs with Superpowers first; escalate to gstack only when conditions require it. | `superpowers:systematic-debugging`, `gstack-investigate` |
 | `fw-review` | Run plan-compliance review plus final diff/risk review by combining Superpowers with raw gstack review. | `superpowers:requesting-code-review`, raw `gstack-review`, `superpowers:receiving-code-review`, conditional `gstack-qa-only`, conditional `gstack-cso`, conditional `gstack-benchmark` |
@@ -168,7 +176,7 @@ visibility:
 | Skill | Role | Driver | Notes |
 |---|---|---|---|
 | `brainstorming` | Hidden | gstack | Hidden by default because `office-hours` and `plan-ceo-review` own product discovery. May be used as upstream reference for creative prompts. |
-| `writing-plans` | Core | Superpowers | Main bridge from confirmed gstack direction into a confirmed Superpowers spec and linked executable plan docs. |
+| `writing-plans` | Core | Superpowers | Main bridge from confirmed gstack direction into a Superpowers spec and linked executable plan docs. |
 | `using-git-worktrees` | Core | Superpowers | Used at execution time to isolate work when the host environment requires it. |
 | `test-driven-development` | Core | Superpowers | Default implementation discipline for features and bug fixes. |
 | `executing-plans` | Core | Superpowers | Inline execution path for saved plans. |
@@ -186,10 +194,10 @@ visibility:
 
 | Skill | Role | Driver | Notes |
 |---|---|---|---|
-| `gstack-office-hours` | Core | gstack | First intake substage for ideas, problem framing, and demand reality; must stop for user confirmation before `plan-ceo-review`. |
-| `gstack-plan-ceo-review` | Core | gstack | Second intake substage for scope, ambition, and premise challenge; must stop for user confirmation before `fw-plan`. |
-| `gstack-plan-eng-review` | Gate | gstack | Engineering gate during `fw-plan`, not an implementation owner. |
-| `gstack-plan-design-review` | Gate | gstack | Conditional design gate for UI or UX-affecting work, not a default execution owner. |
+| `gstack-office-hours` | Core | gstack | First intake wrapper for ideas, problem framing, and demand reality; must stop before `fw-ceo-review`. |
+| `gstack-plan-ceo-review` | Core | gstack | Second direction wrapper for scope, ambition, and premise challenge; must stop before `fw-plan`. |
+| `gstack-plan-eng-review` | Gate | gstack | Engineering gate in `fw-plan-review`, not an implementation owner and not part of `fw-plan`. |
+| `gstack-plan-design-review` | Gate | gstack | Conditional design gate in `fw-plan-review` for UI or UX-affecting work. |
 | `gstack-plan-devex-review` | Conditional | gstack | Use for developer-facing workflow or docs. |
 | `gstack-autoplan` | Hidden | gstack | Hidden because it overlaps with the curated staged workflow. May inform future review chains. |
 | `gstack-review` | Gate reference | gstack | Raw upstream review is not exported directly, but `fw-review` reads and uses it as the gstack review gate after Superpowers review request setup. |
@@ -446,8 +454,10 @@ The generated `upstream-diff-report.md` must flag supply-chain risk markers befo
 | `scripts/global-install.mjs` | Global installer that symlinks the plugin into `~/plugins/frank-gstack-superpowers`, updates `~/.agents/plugins/marketplace.json`, registers `frankqdwang-local` in `~/.codex/config.toml`, and materializes the Codex plugin cache. |
 | `scripts/global-surface.mjs` | Global surface manager that hides raw gstack skills, the raw Superpowers plugin manifest, and the raw Superpowers skills directory from active Codex routing, then verifies the real `codex debug prompt-input` skill surface. |
 | `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json` | Codex plugin entrypoint for the curated workflow. |
-| `plugins/frank-gstack-superpowers/skills/fw-intake/SKILL.md` | Visible wrapper for gstack intake. |
-| `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers spec and plan creation after gstack direction approval. |
+| `plugins/frank-gstack-superpowers/skills/fw-office-hours/SKILL.md` | Visible wrapper for gstack office-hours intake. |
+| `plugins/frank-gstack-superpowers/skills/fw-ceo-review/SKILL.md` | Visible wrapper for gstack CEO-level direction and scope review. |
+| `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers spec and linked plan creation after gstack direction approval. |
+| `plugins/frank-gstack-superpowers/skills/fw-plan-review/SKILL.md` | Visible wrapper for gstack plan engineering review and conditional design review. |
 | `plugins/frank-gstack-superpowers/skills/fw-build/SKILL.md` | Visible wrapper for Superpowers execution discipline. |
 | `plugins/frank-gstack-superpowers/skills/fw-debug/SKILL.md` | Visible wrapper for default Superpowers debugging plus conditional gstack escalation. |
 | `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers plus raw gstack review gates. |
@@ -581,8 +591,10 @@ The first eval set must include these cases:
 
 | Prompt | Expected wrapper |
 |---|---|
-| "我有一个想法，但还不确定该不该做" | `fw-intake` |
+| "我有一个想法，但还不确定该不该做" | `fw-office-hours` |
+| "office-hours 已确认，请做 CEO scope review" | `fw-ceo-review` |
 | "office-hours 和 plan-ceo-review 已确认，请写成 Superpowers 后续可执行的 spec 和 plan" | `fw-plan` |
+| "spec 和 plan 写好了，请做 plan-eng-review" | `fw-plan-review` |
 | "计划已经批准，开始按 TDD 实现" | `fw-build` |
 | "这个 bug 复现了，先找根因再修" | `fw-debug` |
 | "实现完成了，请做最终 review，不要用原生 Codex review" | `fw-review` |

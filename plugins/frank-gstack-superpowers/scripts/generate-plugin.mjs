@@ -21,8 +21,10 @@ import {
 } from "./lib/run-state.mjs";
 
 export const EXPECTED_WRAPPERS = Object.freeze([
-  "fw-intake",
+  "fw-office-hours",
+  "fw-ceo-review",
   "fw-plan",
+  "fw-plan-review",
   "fw-build",
   "fw-debug",
   "fw-review",
@@ -147,25 +149,43 @@ The output should preserve issue identifiers, file paths, commands, and exact fa
 });
 
 const STAGE_CONTRACTS = Object.freeze({
-  "fw-intake": {
-    stage: "intake",
+  "fw-office-hours": {
+    stage: "office-hours",
     owner: "gstack",
     inputs: ["Raw idea, product question, demand signal, or scope uncertainty."],
     outputs: [
-      "Office-hours notes, CEO review notes, and explicit user confirmation or block before fw-plan.",
+      "Office-hours notes, demand reality assessment, direction options, and explicit user confirmation or block before fw-ceo-review.",
     ],
     contract:
-      "Run a two-step intake gate: office-hours, stop for user confirmation, plan-ceo-review, then stop again before fw-plan. Do not produce implementation changes.",
+      "Run gstack office-hours only, then stop for user confirmation before fw-ceo-review. Do not run CEO review or planning inside this wrapper.",
+  },
+  "fw-ceo-review": {
+    stage: "ceo-review",
+    owner: "gstack",
+    inputs: ["User-confirmed office-hours direction, scope notes, and unresolved premise risks."],
+    outputs: [
+      "CEO-level scope challenge, ambition and premise notes, and explicit user confirmation or block before fw-plan.",
+    ],
+    contract:
+      "Run gstack plan-ceo-review only, then stop for user confirmation before fw-plan. Do not write implementation specs or plans inside this wrapper.",
   },
   "fw-plan": {
     stage: "plan",
     owner: "superpowers",
     inputs: ["Confirmed direction, scope boundaries, and enough constraints to write the spec and implementation plan."],
     outputs: [
-      "Confirmed spec in docs/superpowers/specs/, linked implementation plan in docs/superpowers/plans/, gstack eng/design gate notes, and explicit user confirmation or block before fw-build.",
+      "Superpowers spec in docs/superpowers/specs/ plus linked implementation plan in docs/superpowers/plans/, ready for fw-plan-review.",
     ],
     contract:
-      "Write the spec first, stop for user confirmation, then write the linked implementation plan and run gstack eng/design review as gates. Do not execute implementation.",
+      "Use Superpowers writing-plans to produce or update the spec and linked implementation plan. Do not run gstack plan review or implementation inside this wrapper.",
+  },
+  "fw-plan-review": {
+    stage: "plan-review",
+    owner: "gstack",
+    inputs: ["Completed Superpowers spec, linked implementation plan, and relevant repo context."],
+    outputs: ["Plan review verdict, engineering risks, conditional design review notes, and explicit user confirmation or block before fw-build."],
+    contract:
+      "Run gstack plan-eng-review as the planning gate, use plan-design-review only for UI/UX-affecting plans, then stop before fw-build.",
   },
   "fw-build": {
     stage: "build",
@@ -299,13 +319,25 @@ function wrapperPolicyNotes(wrapperName, wrapper, manifest) {
       "fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec.",
     );
     notes.push(
-      "fw-plan must write or update the spec before the plan, stop for user confirmation after the spec, write the linked plan, treat gstack plan-eng-review and plan-design-review as gates rather than execution owners, and stop again before fw-build.",
+      "fw-plan must use Superpowers writing-plans only; do not run gstack plan-eng-review or plan-design-review inside fw-plan. Stop after the linked spec and plan are ready for fw-plan-review.",
     );
   }
 
-  if (wrapperName === "fw-intake") {
+  if (wrapperName === "fw-office-hours") {
     notes.push(
-      "fw-intake must not automatically continue from office-hours to plan-ceo-review; stop for user confirmation after office-hours, then stop again before fw-plan.",
+      "fw-office-hours must not automatically continue to plan-ceo-review; stop for user confirmation before fw-ceo-review.",
+    );
+  }
+
+  if (wrapperName === "fw-ceo-review") {
+    notes.push(
+      "fw-ceo-review must not write specs or plans; stop for user confirmation before fw-plan.",
+    );
+  }
+
+  if (wrapperName === "fw-plan-review") {
+    notes.push(
+      "fw-plan-review owns the gstack planning gate: run plan-eng-review, use plan-design-review only when UI/UX is affected, and stop for user confirmation before fw-build.",
     );
   }
 

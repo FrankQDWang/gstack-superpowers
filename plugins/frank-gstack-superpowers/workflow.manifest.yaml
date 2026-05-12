@@ -301,24 +301,39 @@ upstream_skills:
       adapter_required: false
 
 wrappers:
-  fw-intake:
-    description: Use for idea intake through office-hours, then confirmed CEO-level scope challenge before planning.
+  fw-office-hours:
+    description: Use for gstack office-hours idea intake, demand reality, product direction, and problem framing before CEO review.
     primary: gstack
     role: Core
     references:
       - adapters/gstack/common-safety.md
       - gstack/office-hours/SKILL.md
+    suppress:
+      - superpowers/brainstorming
+  fw-ceo-review:
+    description: Use after office-hours confirms direction to run gstack CEO-level scope, ambition, and premise review before planning.
+    primary: gstack
+    role: Core
+    references:
+      - adapters/gstack/common-safety.md
       - gstack/plan-ceo-review/SKILL.md
     suppress:
       - superpowers/brainstorming
   fw-plan:
-    description: Use after office-hours and plan-ceo-review confirm direction to write a confirmed spec, linked plan, and gstack plan gates.
+    description: Use after CEO review confirms direction to write Superpowers spec and linked implementation plan.
     primary: superpowers
     role: Core
     references:
       - superpowers/skills/writing-plans/SKILL.md
+    suppress: []
+  fw-plan-review:
+    description: Use after fw-plan to run gstack plan-eng-review and conditional plan-design-review before build.
+    primary: gstack
+    role: Gate
+    references:
       - adapters/gstack/common-safety.md
       - gstack/plan-eng-review/SKILL.md
+    conditional_references:
       - gstack/plan-design-review/SKILL.md
     suppress: []
   fw-build:

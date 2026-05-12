@@ -2,22 +2,38 @@ version: 1
 cases:
   - id: intake-demand-reality
     prompt: "I have a raw product idea and need demand reality pressure before planning."
-    expected_wrapper: fw-intake
+    expected_wrapper: fw-office-hours
     prompt_keywords:
       - idea
       - demand
-    expected_behavior: "Route to intake for office-hours first, require confirmation, then CEO-level scope challenge before any plan or implementation."
+    expected_behavior: "Route to office-hours for demand reality and product direction before CEO review or planning."
+
+  - id: ceo-review-after-office-hours
+    prompt: "office-hours direction is confirmed; run CEO scope and ambition review before planning."
+    expected_wrapper: fw-ceo-review
+    prompt_keywords:
+      - office-hours
+      - CEO
+      - scope
+    expected_behavior: "Route to CEO review after office-hours confirmation, and stop before writing specs or plans."
 
   - id: plan-after-direction
-    prompt: "office-hours and plan-ceo-review are confirmed; write the spec and implementation plan with engineering review."
+    prompt: "office-hours and plan-ceo-review are confirmed; write the spec and implementation plan."
     expected_wrapper: fw-plan
     prompt_keywords:
       - spec
       - office-hours
       - plan-ceo-review
       - implementation plan
-      - engineering review
-    expected_behavior: "Route to plan; write and confirm the spec first, then produce a linked plan and run gstack plan gates before build."
+    expected_behavior: "Route to plan; use Superpowers writing-plans to produce a spec plus linked plan, then stop before plan review."
+
+  - id: plan-review-after-plan
+    prompt: "The spec and implementation plan are written; run plan-eng-review and UI design review before build."
+    expected_wrapper: fw-plan-review
+    prompt_keywords:
+      - plan-eng-review
+      - design review
+    expected_behavior: "Route to plan-review; run gstack plan-eng-review and conditional plan-design-review as gates."
 
   - id: build-approved-plan
     prompt: "Implement the approved plan with TDD and verification."

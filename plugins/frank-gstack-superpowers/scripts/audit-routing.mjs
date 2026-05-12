@@ -40,14 +40,21 @@ const ALLOWED_WORKFLOW_STATUSES = new Set([
   RUN_STATUS.FAILED,
 ]);
 const REQUIRED_STAGE_GATE_TEXT = Object.freeze({
-  "fw-intake": [
-    /stop for user confirmation after office-hours/i,
-    /stop again before fw-plan/i,
+  "fw-office-hours": [
+    /stop for user confirmation before fw-ceo-review/i,
+  ],
+  "fw-ceo-review": [
+    /stop for user confirmation before fw-plan/i,
   ],
   "fw-plan": [
-    /stop for user confirmation after the spec/i,
-    /plan-eng-review and plan-design-review as gates rather than execution owners/i,
-    /stop again before fw-build/i,
+    /produce or update both docs\/superpowers\/specs/i,
+    /ready for fw-plan-review/i,
+    /do not run gstack plan-eng-review or plan-design-review inside fw-plan/i,
+  ],
+  "fw-plan-review": [
+    /run plan-eng-review/i,
+    /plan-design-review only when UI\/UX is affected/i,
+    /stop for user confirmation before fw-build/i,
   ],
 });
 

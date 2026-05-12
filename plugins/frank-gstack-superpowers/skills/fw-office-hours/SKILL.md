@@ -1,21 +1,21 @@
 ---
-name: fw-intake
-description: "Use for idea intake through office-hours, then confirmed CEO-level scope challenge before planning."
-manifest_hash: sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02
+name: fw-office-hours
+description: "Use for gstack office-hours idea intake, demand reality, product direction, and problem framing before CEO review."
+manifest_hash: sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4
 generated_from: workflow.manifest.yaml
 ---
 
-# fw-intake
+# fw-office-hours
 
 Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Stage Contract
 
-- Stage: intake
+- Stage: office-hours
 - Owner: gstack
 - Role: Core
 - Primary system: gstack
-- Contract: Run a two-step intake gate: office-hours, stop for user confirmation, plan-ceo-review, then stop again before fw-plan. Do not produce implementation changes.
+- Contract: Run gstack office-hours only, then stop for user confirmation before fw-ceo-review. Do not run CEO review or planning inside this wrapper.
 
 ## Inputs
 
@@ -23,7 +23,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Outputs
 
-- Office-hours notes, CEO review notes, and explicit user confirmation or block before fw-plan.
+- Office-hours notes, demand reality assessment, direction options, and explicit user confirmation or block before fw-ceo-review.
 
 ## Required References
 
@@ -31,8 +31,6 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
   - Read: `references/adapters/gstack/common-safety.md`
 - gstack/office-hours/SKILL.md
   - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/office-hours/SKILL.md`
-- gstack/plan-ceo-review/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/plan-ceo-review/SKILL.md`
 
 ## Conditional References
 
@@ -45,7 +43,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Policy Notes
 
-- fw-intake must not automatically continue from office-hours to plan-ceo-review; stop for user confirmation after office-hours, then stop again before fw-plan.
+- fw-office-hours must not automatically continue to plan-ceo-review; stop for user confirmation before fw-ceo-review.
 
 ## Execution Rules
 
@@ -61,11 +59,11 @@ Every run of this wrapper should be able to produce a machine-readable stage art
 
 ```json
 {
-  "wrapper": "fw-intake",
-  "stage": "intake",
+  "wrapper": "fw-office-hours",
+  "stage": "office-hours",
   "owner": "gstack",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02",
+  "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
   "inputs": [],
   "outputs": [],
   "references_read": [],
@@ -73,7 +71,7 @@ Every run of this wrapper should be able to produce a machine-readable stage art
     "superpowers/brainstorming"
   ],
   "policy_notes": [
-    "fw-intake must not automatically continue from office-hours to plan-ceo-review; stop for user confirmation after office-hours, then stop again before fw-plan."
+    "fw-office-hours must not automatically continue to plan-ceo-review; stop for user confirmation before fw-ceo-review."
   ],
   "verification": {
     "commands": [],
