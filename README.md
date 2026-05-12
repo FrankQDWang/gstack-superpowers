@@ -11,8 +11,8 @@ Superpowers content as pinned reference material:
 - `fw-plan`: reviewed implementation planning and test strategy.
 - `fw-build`: worktree, TDD, execution, and verification discipline.
 - `fw-debug`: systematic debugging with root-cause investigation.
-- `fw-review`: Superpowers plan compliance plus adapted gstack review, with
-  native Codex review disabled.
+- `fw-review`: Superpowers review discipline plus raw gstack review, with
+  standalone/native Codex review suppressed outside that gstack-managed gate.
 - `fw-ship-lite`: branch finish, documentation, and release readiness report.
 
 ## Repository Layout
@@ -99,9 +99,9 @@ npm run uninstall:global
 - Only generated `fw-*` wrapper skills are exposed to Codex routing.
 - The global curated mode hides raw gstack and Superpowers from Codex's active
   skill/plugin surface while preserving their source files for update sync.
-- Native or generic Codex review is forbidden in v1.
-- gstack review is used through an adapter that disables Codex review and
-  release/deploy side effects.
+- Standalone/native Codex review is forbidden as an independent review owner.
+- Raw gstack review is used inside `fw-review`; it is not exported as a direct
+  route.
 - `fw-ship-lite` reports readiness only; it does not merge, push to protected
   branches, deploy, release, or canary by default.
 - Weekly upstream updates require deterministic evidence plus an LLM assessment

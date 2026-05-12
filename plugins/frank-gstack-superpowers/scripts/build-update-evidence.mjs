@@ -28,7 +28,7 @@ const MAX_EXCERPT_LINE_CHARS = 180;
 const RISK_PATTERNS = [
   {
     name: "native_codex_review",
-    severity: "policy",
+    severity: "risk",
     regex: /\bcodex\s+(?:exec\s+)?review\b|\bcodex\/review\b|native codex review/i,
   },
   {
@@ -271,6 +271,12 @@ function wrapperPolicyNotes(wrapperName, wrapper, manifest) {
   if (references.includes("adapters/superpowers/orchestration-boundary.md")) {
     notes.push(
       "Superpowers subagent-driven instructions define implementation discipline only; Codex host policy controls whether agents can be spawned.",
+    );
+  }
+
+  if (references.includes("gstack/review/SKILL.md")) {
+    notes.push(
+      "Raw gstack review is part of the curated review chain; standalone/native Codex review remains suppressed outside that gstack-managed gate.",
     );
   }
 
@@ -524,7 +530,7 @@ export async function buildEvidence() {
           .filter((marker) => marker.severity === "policy")
           .map((marker) => ({
             ...marker,
-            policy: "native_codex_review_forbidden",
+            policy: "standalone_native_review_forbidden",
           })),
       );
 

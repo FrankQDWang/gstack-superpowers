@@ -188,11 +188,11 @@ test("update evidence includes wrapper and adapter mitigation context", async ()
 
   const wrapperSummaries = evidence.mitigation_context.wrapper_summaries;
   assert.ok(wrapperSummaries["fw-review"].references.includes("adapters/gstack/common-safety.md"));
-  assert.ok(wrapperSummaries["fw-review"].references.includes("adapters/gstack/review-no-codex.md"));
+  assert.ok(wrapperSummaries["fw-review"].references.includes("gstack/review/SKILL.md"));
   assert.ok(wrapperSummaries["fw-review"].suppressions.includes("codex/native-review"));
   assert.ok(
     wrapperSummaries["fw-review"].policy_notes.some((note) =>
-      /common-safety applies to conditional gstack references/i.test(note),
+      /raw gstack review is part of the curated review chain/i.test(note),
     ),
   );
   assert.ok(
@@ -214,9 +214,10 @@ test("update evidence includes wrapper and adapter mitigation context", async ()
   );
 
   const gstackReview = evidence.mitigation_context.upstream_skill_visibility_role_adapter_map.gstack_review;
-  assert.equal(gstackReview.role, "Hidden");
+  assert.equal(gstackReview.role, "Gate");
   assert.equal(gstackReview.visibility.exported, false);
-  assert.equal(gstackReview.adapter, "adapters/gstack/review-no-codex.md");
+  assert.equal(gstackReview.visibility.adapter_required, false);
+  assert.equal(gstackReview.adapter, null);
 
   const adapterFiles = evidence.mitigation_context.adapter_files;
   const commonSafety = adapterFiles.find(
@@ -247,7 +248,7 @@ test("assessment prompt requires weighing raw upstream risk against explicit mit
       adapter_files: [{ reference: "adapters/gstack/common-safety.md" }],
       wrapper_summaries: {
         "fw-review": {
-          references: ["adapters/gstack/common-safety.md", "adapters/gstack/review-no-codex.md"],
+          references: ["adapters/gstack/common-safety.md", "gstack/review/SKILL.md"],
           suppressions: ["codex/native-review"],
         },
       },

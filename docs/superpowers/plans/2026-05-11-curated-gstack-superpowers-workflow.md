@@ -4,7 +4,7 @@
 
 **Goal:** Build a global Codex plugin that exposes a small `fw-*` workflow surface to every project while keeping gstack and Superpowers as pinned, materialized upstream dependencies.
 
-**Architecture:** The plugin is generated from `workflow.manifest.yaml`. Raw upstream skills are copied into `references/upstreams/`, adapter files transform risky upstream behavior into curated stage contracts, and only six wrapper skills are exported to Codex routing. `fw-review` must use Superpowers plus a no-Codex gstack review adapter. `fw-ship-lite` must produce release readiness only, with no default deploy, merge, PR, or canary side effect.
+**Architecture:** The plugin is generated from `workflow.manifest.yaml`. Raw upstream skills are copied into `references/upstreams/`, adapter files transform risky upstream behavior into curated stage contracts, and only six wrapper skills are exported to Codex routing. `fw-review` must use Superpowers plus raw gstack review, while standalone/native Codex review remains forbidden as an independent owner. `fw-ship-lite` must produce release readiness only, with no default deploy, merge, PR, or canary side effect.
 
 **Tech Stack:** Node.js ESM scripts, YAML, JSON Schema, Markdown, Codex Automations, Codex global home-local plugin marketplace
 
@@ -33,7 +33,7 @@
 | `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers planning after gstack approval | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-build/SKILL.md` | Visible wrapper for Superpowers execution | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-debug/SKILL.md` | Visible wrapper for Superpowers debugging and conditional gstack investigation | Generate |
-| `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers review plus no-Codex gstack adapter | Generate |
+| `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers review plus raw gstack review | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-ship-lite/SKILL.md` | Visible wrapper for branch finishing and release readiness only | Generate |
 | `plugins/frank-gstack-superpowers/scripts/sync-upstreams.mjs` | Resolve upstream commits and materialize candidate source snapshots | Create |
 | `plugins/frank-gstack-superpowers/scripts/lib/reference-resolver.mjs` | Resolve logical manifest references to active, candidate, and adapter paths | Create |
@@ -209,13 +209,15 @@ policy:
   one_execution_owner: true
   native_codex_review:
     standalone_codex_review_owner: forbidden
-    codex_review_inside_gstack_review: forbidden_in_v1
+    codex_review_inside_gstack_review: allowed_when_managed_by_raw_gstack_review
     allowed_second_opinion:
+      - raw-gstack-review
       - gstack-claude
       - curated-readonly-reviewer-subagent
   default_review_chain:
     - superpowers/requesting-code-review
-    - adapters/gstack/review-no-codex.md
+    - gstack/review/SKILL.md
+    - superpowers/skills/receiving-code-review/SKILL.md
 
 upstreams:
   gstack:
@@ -231,13 +233,12 @@ upstream_skills:
     source_path: review/SKILL.md
     raw_name: review
     codex_exported_name: gstack-review
-    role: Hidden
+    role: Gate
     visibility:
       exported: false
       reference_available: true
       executable_directly: false
-      adapter_required: true
-    adapter: adapters/gstack/review-no-codex.md
+      adapter_required: false
   superpowers_writing_plans:
     upstream: superpowers
     source_path: skills/writing-plans/SKILL.md
@@ -289,13 +290,14 @@ wrappers:
       - gstack/investigate/SKILL.md
     suppress: []
   fw-review:
-    description: Use when implementation is complete and review must use Superpowers plus no-Codex gstack review.
+    description: Use when implementation is complete and review must combine Superpowers with raw gstack review.
     primary: mixed
     role: Gate
     references:
       - superpowers/skills/requesting-code-review/SKILL.md
+      - adapters/gstack/common-safety.md
+      - gstack/review/SKILL.md
       - superpowers/skills/receiving-code-review/SKILL.md
-      - adapters/gstack/review-no-codex.md
       - adapters/superpowers/review-synthesis.md
     conditional_references:
       - gstack/qa-only/SKILL.md
@@ -304,7 +306,6 @@ wrappers:
     suppress:
       - codex/native-review
       - codex/review
-      - gstack/review/SKILL.md
   fw-ship-lite:
     description: Use for branch finishing, release documentation, and release-readiness reporting without default deploy actions.
     primary: mixed
@@ -374,7 +375,8 @@ Rules:
 - `gstack/office-hours/SKILL.md` resolves to `references/upstreams/gstack/commits/{active_commit}/office-hours/SKILL.md` when `channel` is `active`.
 - `gstack/office-hours/SKILL.md` resolves to `references/upstreams/gstack/commits/{candidate_commit}/office-hours/SKILL.md` when `channel` is `candidate`.
 - `superpowers/skills/writing-plans/SKILL.md` resolves the same way under the `superpowers` upstream.
-- `adapters/gstack/review-no-codex.md` resolves to `references/adapters/gstack/review-no-codex.md`.
+- `adapters/gstack/common-safety.md` resolves to `references/adapters/gstack/common-safety.md`.
+- `gstack/review/SKILL.md` resolves to the active materialized raw gstack review file.
 - Empty `active_commit` or `candidate_commit` is a hard error for that channel.
 - Unknown upstream names are hard errors.
 - Missing resolved files are hard errors unless the caller passes an explicit generation mode for adapter creation.
@@ -445,7 +447,7 @@ After first bootstrap, runtime generation must use active commits only. Candidat
 
 **Files:**
 - Create: `plugins/frank-gstack-superpowers/scripts/generate-plugin.mjs`
-- Generate: `plugins/frank-gstack-superpowers/references/adapters/gstack/review-no-codex.md`
+- Generate: `plugins/frank-gstack-superpowers/references/adapters/gstack/common-safety.md`
 - Generate: `plugins/frank-gstack-superpowers/references/adapters/gstack/ship-readiness.md`
 - Generate: `plugins/frank-gstack-superpowers/references/adapters/superpowers/review-synthesis.md`
 - Generate: all `plugins/frank-gstack-superpowers/skills/fw-*/SKILL.md`
@@ -470,16 +472,16 @@ Do not edit manually.
 
 - Use wrapper descriptions from the manifest, not hardcoded JavaScript arrays.
 - Include stage contract, owner, role, required references, conditional references, forbidden actions, and output artifact requirements.
-- Fail if `fw-review` references raw `gstack/review/SKILL.md` directly.
+- Allow `fw-review` to reference raw `gstack/review/SKILL.md` only inside the curated Superpowers review chain.
 - Fail if `fw-ship-lite` references raw `gstack/ship/SKILL.md`, `gstack/land-and-deploy/SKILL.md`, or `gstack/canary/SKILL.md` directly.
 
 - [ ] **Step 2: Implement adapter generation**
 
-`adapters/gstack/review-no-codex.md` must:
+`fw-review` must:
 
-- Preserve gstack review concepts: diff risk, scope drift, release readiness, defect classification, and fix-first categories.
-- Remove native Codex review commands and instructions.
-- Contain no executable command matching `codex review` or `codex exec`.
+- Preserve raw gstack review concepts and behavior.
+- Keep raw gstack review inside the curated review chain rather than exporting it as a direct route.
+- Suppress standalone/native Codex review routes outside the raw gstack review gate.
 - Require Superpowers review synthesis before acting on unclear review feedback.
 
 `adapters/gstack/ship-readiness.md` must:
@@ -551,8 +553,8 @@ The audit must fail unless all conditions are true:
 - `plugins/frank-gstack-superpowers/artifacts/workflow-run.json` exists after full verification and contains `status`, `active`, `candidate`, `risk_markers`, `policy_violations`, `errors`, and `next_allowed`.
 - Every hidden or upstream-only skill has `visibility.exported: false`.
 - Every adapter marked required exists.
-- `adapters/gstack/review-no-codex.md` contains no command matching `codex review` or `codex exec`.
-- `fw-review` does not directly reference raw `gstack/review/SKILL.md`.
+- `fw-review` directly references raw `gstack/review/SKILL.md` and keeps it after `adapters/gstack/common-safety.md`.
+- Standalone `codex/native-review` and `codex/review` remain suppressed.
 - `fw-ship-lite` does not directly reference raw `gstack/ship/SKILL.md`, `gstack/land-and-deploy/SKILL.md`, or `gstack/canary/SKILL.md`.
 - `upstreams.lock.json` has `active_commit` and `candidate_commit` fields for both upstreams.
 
@@ -618,7 +620,7 @@ The first version may be static, but it must check:
 - Every eval case references an exported wrapper.
 - Pressure cases contain forbidden command expectations.
 - Generated wrappers contain language that rejects forbidden behavior.
-- No generated adapter or wrapper contains executable native Codex review commands.
+- Generated wrappers suppress standalone/native Codex review routes while allowing raw gstack review only inside `fw-review`.
 
 - [ ] **Step 3: Run eval**
 
@@ -777,9 +779,9 @@ Required cases:
 Required cases:
 
 - Every generated wrapper contains the manifest hash.
-- `fw-review` fails if it directly references raw `gstack/review/SKILL.md`.
+- `fw-review` fails if it does not reference raw `gstack/review/SKILL.md`.
 - `fw-ship-lite` fails if it directly references raw `gstack/ship/SKILL.md`, `gstack/land-and-deploy/SKILL.md`, or `gstack/canary/SKILL.md`.
-- Adapter generation fails if `review-no-codex.md` contains executable `codex review` or `codex exec` commands.
+- Audit fails if standalone/native Codex review routes are not suppressed.
 
 - [ ] **Step 4: Implement audit tests**
 

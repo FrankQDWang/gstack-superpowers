@@ -1,7 +1,7 @@
 ---
 name: fw-plan
 description: "Use after gstack direction is confirmed to write a Superpowers-consumable implementation plan."
-manifest_hash: sha256:670238578b82406d22b7f8749738a4e392ee72b6e7769e496905912aa02b2a05
+manifest_hash: sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87
 generated_from: workflow.manifest.yaml
 ---
 
@@ -67,7 +67,7 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "plan",
   "owner": "superpowers",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:670238578b82406d22b7f8749738a4e392ee72b6e7769e496905912aa02b2a05",
+  "manifest_hash": "sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87",
   "inputs": [],
   "outputs": [],
   "references_read": [],

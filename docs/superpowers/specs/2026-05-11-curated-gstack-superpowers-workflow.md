@@ -12,7 +12,7 @@ The workflow must preserve the user's operating model:
 - gstack owns product judgment, scope challenge, architecture review, QA, security, and release gates.
 - Superpowers owns implementation discipline: plans, TDD, debugging, execution, verification, and branch finishing.
 - Codex owns runtime execution, local tooling, memory, and orchestration.
-- Native Codex review is not part of the review methodology. Review must use gstack and Superpowers together.
+- Standalone/native Codex review is not part of the review methodology. Review must use Superpowers plus raw gstack review together.
 
 ## Review Corrections Applied
 
@@ -20,9 +20,9 @@ The first version of this design treated upstream skills as if a wrapper could s
 
 This revised design adds three hard requirements:
 
-1. Wrappers execute curated adapter/reference files, not raw upstream skill files.
+1. Wrappers execute curated adapter/reference chains; raw upstream skill files are read only when the manifest explicitly includes them.
 2. Upstream source material is copied into `references/upstreams/<name>/<sha>/` before wrappers can reference it.
-3. `gstack-review` is not used directly in v1 because upstream gstack review invokes Codex adversarial and structured review paths. v1 must use a no-Codex adapter.
+3. `fw-review` must combine Superpowers review discipline with raw upstream `gstack-review`. Standalone/native Codex review is still forbidden as an independent owner, but raw gstack review is allowed inside the gstack-managed gate.
 
 ## Core Flow
 
@@ -35,7 +35,7 @@ flowchart TD
   D -- "Yes" --> E["Superpowers writing-plans"]
   E --> F["Superpowers execution"]
   F --> G["Superpowers requesting-code-review"]
-  G --> H["gstack review adapter, no Codex"]
+  G --> H["raw gstack review"]
   H --> I{"Need browser QA, security, perf, or release gate"}
   I -- "Yes" --> J["gstack qa-only / cso / benchmark / ship-readiness"]
   I -- "No" --> K["Superpowers verification-before-completion"]
@@ -45,13 +45,13 @@ flowchart TD
 
 ## Review Flow
 
-Review is a deliberate combination of Superpowers and gstack. It must not fall back to native Codex review.
+Review is a deliberate combination of Superpowers and raw gstack review. It must not fall back to standalone/native Codex review as a separate owner.
 
 ```mermaid
 flowchart LR
   A["Implementation complete"] --> B["Superpowers requesting-code-review"]
   B --> C["Checks plan compliance, tests, TDD discipline, missing verification"]
-  C --> D["gstack review adapter, no Codex"]
+  C --> D["raw gstack review"]
   D --> E["Checks diff risk, scope drift, release readiness, high-risk defects"]
   E --> F{"Needs extra gate"}
   F -- "UI behavior" --> G["gstack qa or qa-only"]
@@ -144,7 +144,7 @@ visibility:
 | `fw-plan` | Convert approved direction into a Superpowers-consumable execution plan. | `superpowers:writing-plans`, `gstack-plan-eng-review`, `gstack-plan-design-review` |
 | `fw-build` | Execute approved plans using Superpowers discipline. | `superpowers:using-git-worktrees`, `superpowers:test-driven-development`, `superpowers:executing-plans`, `superpowers:subagent-driven-development`, `superpowers:verification-before-completion` |
 | `fw-debug` | Investigate bugs with Superpowers first; escalate to gstack only when conditions require it. | `superpowers:systematic-debugging`, `gstack-investigate` |
-| `fw-review` | Run plan-compliance review plus final diff/risk review without native Codex review. | `superpowers:requesting-code-review`, `superpowers:receiving-code-review`, `adapters/gstack/review-no-codex.md`, conditional `gstack-qa-only`, conditional `gstack-cso`, conditional `gstack-benchmark` |
+| `fw-review` | Run plan-compliance review plus final diff/risk review by combining Superpowers with raw gstack review. | `superpowers:requesting-code-review`, raw `gstack-review`, `superpowers:receiving-code-review`, conditional `gstack-qa-only`, conditional `gstack-cso`, conditional `gstack-benchmark` |
 | `fw-ship-lite` | Finish branch, update docs, and produce a release-readiness report without default deploy actions. | `superpowers:finishing-a-development-branch`, `gstack-document-release`, `adapters/gstack/ship-readiness.md` |
 
 ## Superpowers Skill Matrix
@@ -176,7 +176,7 @@ visibility:
 | `gstack-plan-design-review` | Gate | gstack | Design gate for UI or UX-affecting work. |
 | `gstack-plan-devex-review` | Conditional | gstack | Use for developer-facing workflow or docs. |
 | `gstack-autoplan` | Hidden | gstack | Hidden because it overlaps with the curated staged workflow. May inform future review chains. |
-| `gstack-review` | Hidden | gstack | Raw upstream review is hidden in v1 because it invokes Codex review paths. `fw-review` must use `adapters/gstack/review-no-codex.md`. |
+| `gstack-review` | Gate reference | gstack | Raw upstream review is not exported directly, but `fw-review` reads and uses it as the gstack review gate after Superpowers review request setup. |
 | `gstack-qa` | Conditional | gstack | Use for browser QA with fixes allowed. |
 | `gstack-qa-only` | Conditional | gstack | Use for report-only QA. |
 | `gstack-cso` | Conditional | gstack | Use for security-sensitive changes. |
@@ -219,7 +219,7 @@ visibility:
 
 ## Native Codex Review Policy
 
-Native Codex review is excluded from v1 of this workflow.
+Standalone/native Codex review is excluded as an independent review owner. Raw gstack review is allowed inside `fw-review` as the gstack-managed review gate.
 
 Allowed:
 
@@ -228,15 +228,15 @@ Allowed:
 - Codex orchestrates subagents when explicitly requested or when a Superpowers execution path calls for it.
 - Codex summarizes outputs.
 - A curated read-only reviewer subagent may be used when it is scoped by `fw-review`.
+- Raw `gstack-review` may run as part of the `fw-review` chain.
 - `gstack-claude` may be used when the user explicitly asks for an independent Claude opinion.
 
 Not allowed:
 
 - `codex review` as the primary review gate.
-- `codex exec` as an embedded adversarial review pass.
+- `codex exec` as an embedded adversarial review pass outside raw gstack review.
 - A generic Codex review replacing `superpowers:requesting-code-review`.
-- A generic Codex review replacing `adapters/gstack/review-no-codex.md`.
-- Raw upstream `gstack-review` execution in v1, because it includes Codex review paths.
+- A generic Codex review replacing the curated `Superpowers requesting -> raw gstack review -> Superpowers receiving/synthesis` chain.
 - Raw upstream `gstack-autoplan` execution as a shortcut around the staged workflow.
 
 This policy can be loosened later only through a reviewed manifest change and explicit user approval.
@@ -247,7 +247,7 @@ Adapters are generated or curated files that make upstream source material safe 
 
 | Adapter | Source material | Required transformation |
 |---|---|---|
-| `adapters/gstack/review-no-codex.md` | `gstack-review` | Preserve diff-risk, scope-drift, release-readiness, and fix classification. Remove `codex review`, `codex exec`, and any instruction to call native Codex review. |
+| raw `gstack/review/SKILL.md` | `gstack-review` | Preserve the original gstack review gate. It is used only inside `fw-review`, not exported as a direct route. |
 | `adapters/gstack/ship-readiness.md` | `gstack-ship`, `gstack-document-release` | Produce readiness checks and documentation guidance only. Do not push, open PRs, merge, deploy, or run canary by default. |
 | `adapters/superpowers/review-synthesis.md` | `requesting-code-review`, `receiving-code-review` | Deduplicate findings, classify conflicts, and require verification before applying review suggestions. |
 
@@ -352,7 +352,7 @@ Inputs to the LLM assessor:
 - deterministic changed-file summary
 - allowlisted changed upstream source excerpts
 - risk markers and policy violations from static scan
-- adapter contracts, especially no native Codex review in v1
+- adapter contracts, especially no standalone/native Codex review as an independent owner
 
 Required LLM outputs:
 
@@ -434,7 +434,7 @@ The generated `upstream-diff-report.md` must flag supply-chain risk markers befo
 | `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers plan creation after gstack direction approval. |
 | `plugins/frank-gstack-superpowers/skills/fw-build/SKILL.md` | Visible wrapper for Superpowers execution discipline. |
 | `plugins/frank-gstack-superpowers/skills/fw-debug/SKILL.md` | Visible wrapper for default Superpowers debugging plus conditional gstack escalation. |
-| `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers plus adapted gstack review gates. |
+| `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers plus raw gstack review gates. |
 | `plugins/frank-gstack-superpowers/skills/fw-ship-lite/SKILL.md` | Visible wrapper for branch finishing and release-readiness gates. |
 | `plugins/frank-gstack-superpowers/workflow.manifest.yaml` | Source of truth for role, visibility, inclusion, suppression, and routing. |
 | `plugins/frank-gstack-superpowers/workflow.schema.json` | Schema for validating the manifest. |
@@ -472,10 +472,10 @@ candidate materialized path:
   references/upstreams/gstack/commits/{candidate_commit}/office-hours/SKILL.md
 
 adapter reference:
-  adapters/gstack/review-no-codex.md
+  adapters/gstack/common-safety.md
 
 adapter materialized path:
-  references/adapters/gstack/review-no-codex.md
+  references/adapters/gstack/common-safety.md
 ```
 
 `scripts/lib/reference-resolver.mjs` must expose functions for `active`, `candidate`, and `adapter` resolution. It must fail loudly when a lockfile commit is empty, when a logical upstream is unknown, or when a resolved file is missing. This prevents wrappers, audits, and diff reports from silently reading different upstream versions.
@@ -579,13 +579,13 @@ The first eval set must include these cases:
 - Do not expose all upstream skills directly to Codex.
 - Do not rely on prompts alone to suppress duplicate workflows.
 - Do not auto-merge upstream changes into the live workflow.
-- Do not use native Codex review as the review owner or as an embedded upstream review pass in v1.
-- Do not execute raw upstream `gstack-review` in v1.
+- Do not use native Codex review as the standalone review owner.
+- Do not execute raw upstream `gstack-review` as a directly exported skill; use it only through `fw-review`.
 - Do not expose default deploy, land, or canary behavior in v1.
 
 ## Open Decisions
 
 1. Whether `fw-checkpoint` should be added in v1.1 for project-local stage snapshots produced by the global workflow.
 2. Whether `gstack-context-save` and `gstack-context-restore` should remain hidden permanently or become conditional through `fw-checkpoint`.
-3. Whether a future manifest version may allow a gstack-managed Codex review pass as an auxiliary signal after explicit review.
+3. Whether a future manifest version should add a separate explicit release gate after `fw-ship-lite`.
 4. Whether this curated workflow should include CE later as a knowledge-compounding layer, or keep v1 strictly to gstack plus Superpowers.

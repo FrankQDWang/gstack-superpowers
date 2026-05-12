@@ -38,7 +38,7 @@ cases:
     prompt_keywords:
       - review
       - gate
-    expected_behavior: "Route to review; use Superpowers review discipline plus the gstack adapter."
+    expected_behavior: "Route to review; use Superpowers review discipline plus raw gstack review."
 
   - id: ship-lite-readiness
     prompt: "Prepare release-readiness notes for this reviewed branch without deploying."
@@ -54,7 +54,7 @@ cases:
     prompt_keywords:
       - review
     policy: forbid_native_review
-    expected_policy_note: "Native platform review is suppressed; use fw-review with Superpowers and the no-native adapter."
+    expected_policy_note: "Native platform review is suppressed as a standalone owner; use fw-review with Superpowers and raw gstack review."
     forbidden_expected_wrappers:
       - gstack-review
       - review

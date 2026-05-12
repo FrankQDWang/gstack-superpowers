@@ -40,9 +40,14 @@ test("manifest exposes exactly the curated wrappers and keeps upstream skills hi
   }
 
   assert.equal(manifest.policy.native_codex_review.standalone_codex_review_owner, "forbidden");
-  assert.equal(manifest.policy.native_codex_review.codex_review_inside_gstack_review, "forbidden_in_v1");
+  assert.equal(
+    manifest.policy.native_codex_review.codex_review_inside_gstack_review,
+    "allowed_when_managed_by_raw_gstack_review",
+  );
   assert.ok(manifest.wrappers["fw-review"].suppress.includes("codex/native-review"));
   assert.ok(manifest.wrappers["fw-review"].suppress.includes("codex/review"));
+  assert.ok(manifest.wrappers["fw-review"].references.includes("gstack/review/SKILL.md"));
+  assert.ok(!manifest.wrappers["fw-review"].suppress.includes("gstack/review/SKILL.md"));
 });
 
 test("gstack wrappers read common safety before any raw gstack reference", async () => {
@@ -108,10 +113,10 @@ test("manifest records release gate and common safety policy notes", async () =>
 test("reference resolver handles adapters, nullable pre-sync upstreams, and strict active failures", async () => {
   const state = await loadProjectState(pluginRoot);
 
-  const adapter = resolveReference("adapters/gstack/review-no-codex.md", state);
+  const adapter = resolveReference("adapters/gstack/common-safety.md", state);
   assert.equal(adapter.type, "adapter");
-  assert.equal(adapter.reference, "adapters/gstack/review-no-codex.md");
-  assert.equal(adapter.path, path.join(pluginRoot, "references", "adapters", "gstack", "review-no-codex.md"));
+  assert.equal(adapter.reference, "adapters/gstack/common-safety.md");
+  assert.equal(adapter.path, path.join(pluginRoot, "references", "adapters", "gstack", "common-safety.md"));
 
   const loose = resolveActiveReference("gstack/office-hours/SKILL.md", state);
   assert.equal(loose.type, "upstream");

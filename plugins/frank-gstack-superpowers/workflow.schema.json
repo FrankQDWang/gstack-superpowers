@@ -39,7 +39,10 @@
             },
             "codex_review_inside_gstack_review": {
               "type": "string",
-              "const": "forbidden_in_v1"
+              "enum": [
+                "forbidden_in_v1",
+                "allowed_when_managed_by_raw_gstack_review"
+              ]
             },
             "allowed_second_opinion": {
               "type": "array",

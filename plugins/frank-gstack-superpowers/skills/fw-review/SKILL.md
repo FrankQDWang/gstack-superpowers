@@ -1,7 +1,7 @@
 ---
 name: fw-review
-description: "Use when implementation is complete and review must use Superpowers plus no-Codex gstack review."
-manifest_hash: sha256:670238578b82406d22b7f8749738a4e392ee72b6e7769e496905912aa02b2a05
+description: "Use when implementation is complete and review must combine Superpowers with raw gstack review."
+manifest_hash: sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87
 generated_from: workflow.manifest.yaml
 ---
 
@@ -15,7 +15,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 - Owner: mixed
 - Role: Gate
 - Primary system: mixed
-- Contract: Run the curated review gate with Superpowers review discipline and the no-native-review adapter.
+- Contract: Run the curated review gate with Superpowers review discipline and raw gstack review.
 
 ## Inputs
 
@@ -29,12 +29,12 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 - superpowers/skills/requesting-code-review/SKILL.md
   - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/requesting-code-review/SKILL.md`
-- superpowers/skills/receiving-code-review/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/receiving-code-review/SKILL.md`
 - adapters/gstack/common-safety.md
   - Read: `references/adapters/gstack/common-safety.md`
-- adapters/gstack/review-no-codex.md
-  - Read: `references/adapters/gstack/review-no-codex.md`
+- gstack/review/SKILL.md
+  - Read active materialization: `references/upstreams/gstack/commits/49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8/review/SKILL.md`
+- superpowers/skills/receiving-code-review/SKILL.md
+  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/receiving-code-review/SKILL.md`
 - adapters/superpowers/review-synthesis.md
   - Read: `references/adapters/superpowers/review-synthesis.md`
 
@@ -51,12 +51,12 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 - codex/native-review
 - codex/review
-- gstack/review/SKILL.md
 
 
 ## Policy Notes
 
 - Common-safety applies to conditional gstack references before raw conditional material is read.
+- Raw gstack review is part of the curated review chain; standalone/native Codex review remains suppressed outside that gstack-managed gate.
 
 ## Execution Rules
 
@@ -77,17 +77,17 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "review",
   "owner": "mixed",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:670238578b82406d22b7f8749738a4e392ee72b6e7769e496905912aa02b2a05",
+  "manifest_hash": "sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87",
   "inputs": [],
   "outputs": [],
   "references_read": [],
   "suppressed_routes": [
     "codex/native-review",
-    "codex/review",
-    "gstack/review/SKILL.md"
+    "codex/review"
   ],
   "policy_notes": [
-    "Common-safety applies to conditional gstack references before raw conditional material is read."
+    "Common-safety applies to conditional gstack references before raw conditional material is read.",
+    "Raw gstack review is part of the curated review chain; standalone/native Codex review remains suppressed outside that gstack-managed gate."
   ],
   "verification": {
     "commands": [],

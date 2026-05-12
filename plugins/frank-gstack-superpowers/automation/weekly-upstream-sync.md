@@ -80,7 +80,7 @@ Run this prompt as the recurring Codex automation for the `frank-gstack-superpow
 - If deterministic evidence cannot be built, stop and mark the run `blocked`.
 - If LLM assessment fails or is unavailable, stop and mark the run `needs-user` or `blocked`; do not fall back to deterministic-only approval.
 - If audit, eval, tests, or diff report fails, keep the PR branch available for review but do not mark the PR mergeable.
-- If upstream content adds native Codex review, deploy, merge, release, canary, credential, telemetry, network, memory, or executable permission behavior, flag it in the report before the PR is considered reviewable.
+- If upstream content adds standalone/native Codex review routes, deploy, merge, release, canary, credential, telemetry, network, memory, or executable permission behavior, flag it in the report before the PR is considered reviewable.
 
 ## Completion Output
 

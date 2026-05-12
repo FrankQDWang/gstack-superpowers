@@ -3,8 +3,9 @@ policy:
   one_execution_owner: true
   native_codex_review:
     standalone_codex_review_owner: forbidden
-    codex_review_inside_gstack_review: forbidden_in_v1
+    codex_review_inside_gstack_review: allowed_when_managed_by_raw_gstack_review
     allowed_second_opinion:
+      - raw-gstack-review
       - gstack-claude
       - curated-readonly-reviewer-subagent
   common_safety:
@@ -30,7 +31,8 @@ policy:
       - push
   default_review_chain:
     - superpowers/skills/requesting-code-review/SKILL.md
-    - adapters/gstack/review-no-codex.md
+    - gstack/review/SKILL.md
+    - superpowers/skills/receiving-code-review/SKILL.md
 
 upstreams:
   gstack:
@@ -101,13 +103,12 @@ upstream_skills:
     source_path: review/SKILL.md
     raw_name: review
     codex_exported_name: gstack-review
-    role: Hidden
+    role: Gate
     visibility:
       exported: false
       reference_available: true
       executable_directly: false
-      adapter_required: true
-    adapter: adapters/gstack/review-no-codex.md
+      adapter_required: false
   gstack_qa_only:
     upstream: gstack
     source_path: qa-only/SKILL.md
@@ -342,14 +343,14 @@ wrappers:
       - gstack/investigate/SKILL.md
     suppress: []
   fw-review:
-    description: Use when implementation is complete and review must use Superpowers plus no-Codex gstack review.
+    description: Use when implementation is complete and review must combine Superpowers with raw gstack review.
     primary: mixed
     role: Gate
     references:
       - superpowers/skills/requesting-code-review/SKILL.md
-      - superpowers/skills/receiving-code-review/SKILL.md
       - adapters/gstack/common-safety.md
-      - adapters/gstack/review-no-codex.md
+      - gstack/review/SKILL.md
+      - superpowers/skills/receiving-code-review/SKILL.md
       - adapters/superpowers/review-synthesis.md
     conditional_references:
       - gstack/qa-only/SKILL.md
@@ -358,7 +359,6 @@ wrappers:
     suppress:
       - codex/native-review
       - codex/review
-      - gstack/review/SKILL.md
   fw-ship-lite:
     description: Use for branch finishing, release documentation, and release-readiness reporting without default deploy actions.
     primary: mixed
