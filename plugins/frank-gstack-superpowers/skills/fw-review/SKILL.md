@@ -1,7 +1,7 @@
 ---
 name: fw-review
 description: "Use when implementation is complete and review must combine Superpowers with raw gstack review."
-manifest_hash: sha256:8ca6f6b7e2228fa56a568272dd938e509f307dd97e40b959ca903bd93bded35a
+manifest_hash: sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495
 generated_from: workflow.manifest.yaml
 ---
 
@@ -77,7 +77,7 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "review",
   "owner": "mixed",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:8ca6f6b7e2228fa56a568272dd938e509f307dd97e40b959ca903bd93bded35a",
+  "manifest_hash": "sha256:c6ef3c75d7e27db06a3841dbbce971371f9709477fca8a8c827d3770260bd495",
   "inputs": [],
   "outputs": [],
   "references_read": [],

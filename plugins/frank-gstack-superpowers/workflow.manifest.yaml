@@ -312,7 +312,7 @@ wrappers:
     suppress:
       - superpowers/brainstorming
   fw-plan:
-    description: Use after gstack direction is confirmed to write a Superpowers-consumable spec and implementation plan.
+    description: Use after office-hours or plan-ceo-review confirms direction to write a Superpowers-consumable spec and implementation plan.
     primary: superpowers
     role: Core
     references:

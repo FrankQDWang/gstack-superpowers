@@ -9,10 +9,12 @@ cases:
     expected_behavior: "Route to intake for product direction and scope challenge before any plan or implementation."
 
   - id: plan-after-direction
-    prompt: "Direction is settled; write the spec and implementation plan with engineering review."
+    prompt: "office-hours and plan-ceo-review are confirmed; write the spec and implementation plan with engineering review."
     expected_wrapper: fw-plan
     prompt_keywords:
       - spec
+      - office-hours
+      - plan-ceo-review
       - implementation plan
       - engineering review
     expected_behavior: "Route to plan; produce a Superpowers-consumable spec plus linked plan and review them before build."

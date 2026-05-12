@@ -127,7 +127,7 @@ function deployPressure(prompt) {
 function wrapperHints(wrapperName) {
   return {
     "fw-intake": ["idea", "demand", "scope", "product", "direction", "intake", "reality"],
-    "fw-plan": ["plan", "planning", "implementation", "engineering", "design", "write"],
+    "fw-plan": ["plan", "planning", "implementation", "engineering", "design", "write", "spec", "office-hours", "plan-ceo-review"],
     "fw-build": ["implement", "approved", "tdd", "verification", "build", "execute"],
     "fw-debug": ["debug", "bug", "failing", "failure", "root", "cause", "unexpected"],
     "fw-review": ["review", "diff", "complete", "gate", "finished", "implementation"],
