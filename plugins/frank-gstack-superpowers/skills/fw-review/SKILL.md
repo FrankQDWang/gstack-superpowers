@@ -32,7 +32,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 - adapters/gstack/common-safety.md
   - Read: `references/adapters/gstack/common-safety.md`
 - gstack/review/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8/review/SKILL.md`
+  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/review/SKILL.md`
 - superpowers/skills/receiving-code-review/SKILL.md
   - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/receiving-code-review/SKILL.md`
 - adapters/superpowers/review-synthesis.md
@@ -41,11 +41,11 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 ## Conditional References
 
 - gstack/qa-only/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8/qa-only/SKILL.md`
+  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/qa-only/SKILL.md`
 - gstack/cso/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8/cso/SKILL.md`
+  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/cso/SKILL.md`
 - gstack/benchmark/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8/benchmark/SKILL.md`
+  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/benchmark/SKILL.md`
 
 ## Suppressed Routes
 
