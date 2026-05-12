@@ -1,7 +1,7 @@
 ---
 name: fw-build
 description: "Use for approved implementation with Superpowers worktrees, TDD, execution plans, subagents, and verification."
-manifest_hash: sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87
+manifest_hash: sha256:8ca6f6b7e2228fa56a568272dd938e509f307dd97e40b959ca903bd93bded35a
 generated_from: workflow.manifest.yaml
 ---
 
@@ -19,7 +19,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Inputs
 
-- Approved implementation plan, repository context, and verification expectations.
+- Approved implementation plan that links to its spec, repository context, and verification expectations.
 
 ## Outputs
 
@@ -52,6 +52,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 ## Policy Notes
 
 - Superpowers subagent-driven instructions define implementation discipline only; Codex host policy controls whether agents can be spawned.
+- fw-build consumes the approved plan and uses its linked spec as the scope-compliance source.
 
 ## Execution Rules
 
@@ -71,13 +72,14 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "build",
   "owner": "superpowers",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87",
+  "manifest_hash": "sha256:8ca6f6b7e2228fa56a568272dd938e509f307dd97e40b959ca903bd93bded35a",
   "inputs": [],
   "outputs": [],
   "references_read": [],
   "suppressed_routes": [],
   "policy_notes": [
-    "Superpowers subagent-driven instructions define implementation discipline only; Codex host policy controls whether agents can be spawned."
+    "Superpowers subagent-driven instructions define implementation discipline only; Codex host policy controls whether agents can be spawned.",
+    "fw-build consumes the approved plan and uses its linked spec as the scope-compliance source."
   ],
   "verification": {
     "commands": [],

@@ -157,14 +157,16 @@ const STAGE_CONTRACTS = Object.freeze({
   "fw-plan": {
     stage: "plan",
     owner: "superpowers",
-    inputs: ["Confirmed direction and enough constraints to plan implementation."],
-    outputs: ["Superpowers-consumable implementation plan plus engineering and design review notes."],
-    contract: "Write and harden the plan. Do not execute implementation.",
+    inputs: ["Confirmed direction, scope boundaries, and enough constraints to write the spec and implementation plan."],
+    outputs: [
+      "Superpowers-consumable spec in docs/superpowers/specs/ plus linked implementation plan in docs/superpowers/plans/, with engineering and design review notes.",
+    ],
+    contract: "Write and harden the spec and implementation plan. Do not execute implementation.",
   },
   "fw-build": {
     stage: "build",
     owner: "superpowers",
-    inputs: ["Approved implementation plan, repository context, and verification expectations."],
+    inputs: ["Approved implementation plan that links to its spec, repository context, and verification expectations."],
     outputs: ["Scoped code changes, tests, verification evidence, and remaining risks."],
     contract: "Execute implementation discipline with worktree, TDD, plan execution, and verification practices.",
   },
@@ -286,6 +288,16 @@ function wrapperPolicyNotes(wrapperName, wrapper, manifest) {
     notes.push(
       "Superpowers subagent-driven instructions define implementation discipline only; Codex host policy controls whether agents can be spawned.",
     );
+  }
+
+  if (wrapperName === "fw-plan") {
+    notes.push(
+      "fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec.",
+    );
+  }
+
+  if (wrapperName === "fw-build") {
+    notes.push("fw-build consumes the approved plan and uses its linked spec as the scope-compliance source.");
   }
 
   if (references.includes("gstack/review/SKILL.md")) {

@@ -30,7 +30,7 @@
 | `plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.json` | Machine-readable LLM judgment about upstream update fit | Generate |
 | `plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.md` | Human-readable LLM recommendation included in sync PR | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-intake/SKILL.md` | Visible wrapper for gstack intake | Generate |
-| `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers planning after gstack approval | Generate |
+| `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers spec and plan creation after gstack approval | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-build/SKILL.md` | Visible wrapper for Superpowers execution | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-debug/SKILL.md` | Visible wrapper for Superpowers debugging and conditional gstack investigation | Generate |
 | `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers review plus raw gstack review | Generate |
@@ -262,7 +262,7 @@ wrappers:
     suppress:
       - superpowers/brainstorming
   fw-plan:
-    description: Use after gstack direction is confirmed to write a Superpowers-consumable implementation plan.
+    description: Use after gstack direction is confirmed to write a Superpowers-consumable spec and implementation plan.
     primary: superpowers
     role: Core
     references:
@@ -374,7 +374,7 @@ Rules:
 - `channel` is either `active` or `candidate`.
 - `gstack/office-hours/SKILL.md` resolves to `references/upstreams/gstack/commits/{active_commit}/office-hours/SKILL.md` when `channel` is `active`.
 - `gstack/office-hours/SKILL.md` resolves to `references/upstreams/gstack/commits/{candidate_commit}/office-hours/SKILL.md` when `channel` is `candidate`.
-- `superpowers/skills/writing-plans/SKILL.md` resolves the same way under the `superpowers` upstream.
+- `superpowers/skills/writing-plans/SKILL.md` resolves the same way under the `superpowers` upstream and is used to produce both the spec and linked implementation plan artifacts.
 - `adapters/gstack/common-safety.md` resolves to `references/adapters/gstack/common-safety.md`.
 - `gstack/review/SKILL.md` resolves to the active materialized raw gstack review file.
 - Empty `active_commit` or `candidate_commit` is a hard error for that channel.
@@ -588,7 +588,7 @@ Include at least:
 cases:
   - prompt: "我有一个想法，但还不确定该不该做"
     expected: fw-intake
-  - prompt: "office-hours 和 plan-ceo-review 已确认，请写成 Superpowers 后续可执行的计划"
+  - prompt: "office-hours 和 plan-ceo-review 已确认，请写成 Superpowers 后续可执行的 spec 和 plan"
     expected: fw-plan
   - prompt: "计划已经批准，开始按 TDD 实现"
     expected: fw-build

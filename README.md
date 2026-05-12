@@ -8,7 +8,7 @@ The plugin exposes a small `fw-*` surface and keeps upstream gstack and
 Superpowers content as pinned reference material:
 
 - `fw-intake`: product discovery, problem framing, and scope challenge.
-- `fw-plan`: reviewed implementation planning and test strategy.
+- `fw-plan`: reviewed Superpowers spec plus linked implementation plan.
 - `fw-build`: worktree, TDD, execution, and verification discipline.
 - `fw-debug`: systematic debugging with root-cause investigation.
 - `fw-review`: Superpowers review discipline plus raw gstack review, with

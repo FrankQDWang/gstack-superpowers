@@ -1,7 +1,7 @@
 ---
 name: fw-plan
-description: "Use after gstack direction is confirmed to write a Superpowers-consumable implementation plan."
-manifest_hash: sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87
+description: "Use after gstack direction is confirmed to write a Superpowers-consumable spec and implementation plan."
+manifest_hash: sha256:8ca6f6b7e2228fa56a568272dd938e509f307dd97e40b959ca903bd93bded35a
 generated_from: workflow.manifest.yaml
 ---
 
@@ -15,15 +15,15 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 - Owner: superpowers
 - Role: Core
 - Primary system: superpowers
-- Contract: Write and harden the plan. Do not execute implementation.
+- Contract: Write and harden the spec and implementation plan. Do not execute implementation.
 
 ## Inputs
 
-- Confirmed direction and enough constraints to plan implementation.
+- Confirmed direction, scope boundaries, and enough constraints to write the spec and implementation plan.
 
 ## Outputs
 
-- Superpowers-consumable implementation plan plus engineering and design review notes.
+- Superpowers-consumable spec in docs/superpowers/specs/ plus linked implementation plan in docs/superpowers/plans/, with engineering and design review notes.
 
 ## Required References
 
@@ -47,7 +47,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 
 ## Policy Notes
 
-- None
+- fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec.
 
 ## Execution Rules
 
@@ -67,12 +67,14 @@ Every run of this wrapper should be able to produce a machine-readable stage art
   "stage": "plan",
   "owner": "superpowers",
   "status": "success|needs-user|blocked|failed",
-  "manifest_hash": "sha256:dc633a36293778877952457ae1a52bd58675bf95abc2cf50f4d75d914e859f87",
+  "manifest_hash": "sha256:8ca6f6b7e2228fa56a568272dd938e509f307dd97e40b959ca903bd93bded35a",
   "inputs": [],
   "outputs": [],
   "references_read": [],
   "suppressed_routes": [],
-  "policy_notes": [],
+  "policy_notes": [
+    "fw-plan must produce or update both docs/superpowers/specs/YYYY-MM-DD-<slug>.md and docs/superpowers/plans/YYYY-MM-DD-<slug>.md; the plan must reference the spec."
+  ],
   "verification": {
     "commands": [],
     "artifacts": []

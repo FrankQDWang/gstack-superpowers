@@ -32,7 +32,7 @@ flowchart TD
   B --> C["gstack plan-ceo-review"]
   C --> D{"User confirms direction and scope"}
   D -- "No" --> B
-  D -- "Yes" --> E["Superpowers writing-plans"]
+  D -- "Yes" --> E["Superpowers spec + writing-plans"]
   E --> F["Superpowers execution"]
   F --> G["Superpowers requesting-code-review"]
   G --> H["raw gstack review"]
@@ -141,7 +141,7 @@ visibility:
 | Wrapper | Purpose | Included upstream skills |
 |---|---|---|
 | `fw-intake` | Clarify idea, demand, user, and scope before planning. | `gstack-office-hours`, `gstack-plan-ceo-review` |
-| `fw-plan` | Convert approved direction into a Superpowers-consumable execution plan. | `superpowers:writing-plans`, `gstack-plan-eng-review`, `gstack-plan-design-review` |
+| `fw-plan` | Convert approved direction into a Superpowers-consumable spec plus linked execution plan. | `superpowers:writing-plans`, `gstack-plan-eng-review`, `gstack-plan-design-review` |
 | `fw-build` | Execute approved plans using Superpowers discipline. | `superpowers:using-git-worktrees`, `superpowers:test-driven-development`, `superpowers:executing-plans`, `superpowers:subagent-driven-development`, `superpowers:verification-before-completion` |
 | `fw-debug` | Investigate bugs with Superpowers first; escalate to gstack only when conditions require it. | `superpowers:systematic-debugging`, `gstack-investigate` |
 | `fw-review` | Run plan-compliance review plus final diff/risk review by combining Superpowers with raw gstack review. | `superpowers:requesting-code-review`, raw `gstack-review`, `superpowers:receiving-code-review`, conditional `gstack-qa-only`, conditional `gstack-cso`, conditional `gstack-benchmark` |
@@ -152,7 +152,7 @@ visibility:
 | Skill | Role | Driver | Notes |
 |---|---|---|---|
 | `brainstorming` | Hidden | gstack | Hidden by default because `office-hours` and `plan-ceo-review` own product discovery. May be used as upstream reference for creative prompts. |
-| `writing-plans` | Core | Superpowers | Main bridge from confirmed gstack direction into executable Superpowers plan docs. |
+| `writing-plans` | Core | Superpowers | Main bridge from confirmed gstack direction into Superpowers spec and executable plan docs. |
 | `using-git-worktrees` | Core | Superpowers | Used at execution time to isolate work when the host environment requires it. |
 | `test-driven-development` | Core | Superpowers | Default implementation discipline for features and bug fixes. |
 | `executing-plans` | Core | Superpowers | Inline execution path for saved plans. |
@@ -431,7 +431,7 @@ The generated `upstream-diff-report.md` must flag supply-chain risk markers befo
 | `scripts/global-surface.mjs` | Global surface manager that hides raw gstack skills, the raw Superpowers plugin manifest, and the raw Superpowers skills directory from active Codex routing, then verifies the real `codex debug prompt-input` skill surface. |
 | `plugins/frank-gstack-superpowers/.codex-plugin/plugin.json` | Codex plugin entrypoint for the curated workflow. |
 | `plugins/frank-gstack-superpowers/skills/fw-intake/SKILL.md` | Visible wrapper for gstack intake. |
-| `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers plan creation after gstack direction approval. |
+| `plugins/frank-gstack-superpowers/skills/fw-plan/SKILL.md` | Visible wrapper for Superpowers spec and plan creation after gstack direction approval. |
 | `plugins/frank-gstack-superpowers/skills/fw-build/SKILL.md` | Visible wrapper for Superpowers execution discipline. |
 | `plugins/frank-gstack-superpowers/skills/fw-debug/SKILL.md` | Visible wrapper for default Superpowers debugging plus conditional gstack escalation. |
 | `plugins/frank-gstack-superpowers/skills/fw-review/SKILL.md` | Visible wrapper for Superpowers plus raw gstack review gates. |
@@ -566,7 +566,7 @@ The first eval set must include these cases:
 | Prompt | Expected wrapper |
 |---|---|
 | "我有一个想法，但还不确定该不该做" | `fw-intake` |
-| "office-hours 和 plan-ceo-review 已确认，请写成 Superpowers 后续可执行的计划" | `fw-plan` |
+| "office-hours 和 plan-ceo-review 已确认，请写成 Superpowers 后续可执行的 spec 和 plan" | `fw-plan` |
 | "计划已经批准，开始按 TDD 实现" | `fw-build` |
 | "这个 bug 复现了，先找根因再修" | `fw-debug` |
 | "实现完成了，请做最终 review，不要用原生 Codex review" | `fw-review` |
