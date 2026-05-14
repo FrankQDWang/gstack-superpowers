@@ -28,11 +28,11 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 ## Required References
 
 - superpowers/skills/systematic-debugging/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/systematic-debugging/SKILL.md`
+  - Read active materialization: `../../references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/systematic-debugging/SKILL.md`
 - adapters/gstack/common-safety.md
-  - Read: `references/adapters/gstack/common-safety.md`
+  - Read: `../../references/adapters/gstack/common-safety.md`
 - gstack/investigate/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/investigate/SKILL.md`
+  - Read active materialization: `../../references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/investigate/SKILL.md`
 
 ## Conditional References
 

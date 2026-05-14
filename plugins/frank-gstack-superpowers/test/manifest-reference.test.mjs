@@ -128,6 +128,27 @@ test("generated office-hours, CEO review, plan, and plan-review wrappers require
   assert.match(planReview, /stop for user confirmation before fw-build/i);
 });
 
+test("generated wrapper read paths resolve from each skill directory", async () => {
+  for (const wrapperName of EXPECTED_WRAPPERS) {
+    const skillPath = path.join(pluginRoot, "skills", wrapperName, "SKILL.md");
+    const source = await fs.readFile(skillPath, "utf8");
+    const readPaths = [...source.matchAll(/^\s+- Read(?: active materialization)?: `([^`]+)`\s*$/gm)].map(
+      (match) => match[1],
+    );
+
+    assert.ok(readPaths.length > 0, `${wrapperName} must declare readable reference paths`);
+    for (const readPath of readPaths) {
+      assert.equal(path.isAbsolute(readPath), false, `${wrapperName} read path must be relative: ${readPath}`);
+      assert.ok(
+        !readPath.startsWith("references/"),
+        `${wrapperName} read path must be skill-relative, not plugin-root-relative: ${readPath}`,
+      );
+      const resolved = path.resolve(path.dirname(skillPath), readPath);
+      await fs.access(resolved);
+    }
+  }
+});
+
 test("manifest records release gate and common safety policy notes", async () => {
   const { manifest } = await loadManifest(pluginRoot);
 

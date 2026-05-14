@@ -296,6 +296,12 @@ function listLines(items) {
   return items.map((item) => `- ${item}`).join("\n");
 }
 
+function pathFromWrapperSkill(pluginRoot, wrapperName, pluginRootRelativePath) {
+  const fromDir = path.join(pluginRoot, "skills", wrapperName);
+  const absolutePath = path.join(pluginRoot, pluginRootRelativePath);
+  return path.relative(fromDir, absolutePath).split(path.sep).join("/");
+}
+
 function wrapperPolicyNotes(wrapperName, wrapper, manifest) {
   const notes = [];
   const references = wrapper.references ?? [];
@@ -379,17 +385,21 @@ async function referenceBlock(wrapperName, wrapper, state) {
       const resolved = await activePathForReference(reference, state);
         if (resolved.type === "adapter") {
         if (resolved.available) {
-          lines.push(`- ${reference}\n  - Read: \`${resolved.path}\``);
+          const readPath = pathFromWrapperSkill(state.pluginRoot, wrapperName, resolved.path);
+          lines.push(`- ${reference}\n  - Read: \`${readPath}\``);
         } else {
-          lines.push(`- ${reference}\n  - Adapter reference missing at \`${resolved.path}\`; block until generated.`);
+          const readPath = pathFromWrapperSkill(state.pluginRoot, wrapperName, resolved.path);
+          lines.push(`- ${reference}\n  - Adapter reference missing at \`${readPath}\`; block until generated.`);
         }
         continue;
       }
         if (resolved.active_commit) {
         if (resolved.available) {
-          lines.push(`- ${reference}\n  - Read active materialization: \`${resolved.path}\``);
+          const readPath = pathFromWrapperSkill(state.pluginRoot, wrapperName, resolved.path);
+          lines.push(`- ${reference}\n  - Read active materialization: \`${readPath}\``);
         } else {
-          lines.push(`- ${reference}\n  - Active materialization missing at \`${resolved.path}\`; block until upstream sync materializes this file.`);
+          const readPath = pathFromWrapperSkill(state.pluginRoot, wrapperName, resolved.path);
+          lines.push(`- ${reference}\n  - Active materialization missing at \`${readPath}\`; block until upstream sync materializes this file.`);
         }
         continue;
       }

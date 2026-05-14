@@ -28,15 +28,15 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 ## Required References
 
 - adapters/superpowers/finish-readiness.md
-  - Read: `references/adapters/superpowers/finish-readiness.md`
+  - Read: `../../references/adapters/superpowers/finish-readiness.md`
 - superpowers/skills/finishing-a-development-branch/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/finishing-a-development-branch/SKILL.md`
+  - Read active materialization: `../../references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/finishing-a-development-branch/SKILL.md`
 - adapters/gstack/common-safety.md
-  - Read: `references/adapters/gstack/common-safety.md`
+  - Read: `../../references/adapters/gstack/common-safety.md`
 - gstack/document-release/SKILL.md
-  - Read active materialization: `references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/document-release/SKILL.md`
+  - Read active materialization: `../../references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/document-release/SKILL.md`
 - adapters/gstack/ship-readiness.md
-  - Read: `references/adapters/gstack/ship-readiness.md`
+  - Read: `../../references/adapters/gstack/ship-readiness.md`
 
 ## Conditional References
 

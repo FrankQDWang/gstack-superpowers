@@ -84,6 +84,10 @@ function parseFrontmatter(source) {
   return values;
 }
 
+function generatedReadPaths(source) {
+  return [...source.matchAll(/^\s+- Read(?: active materialization)?: `([^`]+)`\s*$/gm)].map((match) => match[1]);
+}
+
 async function listDirectories(dirPath) {
   if (!(await pathExists(dirPath))) return [];
   const entries = await fs.readdir(dirPath, { withFileTypes: true });
@@ -257,6 +261,19 @@ async function auditGeneratedSkills(state, manifestHash, errors) {
     for (const requiredText of REQUIRED_STAGE_GATE_TEXT[wrapperName] ?? []) {
       if (!requiredText.test(source)) {
         fail(errors, `${wrapperName} is missing required stage gate text: ${requiredText}`);
+      }
+    }
+    for (const readPath of generatedReadPaths(source)) {
+      if (path.isAbsolute(readPath)) {
+        fail(errors, `${wrapperName} generated read path must be relative: ${readPath}`);
+        continue;
+      }
+      if (readPath.startsWith("references/")) {
+        fail(errors, `${wrapperName} generated read path must be skill-relative, not plugin-root-relative: ${readPath}`);
+      }
+      const resolvedReadPath = path.resolve(path.dirname(skillPath), readPath);
+      if (!(await pathExists(resolvedReadPath))) {
+        fail(errors, `${wrapperName} generated read path does not resolve from skill directory: ${readPath}`);
       }
     }
   }

@@ -28,17 +28,17 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 ## Required References
 
 - superpowers/skills/using-git-worktrees/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/using-git-worktrees/SKILL.md`
+  - Read active materialization: `../../references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/using-git-worktrees/SKILL.md`
 - superpowers/skills/test-driven-development/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/test-driven-development/SKILL.md`
+  - Read active materialization: `../../references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/test-driven-development/SKILL.md`
 - superpowers/skills/executing-plans/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/executing-plans/SKILL.md`
+  - Read active materialization: `../../references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/executing-plans/SKILL.md`
 - adapters/superpowers/orchestration-boundary.md
-  - Read: `references/adapters/superpowers/orchestration-boundary.md`
+  - Read: `../../references/adapters/superpowers/orchestration-boundary.md`
 - superpowers/skills/subagent-driven-development/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/subagent-driven-development/SKILL.md`
+  - Read active materialization: `../../references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/subagent-driven-development/SKILL.md`
 - superpowers/skills/verification-before-completion/SKILL.md
-  - Read active materialization: `references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/verification-before-completion/SKILL.md`
+  - Read active materialization: `../../references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7/skills/verification-before-completion/SKILL.md`
 
 ## Conditional References
 
