@@ -30,6 +30,7 @@ import {
 } from "./lib/run-state.mjs";
 
 const execFileAsync = promisify(execFile);
+const DEFAULT_RESOLVE_RETRY_DELAYS_MS = [500, 1500];
 
 class CliError extends Error {
   constructor(code, message, details = {}, status = RUN_STATUS.FAILED) {
@@ -57,24 +58,189 @@ async function runGit(args, options = {}) {
   }
 }
 
-async function resolveLatestCommit(upstreamName, upstream) {
+function sleep(ms) {
+  if (ms <= 0) return Promise.resolve();
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function commandOutput(error) {
+  return [error?.stderr, error?.stdout, error?.message].filter(Boolean).join("\n");
+}
+
+export function classifyLsRemoteFailure(error) {
+  const output = commandOutput(error);
+  if (
+    /Could not resolve host|Name or service not known|nodename nor servname|Temporary failure in name resolution|getaddrinfo ENOTFOUND/i.test(
+      output,
+    )
+  ) {
+    return {
+      code: ERROR_CODES.UPSTREAM_NETWORK_UNAVAILABLE,
+      reason: "dns_unavailable",
+      status: RUN_STATUS.BLOCKED,
+    };
+  }
+  if (/Network is unreachable|No route to host|Could not connect|Connection timed out|Connection refused/i.test(output)) {
+    return {
+      code: ERROR_CODES.UPSTREAM_NETWORK_UNAVAILABLE,
+      reason: "network_unavailable",
+      status: RUN_STATUS.BLOCKED,
+    };
+  }
+  return {
+    code: ERROR_CODES.GIT_LS_REMOTE_FAILED,
+    reason: "git_ls_remote_failed",
+    status: RUN_STATUS.FAILED,
+  };
+}
+
+function environmentSnapshot() {
+  const proxyKeys = [
+    "HTTP_PROXY",
+    "HTTPS_PROXY",
+    "ALL_PROXY",
+    "NO_PROXY",
+    "http_proxy",
+    "https_proxy",
+    "all_proxy",
+    "no_proxy",
+  ];
+  return {
+    cwd: process.cwd(),
+    codex_ci: process.env.CODEX_CI ?? null,
+    codex_shell: process.env.CODEX_SHELL ?? null,
+    codex_thread_id: process.env.CODEX_THREAD_ID ?? null,
+    bundle_identifier: process.env.__CFBundleIdentifier ?? null,
+    proxy_env: Object.fromEntries(proxyKeys.map((key) => [key, process.env[key] ? "set" : "unset"])),
+  };
+}
+
+async function resolveLatestCommit(upstreamName, upstream, options = {}) {
   const safeUpstreamName = assertSafeUpstreamName(upstreamName);
-  try {
-    const { stdout } = await runGit(["ls-remote", upstream.repo, `refs/heads/${upstream.branch}`]);
-    const line = stdout.trim().split(/\r?\n/).find(Boolean);
-    const commit = line?.split(/\s+/)[0] ?? null;
-    if (!commit || !/^[0-9a-f]{40}$/i.test(commit)) {
-      throw new Error(`Unexpected ls-remote output for ${upstreamName}`);
+  const git = options.git ?? runGit;
+  const retryDelaysMs = options.retryDelaysMs ?? DEFAULT_RESOLVE_RETRY_DELAYS_MS;
+  const attempts = [];
+
+  for (let attempt = 1; attempt <= retryDelaysMs.length + 1; attempt += 1) {
+    const startedAt = new Date().toISOString();
+    try {
+      const { stdout } = await git(["ls-remote", upstream.repo, `refs/heads/${upstream.branch}`]);
+      const line = stdout.trim().split(/\r?\n/).find(Boolean);
+      const commit = line?.split(/\s+/)[0] ?? null;
+      if (!commit || !/^[0-9a-f]{40}$/i.test(commit)) {
+        throw new Error(`Unexpected ls-remote output for ${upstreamName}`);
+      }
+      attempts.push({
+        attempt,
+        started_at: startedAt,
+        status: "success",
+      });
+      return { commit, attempts };
+    } catch (error) {
+      const classification = classifyLsRemoteFailure(error);
+      attempts.push({
+        attempt,
+        started_at: startedAt,
+        status: "failed",
+        reason: classification.reason,
+        stderr: error.stderr ? String(error.stderr).slice(0, 2000) : null,
+        message: error.message ? String(error.message).slice(0, 1000) : null,
+      });
+
+      if (attempt <= retryDelaysMs.length && classification.code === ERROR_CODES.UPSTREAM_NETWORK_UNAVAILABLE) {
+        await sleep(retryDelaysMs[attempt - 1]);
+        continue;
+      }
+
+      throw new CliError(classification.code, `Could not resolve ${safeUpstreamName}`, {
+        upstream: safeUpstreamName,
+        repo: upstream.repo,
+        branch: upstream.branch,
+        reason: classification.reason,
+        attempts,
+        environment: environmentSnapshot(),
+        stderr: error.stderr ?? error.message,
+      }, classification.status);
     }
-    return commit;
-  } catch (error) {
-    throw new CliError(ERROR_CODES.GIT_LS_REMOTE_FAILED, `Could not resolve ${safeUpstreamName}`, {
+  }
+
+  throw new CliError(ERROR_CODES.GIT_LS_REMOTE_FAILED, `Could not resolve ${safeUpstreamName}`, {
+    upstream: safeUpstreamName,
+    repo: upstream.repo,
+    branch: upstream.branch,
+    attempts,
+    environment: environmentSnapshot(),
+  });
+}
+
+export async function preflightUpstreamResolution(upstreams, options = {}) {
+  const results = {};
+  const failures = [];
+
+  for (const [upstreamName, upstream] of Object.entries(upstreams ?? {})) {
+    const safeUpstreamName = assertSafeUpstreamName(upstreamName);
+    try {
+      const resolved = await resolveLatestCommit(safeUpstreamName, upstream, options);
+      results[safeUpstreamName] = {
+        repo: upstream.repo,
+        branch: upstream.branch,
+        commit: resolved.commit,
+        status: "success",
+        attempts: resolved.attempts,
+      };
+    } catch (error) {
+      const details = error.details ?? {};
+      results[safeUpstreamName] = {
+        repo: upstream.repo,
+        branch: upstream.branch,
+        commit: null,
+        status: "failed",
+        error_code: error.code ?? ERROR_CODES.UNKNOWN,
+        reason: details.reason ?? "unknown",
+        attempts: details.attempts ?? [],
+        stderr: details.stderr ?? error.message,
+      };
+      failures.push({
+        upstream: safeUpstreamName,
+        error_code: error.code ?? ERROR_CODES.UNKNOWN,
+        reason: details.reason ?? "unknown",
+      });
+    }
+  }
+
+  const blocked = failures.some((failure) => failure.error_code === ERROR_CODES.UPSTREAM_NETWORK_UNAVAILABLE);
+  return {
+    status: failures.length === 0 ? "success" : blocked ? RUN_STATUS.BLOCKED : RUN_STATUS.FAILED,
+    checked_at: new Date().toISOString(),
+    environment: environmentSnapshot(),
+    upstreams: results,
+    failures,
+  };
+}
+
+function assertPreflightSucceeded(preflight) {
+  if (preflight.status === "success") return;
+  const blocked = preflight.status === RUN_STATUS.BLOCKED;
+  throw new CliError(
+    blocked ? ERROR_CODES.UPSTREAM_NETWORK_UNAVAILABLE : ERROR_CODES.GIT_LS_REMOTE_FAILED,
+    blocked ? "Upstream network preflight failed" : "Upstream resolve preflight failed",
+    { preflight },
+    blocked ? RUN_STATUS.BLOCKED : RUN_STATUS.FAILED,
+  );
+}
+
+function commitFromPreflight(preflight, upstreamName) {
+  const safeUpstreamName = assertSafeUpstreamName(upstreamName);
+  const commit = preflight.upstreams?.[safeUpstreamName]?.commit ?? null;
+  if (!commit) {
+    throw new CliError(ERROR_CODES.GIT_LS_REMOTE_FAILED, `Preflight did not resolve ${safeUpstreamName}`, {
       upstream: safeUpstreamName,
-      repo: upstream.repo,
-      branch: upstream.branch,
-      stderr: error.stderr ?? error.message,
+      preflight,
     });
   }
+  return commit;
 }
 
 async function materializeCandidate({ pluginRoot, manifest, upstreamName, upstream, commit }) {
@@ -163,10 +329,12 @@ export async function syncCandidates() {
   const state = await loadProjectState(DEFAULT_PLUGIN_ROOT);
   const checkedAt = new Date().toISOString();
   const materialized = [];
+  const preflight = await preflightUpstreamResolution(state.manifest.upstreams);
+  assertPreflightSucceeded(preflight);
 
   for (const [upstreamName, upstream] of Object.entries(state.manifest.upstreams ?? {})) {
     const safeUpstreamName = assertSafeUpstreamName(upstreamName);
-    const commit = await resolveLatestCommit(safeUpstreamName, upstream);
+    const commit = commitFromPreflight(preflight, safeUpstreamName);
     materialized.push(
       await materializeCandidate({
         pluginRoot: state.pluginRoot,
@@ -188,6 +356,7 @@ export async function syncCandidates() {
   const invalidatedAssessmentArtifacts = await invalidateAssessmentArtifacts(state.pluginRoot);
   return {
     checked_at: checkedAt,
+    preflight,
     materialized,
     assessment_invalidated: invalidatedAssessmentArtifacts.length > 0,
     invalidated_assessment_artifacts: invalidatedAssessmentArtifacts,

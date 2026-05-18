@@ -155,6 +155,25 @@ npm run eval:routing
 The intended recurring workflow is documented in
 `plugins/frank-gstack-superpowers/automation/weekly-upstream-sync.md`.
 
+The networked weekly runner is installed as a macOS LaunchAgent, not as a Codex
+App cron automation. Codex App automation sessions can be network-restricted,
+while this workflow must call GitHub during candidate upstream resolution. The
+local runner keeps Codex as the review and collaboration surface while moving
+the networked execution into the user's normal macOS environment.
+
+Run or inspect the local runner:
+
+```bash
+scripts/weekly-upstream-sync-runner.sh
+launchctl print gui/$(id -u)/com.frankqdwang.weekly-curated-workflow-upstream-sync
+```
+
+The runner writes logs and summaries to:
+
+```text
+~/.codex/automations/weekly-curated-workflow-upstream-sync/
+```
+
 The weekly automation should:
 
 1. materialize candidate upstream commits,
