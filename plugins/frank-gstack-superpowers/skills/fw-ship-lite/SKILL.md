@@ -34,7 +34,7 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 - adapters/gstack/common-safety.md
   - Read: `../../references/adapters/gstack/common-safety.md`
 - gstack/document-release/SKILL.md
-  - Read active materialization: `../../references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/document-release/SKILL.md`
+  - Read active materialization: `../../references/upstreams/gstack/commits/026751ea2012ec7cbedc149ba615929a20026501/document-release/SKILL.md`
 - adapters/gstack/ship-readiness.md
   - Read: `../../references/adapters/gstack/ship-readiness.md`
 
