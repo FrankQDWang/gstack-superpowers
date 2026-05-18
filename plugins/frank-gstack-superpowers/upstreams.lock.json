@@ -4,16 +4,16 @@
     "gstack": {
       "repo": "https://github.com/garrytan/gstack.git",
       "branch": "main",
-      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "active_commit": "026751ea2012ec7cbedc149ba615929a20026501",
       "candidate_commit": null,
-      "last_checked_at": "2026-05-12T01:47:01.529Z"
+      "last_checked_at": "2026-05-18T05:48:36.006Z"
     },
     "superpowers": {
       "repo": "https://github.com/obra/superpowers.git",
       "branch": "main",
       "active_commit": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7",
       "candidate_commit": null,
-      "last_checked_at": "2026-05-12T01:47:01.529Z"
+      "last_checked_at": "2026-05-18T05:48:36.006Z"
     }
   }
 }

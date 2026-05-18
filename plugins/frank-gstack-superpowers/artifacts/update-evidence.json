@@ -1,23 +1,36 @@
 {
-  "generated_at": "2026-05-12T01:47:44.295Z",
+  "generated_at": "2026-05-18T05:49:14.199Z",
   "plugin_root": "plugins/frank-gstack-superpowers",
   "commits": {
     "gstack": {
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "last_checked_at": "2026-05-12T01:47:01.529Z"
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "last_checked_at": "2026-05-18T05:48:36.006Z"
     },
     "superpowers": {
       "active_commit": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7",
       "candidate_commit": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7",
-      "last_checked_at": "2026-05-12T01:47:01.529Z"
+      "last_checked_at": "2026-05-18T05:48:36.006Z"
     }
   },
   "candidate_commits": {
-    "gstack": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+    "gstack": "026751ea2012ec7cbedc149ba615929a20026501",
     "superpowers": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7"
   },
   "changed_allowlisted_files": [
+    {
+      "upstream": "gstack",
+      "source_path": "benchmark/SKILL.md",
+      "skill_id": "gstack_benchmark",
+      "role": "Conditional",
+      "adapter_required": false,
+      "adapter": null,
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "e7a998bfb23afbeb853cfd2e0988ef7a241daa2d1017d23173baca4d16b36721",
+      "candidate_sha256": "267722ff99790427bf5b790c8d0961af25ac947b749d5771f57a22edd6c04b33",
+      "change_type": "modified"
+    },
     {
       "upstream": "gstack",
       "source_path": "canary/SKILL.md",
@@ -25,10 +38,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "65e10a89e190497daf523cef010111ff0814fe496b47a86436d510ad894455f5",
-      "candidate_sha256": "416fa950bb455874ebe8c0de529f0b79166b68c0cdff82a7241351ad9c2eeb3d",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "416fa950bb455874ebe8c0de529f0b79166b68c0cdff82a7241351ad9c2eeb3d",
+      "candidate_sha256": "ad2a636d96caa924115a90fac99ba8dd03ac0e069ab157840d39e29e39345e40",
       "change_type": "modified"
     },
     {
@@ -38,10 +51,10 @@
       "role": "Conditional",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "c54d16715eb2305963f53240c5e5c8b5872032b5c480f07f5fe32c9b968c5204",
-      "candidate_sha256": "5780f6afea4bcad6c143124d606014951a6745df0c06a7c2922a8a98d430c67b",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "5780f6afea4bcad6c143124d606014951a6745df0c06a7c2922a8a98d430c67b",
+      "candidate_sha256": "5fd8856cf054239846333ffe3258c05c2803d11d97e4a9c09051d7dff8c9c144",
       "change_type": "modified"
     },
     {
@@ -51,10 +64,10 @@
       "role": "Conditional",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "654f85afb6a3225eadf2d335b321e0f559a51684c6fbda2bd29e45ec74103604",
-      "candidate_sha256": "886150621e0d02efe4474c8589de9711e8b05880c9cdbc383e75481a79522c5d",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "886150621e0d02efe4474c8589de9711e8b05880c9cdbc383e75481a79522c5d",
+      "candidate_sha256": "7d9a9faa16b14bc4c7515857f271bbdb471521438828b93cb47ef19d99d6e376",
       "change_type": "modified"
     },
     {
@@ -64,10 +77,10 @@
       "role": "Conditional",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "cc514c82f64ba5bb0a631156036e5f643456bf1d33c9bd8d27858b93db425c11",
-      "candidate_sha256": "3937dfffaffaba3ce0e9b8f91ddc6390944cc2cdfb635c34628e65a00f8cea1b",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "3937dfffaffaba3ce0e9b8f91ddc6390944cc2cdfb635c34628e65a00f8cea1b",
+      "candidate_sha256": "59ce8805e9b4dd3e70da1380b628c8768da57aaa7e328569a86b35277d513b6e",
       "change_type": "modified"
     },
     {
@@ -77,10 +90,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "9c7ee01b2a98bc32f26e8c698b8966ad855e59a55c336064b07a5552a5753800",
-      "candidate_sha256": "df4860eb9b87b9d2b1d549a41bce6cb80032093641155a3f28c15fcbaf41f1c1",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "df4860eb9b87b9d2b1d549a41bce6cb80032093641155a3f28c15fcbaf41f1c1",
+      "candidate_sha256": "f1f587376f73665b6778c3576aa3836b1714207a22537546cb7c0567aca1cd72",
       "change_type": "modified"
     },
     {
@@ -90,10 +103,10 @@
       "role": "Core",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "7d40eca0791de97529ac65ce5b5cf1b83a9ac670e2830f7560b3fe17e74b9927",
-      "candidate_sha256": "33cb9b9f35c9191ae4d57302680efb55ebf70d4b12b4a677bec43ac8ee3da4d4",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "33cb9b9f35c9191ae4d57302680efb55ebf70d4b12b4a677bec43ac8ee3da4d4",
+      "candidate_sha256": "9599400bdaba60021fd5be68e9f3ce81e0aaeef71e17726c7c86e53e8a2fad59",
       "change_type": "modified"
     },
     {
@@ -103,10 +116,10 @@
       "role": "Core",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "c3b11640d614c0c8191d8d5538fa3f1b7a7571dd3590b1117a108661bd0ddd3b",
-      "candidate_sha256": "97c269516322b9fb669e6b114923fbdd37518d41788d9ec70484dd35ada698b6",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "97c269516322b9fb669e6b114923fbdd37518d41788d9ec70484dd35ada698b6",
+      "candidate_sha256": "bb383e59855c7c76df886e3617a00879c32435777c08bbc9eee491e412f87bda",
       "change_type": "modified"
     },
     {
@@ -116,10 +129,10 @@
       "role": "Gate",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "8fb1ec78f7777e31b607b7895156522b0181e58ce12fd13421b642926fbf3075",
-      "candidate_sha256": "5c6a14d3798f2bd9b8e465ef0b007e55e34cbeb9d8028c92e859cb4e99f742d7",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "5c6a14d3798f2bd9b8e465ef0b007e55e34cbeb9d8028c92e859cb4e99f742d7",
+      "candidate_sha256": "abde1a5b0efbaa4d56ae96c8ed2ff05898b59edc8d1ade45d2d19265dd0c2200",
       "change_type": "modified"
     },
     {
@@ -129,10 +142,10 @@
       "role": "Gate",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "692dee73658dfdbbd85858977240a68d7b61ad76111a769f0a1f4c7579060f7d",
-      "candidate_sha256": "9feb9630cd8a8ae7e099179412bbcc70cc4cd96ddf0c39bb54b18db7e1d8085a",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "9feb9630cd8a8ae7e099179412bbcc70cc4cd96ddf0c39bb54b18db7e1d8085a",
+      "candidate_sha256": "ebffd2ee990626a73c98dd00e339becf465331a1e6a6d68a58ad91fc47674939",
       "change_type": "modified"
     },
     {
@@ -142,10 +155,10 @@
       "role": "Conditional",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "f09690f1e3730df132aca315c54ac595e4acce4a965f1f53c2aff9c6e24e82d3",
-      "candidate_sha256": "331bf78e6313dd308ac32bff0d92adc72035bde1076783b3f6efc40b8aeb8e6f",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "331bf78e6313dd308ac32bff0d92adc72035bde1076783b3f6efc40b8aeb8e6f",
+      "candidate_sha256": "a1637d59947319d0dce56b490f9402d46899dd8d4d5b0ecf763a1cdbf9275837",
       "change_type": "modified"
     },
     {
@@ -155,10 +168,10 @@
       "role": "Gate",
       "adapter_required": false,
       "adapter": null,
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "46585cddaaab124fd84ac4aa072f1f684054e81086a1ceddbdedf8fd3428580e",
-      "candidate_sha256": "095139ffb4bea38088085f56b1b70dddacb485564b49a4d51bcceb67a0a4779f",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "095139ffb4bea38088085f56b1b70dddacb485564b49a4d51bcceb67a0a4779f",
+      "candidate_sha256": "02bbe1aba19421162ac0de7f01556d24495d94814279c3f919099b80e773f329",
       "change_type": "modified"
     },
     {
@@ -168,10 +181,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "ae5b0564ac065704b8af9332810a697711f63ed9be3522e2f7dde72e38446c35",
-      "candidate_sha256": "31497a772d9f8bf87cba2768c076ec9f661d1f6eafbc19466a21834796135464",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "31497a772d9f8bf87cba2768c076ec9f661d1f6eafbc19466a21834796135464",
+      "candidate_sha256": "c65c61b535fa6865384c70f03ddc7dce68d04b0b20ffce33e9cacba26cd17c15",
       "change_type": "modified"
     }
   ],
@@ -184,10 +197,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "65e10a89e190497daf523cef010111ff0814fe496b47a86436d510ad894455f5",
-      "candidate_sha256": "416fa950bb455874ebe8c0de529f0b79166b68c0cdff82a7241351ad9c2eeb3d",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "416fa950bb455874ebe8c0de529f0b79166b68c0cdff82a7241351ad9c2eeb3d",
+      "candidate_sha256": "ad2a636d96caa924115a90fac99ba8dd03ac0e069ab157840d39e29e39345e40",
       "change_type": "modified"
     },
     {
@@ -197,10 +210,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "9c7ee01b2a98bc32f26e8c698b8966ad855e59a55c336064b07a5552a5753800",
-      "candidate_sha256": "df4860eb9b87b9d2b1d549a41bce6cb80032093641155a3f28c15fcbaf41f1c1",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "df4860eb9b87b9d2b1d549a41bce6cb80032093641155a3f28c15fcbaf41f1c1",
+      "candidate_sha256": "f1f587376f73665b6778c3576aa3836b1714207a22537546cb7c0567aca1cd72",
       "change_type": "modified"
     },
     {
@@ -210,10 +223,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "ae5b0564ac065704b8af9332810a697711f63ed9be3522e2f7dde72e38446c35",
-      "candidate_sha256": "31497a772d9f8bf87cba2768c076ec9f661d1f6eafbc19466a21834796135464",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "31497a772d9f8bf87cba2768c076ec9f661d1f6eafbc19466a21834796135464",
+      "candidate_sha256": "c65c61b535fa6865384c70f03ddc7dce68d04b0b20ffce33e9cacba26cd17c15",
       "change_type": "modified"
     }
   ],
@@ -225,10 +238,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "65e10a89e190497daf523cef010111ff0814fe496b47a86436d510ad894455f5",
-      "candidate_sha256": "416fa950bb455874ebe8c0de529f0b79166b68c0cdff82a7241351ad9c2eeb3d",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "416fa950bb455874ebe8c0de529f0b79166b68c0cdff82a7241351ad9c2eeb3d",
+      "candidate_sha256": "ad2a636d96caa924115a90fac99ba8dd03ac0e069ab157840d39e29e39345e40",
       "change_type": "modified"
     },
     {
@@ -238,10 +251,10 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "9c7ee01b2a98bc32f26e8c698b8966ad855e59a55c336064b07a5552a5753800",
-      "candidate_sha256": "df4860eb9b87b9d2b1d549a41bce6cb80032093641155a3f28c15fcbaf41f1c1",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "df4860eb9b87b9d2b1d549a41bce6cb80032093641155a3f28c15fcbaf41f1c1",
+      "candidate_sha256": "f1f587376f73665b6778c3576aa3836b1714207a22537546cb7c0567aca1cd72",
       "change_type": "modified"
     },
     {
@@ -251,685 +264,466 @@
       "role": "Upstream-only",
       "adapter_required": true,
       "adapter": "adapters/gstack/ship-readiness.md",
-      "active_commit": "49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "active_sha256": "ae5b0564ac065704b8af9332810a697711f63ed9be3522e2f7dde72e38446c35",
-      "candidate_sha256": "31497a772d9f8bf87cba2768c076ec9f661d1f6eafbc19466a21834796135464",
+      "active_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "active_sha256": "31497a772d9f8bf87cba2768c076ec9f661d1f6eafbc19466a21834796135464",
+      "candidate_sha256": "c65c61b535fa6865384c70f03ddc7dce68d04b0b20ffce33e9cacba26cd17c15",
       "change_type": "modified"
     }
   ],
-  "risk_markers": [],
+  "risk_markers": [
+    {
+      "upstream": "gstack",
+      "source_path": "benchmark/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 478,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "canary/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 743,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "cso/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 748,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "document-release/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 747,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "document-release/SKILL.md",
+      "marker": "deploy_release_canary",
+      "severity": "risk",
+      "line": 1122,
+      "excerpt": "\"README.md: added /document-release to skills table, updated skill count from 9 to 10\")."
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "investigate/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 784,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "land-and-deploy/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 760,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "office-hours/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 798,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "plan-ceo-review/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 792,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "plan-design-review/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 765,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "plan-eng-review/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 767,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "qa-only/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 762,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "review/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 765,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "ship/SKILL.md",
+      "marker": "native_codex_review",
+      "severity": "risk",
+      "line": 766,
+      "excerpt": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "ship/SKILL.md",
+      "marker": "deploy_release_canary",
+      "severity": "risk",
+      "line": 1825,
+      "excerpt": "~/.claude/skills/gstack/bin/gstack-learnings-search --limit 10 --query \"release ship version changelog merge pr\" --cross-project 2>/dev/null || true"
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "ship/SKILL.md",
+      "marker": "deploy_release_canary",
+      "severity": "risk",
+      "line": 1827,
+      "excerpt": "~/.claude/skills/gstack/bin/gstack-learnings-search --limit 10 --query \"release ship version changelog merge pr\" 2>/dev/null || true"
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "ship/SKILL.md",
+      "marker": "deploy_release_canary",
+      "severity": "risk",
+      "line": 2462,
+      "excerpt": "The top-of-skill learnings pull was keyed to \"release ship\" broadly. Before the VERSION/CHANGELOG step, re-pull learnings keyed to THIS branch's headline feature so any prior versi"
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "ship/SKILL.md",
+      "marker": "credentials",
+      "severity": "risk",
+      "line": 2466,
+      "excerpt": "Worked examples (ship-specific): good keywords are `learnings-search`, `pacing`, `worktree-ship`. Bad: `the branch headline`, `v1.31.1.0`, `feat: token-or search`."
+    }
+  ],
   "policy_violations": [],
   "source_excerpts": [
     {
       "upstream": "gstack",
-      "source_path": "canary/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "source_path": "benchmark/SKILL.md",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 477,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: canary"
+          "line": 478,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 2"
+          "line": 479,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "upstream": "gstack",
+      "source_path": "canary/SKILL.md",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
+      "lines": [
+        {
+          "line": 742,
+          "text": ""
         },
         {
-          "line": 4,
-          "text": "version: 1.0.0"
+          "line": 743,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 5,
-          "text": "description: |"
-        },
-        {
-          "line": 6,
-          "text": "  Post-deploy canary monitoring. Watches the live app for console errors,"
-        },
-        {
-          "line": 7,
-          "text": "  performance regressions, and page failures using the browse daemon. Takes"
-        },
-        {
-          "line": 8,
-          "text": "  periodic screenshots, compares against pre-deploy baselines, and alerts"
-        },
-        {
-          "line": 9,
-          "text": "  on anomalies. Use when: \"monitor deploy\", \"canary\", \"post-deploy check\","
-        },
-        {
-          "line": 10,
-          "text": "  \"watch production\", \"verify deploy\". (gstack)"
-        },
-        {
-          "line": 11,
-          "text": "allowed-tools:"
-        },
-        {
-          "line": 12,
-          "text": "  - Bash"
+          "line": 744,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "cso/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 747,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: cso"
+          "line": 748,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 2"
-        },
-        {
-          "line": 4,
-          "text": "version: 2.0.0"
-        },
-        {
-          "line": 5,
-          "text": "description: |"
-        },
-        {
-          "line": 6,
-          "text": "  Chief Security Officer mode. Infrastructure-first security audit: secrets archaeology,"
-        },
-        {
-          "line": 7,
-          "text": "  dependency supply chain, CI/CD pipeline security, LLM/AI security, skill supply chain"
-        },
-        {
-          "line": 8,
-          "text": "  scanning, plus OWASP Top 10, STRIDE threat modeling, and active verification."
-        },
-        {
-          "line": 9,
-          "text": "  Two modes: daily (zero-noise, 8/10 confidence gate) and comprehensive (monthly deep"
-        },
-        {
-          "line": 10,
-          "text": "  scan, 2/10 bar). Trend tracking across audit runs."
-        },
-        {
-          "line": 11,
-          "text": "  Use when: \"security audit\", \"threat model\", \"pentest review\", \"OWASP\", \"CSO review\". (gstack)"
-        },
-        {
-          "line": 12,
-          "text": "  Voice triggers (speech-to-text aliases): \"see-so\", \"see so\", \"security review\", \"security check\", \"vulnerability scan\", \"run security\"."
+          "line": 749,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "document-release/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 746,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: document-release"
+          "line": 747,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 2"
+          "line": 748,
+          "text": ""
         },
         {
-          "line": 4,
-          "text": "version: 1.0.0"
+          "line": 1121,
+          "text": "   a. **Doc diff preview** — for each file modified, describe what specifically changed (e.g.,"
         },
         {
-          "line": 5,
-          "text": "description: |"
+          "line": 1122,
+          "text": "      \"README.md: added /document-release to skills table, updated skill count from 9 to 10\")."
         },
         {
-          "line": 6,
-          "text": "  Post-ship documentation update. Reads all project docs, cross-references the"
-        },
-        {
-          "line": 7,
-          "text": "  diff, updates README/ARCHITECTURE/CONTRIBUTING/CLAUDE.md to match what shipped,"
-        },
-        {
-          "line": 8,
-          "text": "  polishes CHANGELOG voice, cleans up TODOS, and optionally bumps VERSION. Use when"
-        },
-        {
-          "line": 9,
-          "text": "  asked to \"update the docs\", \"sync documentation\", or \"post-ship docs\"."
-        },
-        {
-          "line": 10,
-          "text": "  Proactively suggest after a PR is merged or code is shipped. (gstack)"
-        },
-        {
-          "line": 11,
-          "text": "allowed-tools:"
-        },
-        {
-          "line": 12,
-          "text": "  - Bash"
+          "line": 1123,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "investigate/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 783,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: investigate"
+          "line": 784,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 2"
-        },
-        {
-          "line": 4,
-          "text": "version: 1.0.0"
-        },
-        {
-          "line": 5,
-          "text": "description: |"
-        },
-        {
-          "line": 6,
-          "text": "  Systematic debugging with root cause investigation. Four phases: investigate,"
-        },
-        {
-          "line": 7,
-          "text": "  analyze, hypothesize, implement. Iron Law: no fixes without root cause."
-        },
-        {
-          "line": 8,
-          "text": "  Use when asked to \"debug this\", \"fix this bug\", \"why is this broken\","
-        },
-        {
-          "line": 9,
-          "text": "  \"investigate this error\", or \"root cause analysis\"."
-        },
-        {
-          "line": 10,
-          "text": "  Proactively invoke this skill (do NOT debug directly) when the user reports"
-        },
-        {
-          "line": 11,
-          "text": "  errors, 500 errors, stack traces, unexpected behavior, \"it was working"
-        },
-        {
-          "line": 12,
-          "text": "  yesterday\", or is troubleshooting why something stopped working. (gstack)"
+          "line": 785,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "land-and-deploy/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 759,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: land-and-deploy"
+          "line": 760,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 4"
-        },
-        {
-          "line": 4,
-          "text": "version: 1.0.0"
-        },
-        {
-          "line": 5,
-          "text": "description: |"
-        },
-        {
-          "line": 6,
-          "text": "  Land and deploy workflow. Merges the PR, waits for CI and deploy,"
-        },
-        {
-          "line": 7,
-          "text": "  verifies production health via canary checks. Takes over after /ship"
-        },
-        {
-          "line": 8,
-          "text": "  creates the PR. Use when: \"merge\", \"land\", \"deploy\", \"merge and verify\","
-        },
-        {
-          "line": 9,
-          "text": "  \"land it\", \"ship it to production\". (gstack)"
-        },
-        {
-          "line": 10,
-          "text": "allowed-tools:"
-        },
-        {
-          "line": 11,
-          "text": "  - Bash"
-        },
-        {
-          "line": 12,
-          "text": "  - Read"
+          "line": 761,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "office-hours/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 797,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: office-hours"
+          "line": 798,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 3"
-        },
-        {
-          "line": 4,
-          "text": "version: 2.0.0"
-        },
-        {
-          "line": 5,
-          "text": "description: |"
-        },
-        {
-          "line": 6,
-          "text": "  YC Office Hours — two modes. Startup mode: six forcing questions that expose"
-        },
-        {
-          "line": 7,
-          "text": "  demand reality, status quo, desperate specificity, narrowest wedge, observation,"
-        },
-        {
-          "line": 8,
-          "text": "  and future-fit. Builder mode: design thinking brainstorming for side projects,"
-        },
-        {
-          "line": 9,
-          "text": "  hackathons, learning, and open source. Saves a design doc."
-        },
-        {
-          "line": 10,
-          "text": "  Use when asked to \"brainstorm this\", \"I have an idea\", \"help me think through"
-        },
-        {
-          "line": 11,
-          "text": "  this\", \"office hours\", or \"is this worth building\"."
-        },
-        {
-          "line": 12,
-          "text": "  Proactively invoke this skill (do NOT answer directly) when the user describes"
+          "line": 799,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "plan-ceo-review/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 791,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: plan-ceo-review"
+          "line": 792,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 3"
-        },
-        {
-          "line": 4,
-          "text": "interactive: true"
-        },
-        {
-          "line": 5,
-          "text": "version: 1.0.0"
-        },
-        {
-          "line": 6,
-          "text": "description: |"
-        },
-        {
-          "line": 7,
-          "text": "  CEO/founder-mode plan review. Rethink the problem, find the 10-star product,"
-        },
-        {
-          "line": 8,
-          "text": "  challenge premises, expand scope when it creates a better product. Four modes:"
-        },
-        {
-          "line": 9,
-          "text": "  SCOPE EXPANSION (dream big), SELECTIVE EXPANSION (hold scope + cherry-pick"
-        },
-        {
-          "line": 10,
-          "text": "  expansions), HOLD SCOPE (maximum rigor), SCOPE REDUCTION (strip to essentials)."
-        },
-        {
-          "line": 11,
-          "text": "  Use when asked to \"think bigger\", \"expand scope\", \"strategy review\", \"rethink this\","
-        },
-        {
-          "line": 12,
-          "text": "  or \"is this ambitious enough\"."
+          "line": 793,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "plan-design-review/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 764,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: plan-design-review"
+          "line": 765,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 3"
-        },
-        {
-          "line": 4,
-          "text": "interactive: true"
-        },
-        {
-          "line": 5,
-          "text": "version: 2.0.0"
-        },
-        {
-          "line": 6,
-          "text": "description: |"
-        },
-        {
-          "line": 7,
-          "text": "  Designer's eye plan review — interactive, like CEO and Eng review."
-        },
-        {
-          "line": 8,
-          "text": "  Rates each design dimension 0-10, explains what would make it a 10,"
-        },
-        {
-          "line": 9,
-          "text": "  then fixes the plan to get there. Works in plan mode. For live site"
-        },
-        {
-          "line": 10,
-          "text": "  visual audits, use /design-review. Use when asked to \"review the design plan\""
-        },
-        {
-          "line": 11,
-          "text": "  or \"design critique\"."
-        },
-        {
-          "line": 12,
-          "text": "  Proactively suggest when the user has a plan with UI/UX components that"
+          "line": 766,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "plan-eng-review/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 766,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: plan-eng-review"
+          "line": 767,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 3"
-        },
-        {
-          "line": 4,
-          "text": "interactive: true"
-        },
-        {
-          "line": 5,
-          "text": "version: 1.0.0"
-        },
-        {
-          "line": 6,
-          "text": "description: |"
-        },
-        {
-          "line": 7,
-          "text": "  Eng manager-mode plan review. Lock in the execution plan — architecture,"
-        },
-        {
-          "line": 8,
-          "text": "  data flow, diagrams, edge cases, test coverage, performance. Walks through"
-        },
-        {
-          "line": 9,
-          "text": "  issues interactively with opinionated recommendations. Use when asked to"
-        },
-        {
-          "line": 10,
-          "text": "  \"review the architecture\", \"engineering review\", or \"lock in the plan\"."
-        },
-        {
-          "line": 11,
-          "text": "  Proactively suggest when the user has a plan or design doc and is about to"
-        },
-        {
-          "line": 12,
-          "text": "  start coding — to catch architecture issues before implementation. (gstack)"
+          "line": 768,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "qa-only/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 761,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: qa-only"
+          "line": 762,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 4"
-        },
-        {
-          "line": 4,
-          "text": "version: 1.0.0"
-        },
-        {
-          "line": 5,
-          "text": "description: |"
-        },
-        {
-          "line": 6,
-          "text": "  Report-only QA testing. Systematically tests a web application and produces a"
-        },
-        {
-          "line": 7,
-          "text": "  structured report with health score, screenshots, and repro steps — but never"
-        },
-        {
-          "line": 8,
-          "text": "  fixes anything. Use when asked to \"just report bugs\", \"qa report only\", or"
-        },
-        {
-          "line": 9,
-          "text": "  \"test but don't fix\". For the full test-fix-verify loop, use /qa instead."
-        },
-        {
-          "line": 10,
-          "text": "  Proactively suggest when the user wants a bug report without any code changes. (gstack)"
-        },
-        {
-          "line": 11,
-          "text": "  Voice triggers (speech-to-text aliases): \"bug report\", \"just check for bugs\"."
-        },
-        {
-          "line": 12,
-          "text": "allowed-tools:"
+          "line": 763,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "review/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 764,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: review"
+          "line": 765,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 4"
-        },
-        {
-          "line": 4,
-          "text": "version: 1.0.0"
-        },
-        {
-          "line": 5,
-          "text": "description: |"
-        },
-        {
-          "line": 6,
-          "text": "  Pre-landing PR review. Analyzes diff against the base branch for SQL safety, LLM trust"
-        },
-        {
-          "line": 7,
-          "text": "  boundary violations, conditional side effects, and other structural issues. Use when"
-        },
-        {
-          "line": 8,
-          "text": "  asked to \"review this PR\", \"code review\", \"pre-landing review\", or \"check my diff\"."
-        },
-        {
-          "line": 9,
-          "text": "  Proactively suggest when the user is about to merge or land code changes. (gstack)"
-        },
-        {
-          "line": 10,
-          "text": "allowed-tools:"
-        },
-        {
-          "line": 11,
-          "text": "  - Bash"
-        },
-        {
-          "line": 12,
-          "text": "  - Read"
+          "line": 766,
+          "text": ""
         }
       ]
     },
     {
       "upstream": "gstack",
       "source_path": "ship/SKILL.md",
-      "candidate_commit": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
-      "reason": "changed-file-start",
+      "candidate_commit": "026751ea2012ec7cbedc149ba615929a20026501",
+      "reason": "risk-marker-context",
       "lines": [
         {
-          "line": 1,
-          "text": "---"
+          "line": 765,
+          "text": ""
         },
         {
-          "line": 2,
-          "text": "name: ship"
+          "line": 766,
+          "text": "Skills that run plan reviews (`/plan-*-review`, `/codex review`) include the EXIT PLAN MODE GATE blocking checklist at the end of the skill, which verifies the plan file ends with "
         },
         {
-          "line": 3,
-          "text": "preamble-tier: 4"
+          "line": 767,
+          "text": ""
         },
         {
-          "line": 4,
-          "text": "version: 1.0.0"
+          "line": 1824,
+          "text": "if [ \"$_CROSS_PROJ\" = \"true\" ]; then"
         },
         {
-          "line": 5,
-          "text": "description: |"
+          "line": 1825,
+          "text": "  ~/.claude/skills/gstack/bin/gstack-learnings-search --limit 10 --query \"release ship version changelog merge pr\" --cross-project 2>/dev/null || true"
         },
         {
-          "line": 6,
-          "text": "  Ship workflow: detect + merge base branch, run tests, review diff, bump VERSION,"
+          "line": 1826,
+          "text": "else"
         },
         {
-          "line": 7,
-          "text": "  update CHANGELOG, commit, push, create PR. Use when asked to \"ship\", \"deploy\","
+          "line": 1827,
+          "text": "  ~/.claude/skills/gstack/bin/gstack-learnings-search --limit 10 --query \"release ship version changelog merge pr\" 2>/dev/null || true"
         },
         {
-          "line": 8,
-          "text": "  \"push to main\", \"create a PR\", \"merge and push\", or \"get it deployed\"."
+          "line": 1828,
+          "text": "fi"
         },
         {
-          "line": 9,
-          "text": "  Proactively invoke this skill (do NOT push/PR directly) when the user says code"
+          "line": 2461,
+          "text": ""
         },
         {
-          "line": 10,
-          "text": "  is ready, asks about deploying, wants to push code up, or asks to create a PR. (gstack)"
+          "line": 2462,
+          "text": "The top-of-skill learnings pull was keyed to \"release ship\" broadly. Before the VERSION/CHANGELOG step, re-pull learnings keyed to THIS branch's headline feature so any prior versi"
         },
         {
-          "line": 11,
-          "text": "allowed-tools:"
+          "line": 2463,
+          "text": ""
         },
         {
-          "line": 12,
-          "text": "  - Bash"
+          "line": 2465,
+          "text": ""
         }
       ]
     }
@@ -979,13 +773,33 @@
       ]
     },
     "wrapper_summaries": {
-      "fw-intake": {
-        "description": "Use for idea intake, demand reality, product direction, and CEO-level scope challenge before planning.",
+      "fw-office-hours": {
+        "description": "Use for gstack office-hours idea intake, demand reality, product direction, and problem framing before CEO review.",
         "primary": "gstack",
         "role": "Core",
         "references": [
           "adapters/gstack/common-safety.md",
-          "gstack/office-hours/SKILL.md",
+          "gstack/office-hours/SKILL.md"
+        ],
+        "conditional_references": [],
+        "suppressions": [
+          "superpowers/brainstorming"
+        ],
+        "policy_notes": [],
+        "adapter_references": [
+          "adapters/gstack/common-safety.md"
+        ],
+        "raw_gstack_references": [
+          "gstack/office-hours/SKILL.md"
+        ],
+        "raw_superpowers_references": []
+      },
+      "fw-ceo-review": {
+        "description": "Use after office-hours confirms direction to run gstack CEO-level scope, ambition, and premise review before planning.",
+        "primary": "gstack",
+        "role": "Core",
+        "references": [
+          "adapters/gstack/common-safety.md",
           "gstack/plan-ceo-review/SKILL.md"
         ],
         "conditional_references": [],
@@ -997,24 +811,41 @@
           "adapters/gstack/common-safety.md"
         ],
         "raw_gstack_references": [
-          "gstack/office-hours/SKILL.md",
           "gstack/plan-ceo-review/SKILL.md"
         ],
         "raw_superpowers_references": []
       },
       "fw-plan": {
-        "description": "Use after office-hours or plan-ceo-review confirms direction to write a Superpowers-consumable spec and implementation plan.",
+        "description": "Use after CEO review confirms direction to write Superpowers spec and linked implementation plan.",
         "primary": "superpowers",
         "role": "Core",
         "references": [
-          "superpowers/skills/writing-plans/SKILL.md",
-          "adapters/gstack/common-safety.md",
-          "gstack/plan-eng-review/SKILL.md",
-          "gstack/plan-design-review/SKILL.md"
+          "superpowers/skills/writing-plans/SKILL.md"
         ],
         "conditional_references": [],
         "suppressions": [],
         "policy_notes": [],
+        "adapter_references": [],
+        "raw_gstack_references": [],
+        "raw_superpowers_references": [
+          "superpowers/skills/writing-plans/SKILL.md"
+        ]
+      },
+      "fw-plan-review": {
+        "description": "Use after fw-plan to run gstack plan-eng-review and conditional plan-design-review before build.",
+        "primary": "gstack",
+        "role": "Gate",
+        "references": [
+          "adapters/gstack/common-safety.md",
+          "gstack/plan-eng-review/SKILL.md"
+        ],
+        "conditional_references": [
+          "gstack/plan-design-review/SKILL.md"
+        ],
+        "suppressions": [],
+        "policy_notes": [
+          "Common-safety applies to conditional gstack references before raw conditional material is read."
+        ],
         "adapter_references": [
           "adapters/gstack/common-safety.md"
         ],
@@ -1022,9 +853,7 @@
           "gstack/plan-eng-review/SKILL.md",
           "gstack/plan-design-review/SKILL.md"
         ],
-        "raw_superpowers_references": [
-          "superpowers/skills/writing-plans/SKILL.md"
-        ]
+        "raw_superpowers_references": []
       },
       "fw-build": {
         "description": "Use for approved implementation with Superpowers worktrees, TDD, execution plans, subagents, and verification.",
@@ -1756,10 +1585,10 @@
       }
     ],
     "generated_forbidden_pattern_scan": {
-      "files_scanned": 11,
+      "files_scanned": 13,
       "forbidden_pattern_matches": [],
       "summary": "No forbidden route or reference-side-effect command patterns found in generated skills/adapters after suppression-aware filtering."
     }
   },
-  "evidence_hash": "85f3d2f5706a9b37f57621086b78903b8b8fe5e4308732fa2cb25ba771d12d9c"
+  "evidence_hash": "70f8f8472a042fa488d71193f353da5f1a5699c3df6f4473322061164c8ffde9"
 }
