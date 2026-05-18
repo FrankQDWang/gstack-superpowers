@@ -3,17 +3,18 @@
 - Status: ready
 - Recommendation: promote
 - LLM used: true
-- Assessed at: 2026-05-12T01:47:34.158Z
+- Assessed at: 2026-05-18T05:49:13.876Z
 
 ## Summary
 
-GStack advances from 49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8 to 74895062fb8a3acbf9f66cd088a83359aaaa56cd; Superpowers is unchanged. The changed gstack skills are compatible with the curated wrapper model. Raw release/deploy/canary side effects are present in upstream descriptions, but the affected upstream-only skills remain non-exported, non-directly executable, adapter-required, and covered by ship-readiness plus common-safety mitigations. No risk markers, policy violations, missing files, or generated forbidden-pattern matches were reported.
+The gstack upstream candidate updates 13 allowlisted files while Superpowers is unchanged. The raw upstream risk markers are covered by current wrapper routing and adapter mitigations: raw gstack skills remain non-exported, upstream-only ship/land/canary content is non-executable behind ship-readiness, standalone/native Codex review is suppressed, and fw-review keeps raw gstack review inside the curated review chain. No missing files, policy violations, or generated forbidden-pattern matches were reported.
 
 ## Findings
 
-- [info] Upstream-only shipping changes remain mitigated: canary, land-and-deploy, and ship changed and include raw deploy, merge, production monitoring, push, PR, or canary language. Current visibility keeps them reference-only and non-executable, while adapters/gstack/ship-readiness.md suppresses those side effects unless a later explicit gate permits them.
-- [info] Raw gstack review remains inside curated review chain: review, qa-only, and cso changed, but the manifest policy and fw-review wrapper keep raw gstack review as a component of the curated Superpowers/gstack/Superpowers chain and suppress standalone native Codex review routes.
-- [info] Proactive raw invocation language is neutralized by wrappers: Several changed descriptions include proactive invocation guidance. The mapped skills are not exported or directly executable, and common-safety says upstream invocation guidance is overridden when it conflicts with the active wrapper.
+- [info] Native Codex review references are neutralized by current routing: Multiple changed gstack files mention `/codex review`, but the manifest forbids standalone Codex review ownership, common-safety neutralizes generic host-native review shortcuts, and fw-review explicitly suppresses `codex/native-review` and `codex/review` while allowing raw gstack review only as part of the curated chain.
+- [info] Release, deploy, canary, merge, and push risks are mitigated: Changed upstream-only ship, land-and-deploy, and canary files require `adapters/gstack/ship-readiness.md`, are not directly executable, and are suppressed by fw-ship-lite. The adapter narrows these routes to readiness evidence and requires a separate explicit gate for externally visible actions.
+- [info] Document-release marker appears non-actionable: The deploy/release/canary marker in document-release is from a documentation diff example, not an instruction to release or deploy. fw-ship-lite also applies common-safety and ship-readiness around release documentation publication.
+- [info] No wrapper conflict found for changed core and gate skills: Changed core/gate gstack references remain non-exported reference material and are only reached through fw-office-hours, fw-ceo-review, fw-plan-review, fw-debug, fw-review, or fw-ship-lite. This complements the existing one-execution-owner workflow split between gstack direction/review gates and Superpowers implementation discipline.
 
 ## Adapter Updates
 
@@ -21,18 +22,19 @@ GStack advances from 49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8 to 74895062fb8a3ac
 
 ## Manifest Updates
 
-- Update the curated gstack candidate/active commit reference to 74895062fb8a3acbf9f66cd088a83359aaaa56cd after promotion.
-- Refresh recorded SHA-256 values for the 12 changed gstack allowlisted files.
-- No Superpowers manifest update is needed because active and candidate commits are identical.
+- Update gstack active commit from `74895062fb8a3acbf9f66cd088a83359aaaa56cd` to `026751ea2012ec7cbedc149ba615929a20026501`.
+- Refresh recorded sha256 values for the 13 changed allowlisted gstack files.
+- Keep upstream-only mappings for `gstack_ship`, `gstack_land_and_deploy`, and `gstack_canary` non-exported and adapter-required via `adapters/gstack/ship-readiness.md`.
+- No Superpowers manifest commit change is needed because active and candidate commits are identical.
 
 ## Routing Risks
 
-- Release/deploy/canary/merge/push trigger phrases remain present in raw upstream shipping skills, but routing is mitigated by fw-ship-lite defaulting to readiness_report and requiring an explicit release gate.
-- Raw gstack review and conditional qa/cso material must continue to be reachable only through fw-review, not as standalone/native Codex review ownership.
-- Proactive invocation text in raw gstack skills should remain advisory reference material under wrapper control, not direct routing authority.
+- If raw gstack skills become directly exported later, `/codex review` mentions and ship/deploy guidance would need reassessment before promotion.
+- fw-review must remain the only route that can include raw gstack review; adding standalone/native Codex review as an owner would conflict with project rules.
+- fw-ship-lite must continue suppressing `gstack/ship`, `gstack/land-and-deploy`, and `gstack/canary` as executable routes.
 
 ## Policy Risks
 
-- Raw upstream allowed-tools and preamble-tier declarations include Bash and deployment-oriented workflows; common-safety and ship-readiness currently override these permissions.
-- cso security-audit language may imply active scanning or pentest behavior; current conditional fw-review use and common-safety constraints should keep it review-bound unless explicitly authorized.
-- No unmitigated policy risk is evidenced by the provided risk markers, policy scan, or adapter context.
+- Raw upstream includes review-routing text that references native Codex review, but current common-safety and fw-review mitigations neutralize it.
+- Raw upstream includes release/deploy/canary/merge-related text in ship material, but current ship-readiness and finish-readiness adapters keep it to readiness reporting without side effects.
+- Risk markers are acceptable only because mitigation evidence is present; removal or weakening of common-safety, ship-readiness, or review-synthesis should block future promotion.
