@@ -1,52 +1,57 @@
 {
   "status": "ready",
   "recommendation": "promote",
-  "summary": "GStack advances from 49cc4ff9c99e9b24f39aa7dcbfc456e840be29a8 to 74895062fb8a3acbf9f66cd088a83359aaaa56cd; Superpowers is unchanged. The changed gstack skills are compatible with the curated wrapper model. Raw release/deploy/canary side effects are present in upstream descriptions, but the affected upstream-only skills remain non-exported, non-directly executable, adapter-required, and covered by ship-readiness plus common-safety mitigations. No risk markers, policy violations, missing files, or generated forbidden-pattern matches were reported.",
+  "summary": "建议 promote。此次更新仅推进 gstack 从 74895062fb8a3acbf9f66cd088a83359aaaa56cd 到 026751ea2012ec7cbedc149ba615929a20026501；superpowers 未变化。raw upstream 中的 native_codex_review、deploy/release/canary、credentials 风险均有 evidence.mitigation_context 中的 common-safety、ship-readiness、finish-readiness 与 fw-review/f+w-ship-lite 路由约束覆盖；未发现缺失文件、policy_violations 或生成侧 forbidden pattern。",
   "findings": [
     {
-      "severity": "info",
-      "title": "Upstream-only shipping changes remain mitigated",
-      "detail": "canary, land-and-deploy, and ship changed and include raw deploy, merge, production monitoring, push, PR, or canary language. Current visibility keeps them reference-only and non-executable, while adapters/gstack/ship-readiness.md suppresses those side effects unless a later explicit gate permits them.",
+      "severity": "low",
+      "title": "raw gstack 文本继续包含 native_codex_review 标记，但当前 wrapper 已中和独立 review owner",
+      "detail": "多个 gstack SKILL.md 提到 `/codex review`，但 manifest_policy_summary 明确 standalone_codex_review_owner=forbidden，fw-review suppressions 包含 codex/native-review 与 codex/review，且 common-safety 将 standalone host-native review shortcuts 中和。raw gstack review 仅在 fw-review 链中作为 curated review chain 的组件出现，因此未构成未缓解冲突。",
       "upstream": "gstack",
-      "source_path": "canary/SKILL.md; land-and-deploy/SKILL.md; ship/SKILL.md"
+      "source_path": "review/SKILL.md"
+    },
+    {
+      "severity": "low",
+      "title": "ship/canary/land-and-deploy 上游内容变化涉及发布类风险，但已保持 Upstream-only 并经 ship-readiness 限缩",
+      "detail": "gstack_canary、gstack_land_and_deploy、gstack_ship 均为 Upstream-only、exported=false、executable_directly=false、adapter_required=true，并绑定 adapters/gstack/ship-readiness.md。fw-ship-lite suppressions 明确压制 gstack/ship/SKILL.md、gstack/land-and-deploy/SKILL.md、gstack/canary/SKILL.md，release/deploy/canary/merge/push 只输出 readiness_report，需 separate explicit gate。",
+      "upstream": "gstack",
+      "source_path": "ship/SKILL.md"
     },
     {
       "severity": "info",
-      "title": "Raw gstack review remains inside curated review chain",
-      "detail": "review, qa-only, and cso changed, but the manifest policy and fw-review wrapper keep raw gstack review as a component of the curated Superpowers/gstack/Superpowers chain and suppress standalone native Codex review routes.",
+      "title": "document-release 的 deploy_release_canary 标记看似误报且不需要 hold",
+      "detail": "document-release/SKILL.md:1122 的 excerpt 是文档 diff 示例，不是发布、部署或 canary 执行动作。fw-ship-lite 只引用 document-release 作为 release documentation/readiness reporting 的一部分，并由 ship-readiness 与 finish-readiness 抑制发布副作用。",
       "upstream": "gstack",
-      "source_path": "review/SKILL.md; qa-only/SKILL.md; cso/SKILL.md"
-    },
-    {
-      "severity": "info",
-      "title": "Proactive raw invocation language is neutralized by wrappers",
-      "detail": "Several changed descriptions include proactive invocation guidance. The mapped skills are not exported or directly executable, and common-safety says upstream invocation guidance is overridden when it conflicts with the active wrapper.",
-      "upstream": "gstack",
-      "source_path": "investigate/SKILL.md; office-hours/SKILL.md; plan-eng-review/SKILL.md; plan-design-review/SKILL.md; document-release/SKILL.md"
+      "source_path": "document-release/SKILL.md"
     }
   ],
-  "adapter_updates": [],
+  "adapter_updates": [
+    "无需强制 adapter 内容更新；现有 adapters/gstack/common-safety.md 已覆盖 raw gstack 不可信引用、standalone/native Codex review 中和、telemetry/analytics/learning side effects 禁用。",
+    "无需强制更新 adapters/gstack/ship-readiness.md；其已覆盖 commit、push、PR、merge、deploy、canary、release 以及 native/generic host review verification side effects 抑制。",
+    "保留 adapters/superpowers/finish-readiness.md、adapters/superpowers/orchestration-boundary.md、adapters/superpowers/review-synthesis.md 当前策略；此次 superpowers commit 未变化。"
+  ],
   "manifest_updates": [
-    "Update the curated gstack candidate/active commit reference to 74895062fb8a3acbf9f66cd088a83359aaaa56cd after promotion.",
-    "Refresh recorded SHA-256 values for the 12 changed gstack allowlisted files.",
-    "No Superpowers manifest update is needed because active and candidate commits are identical."
+    "将 gstack pinned commit 从 74895062fb8a3acbf9f66cd088a83359aaaa56cd 更新为 026751ea2012ec7cbedc149ba615929a20026501。",
+    "更新 changed_allowlisted_files 中 13 个 gstack SKILL.md 的 candidate_sha256 记录。",
+    "保持 superpowers pinned commit f2cbfbefebbfef77321e4c9abc9e949826bea9d7 不变。",
+    "保持 raw gstack skills exported=false、reference_available=true、executable_directly=false 的可见性策略；尤其 gstack_ship、gstack_land_and_deploy、gstack_canary 继续 adapter_required=true。"
   ],
   "routing_risks": [
-    "Release/deploy/canary/merge/push trigger phrases remain present in raw upstream shipping skills, but routing is mitigated by fw-ship-lite defaulting to readiness_report and requiring an explicit release gate.",
-    "Raw gstack review and conditional qa/cso material must continue to be reachable only through fw-review, not as standalone/native Codex review ownership.",
-    "Proactive invocation text in raw gstack skills should remain advisory reference material under wrapper control, not direct routing authority."
+    "若未来 manifest 将 gstack-review、gstack-plan-eng-review、gstack-plan-design-review 或其他 raw gstack skills 直接 exported/executable，会绕过 fw-* wrapper 的 one_execution_owner 与 safety adapter 约束；当前证据未显示该问题。",
+    "fw-review 必须继续作为唯一 review gate 入口；不能引入 standalone/native Codex review 作为独立 review owner。",
+    "fw-ship-lite 必须继续只做 branch finish 与 release-readiness report；release、deploy、canary、merge、push 仍需 separate explicit gate。"
   ],
   "policy_risks": [
-    "Raw upstream allowed-tools and preamble-tier declarations include Bash and deployment-oriented workflows; common-safety and ship-readiness currently override these permissions.",
-    "cso security-audit language may imply active scanning or pentest behavior; current conditional fw-review use and common-safety constraints should keep it review-bound unless explicitly authorized.",
-    "No unmitigated policy risk is evidenced by the provided risk markers, policy scan, or adapter context."
+    "raw upstream 中存在 `/codex review` 文本与发布相关命令/短语，但 common-safety 与 ship-readiness 明确将其作为非可执行参考并中和副作用，当前不构成 hold。",
+    "ship/SKILL.md 中 credentials marker 的 excerpt 实际是关键词示例风险上下文；没有证据显示凭据读取、泄露或新增 side effect route。",
+    "generated_forbidden_pattern_scan 显示 suppression-aware filtering 后无 forbidden route 或 reference-side-effect command patterns，降低了 wrapper 生成物层面的策略风险。"
   ],
   "llm_used": true,
-  "assessed_at": "2026-05-12T01:47:34.158Z",
-  "evidence_generated_at": "2026-05-12T01:47:06.342Z",
-  "evidence_hash": "85f3d2f5706a9b37f57621086b78903b8b8fe5e4308732fa2cb25ba771d12d9c",
+  "assessed_at": "2026-05-18T06:27:31.995Z",
+  "evidence_generated_at": "2026-05-18T06:26:59.629Z",
+  "evidence_hash": "7bf770711aabee7a248abb4a10d101b1e1e394956b62dc3e632e0e7c1a772635",
   "candidate_commits": {
-    "gstack": "74895062fb8a3acbf9f66cd088a83359aaaa56cd",
+    "gstack": "026751ea2012ec7cbedc149ba615929a20026501",
     "superpowers": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7"
   }
 }
