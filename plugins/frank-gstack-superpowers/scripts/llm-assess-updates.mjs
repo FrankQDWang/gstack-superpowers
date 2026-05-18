@@ -104,6 +104,7 @@ Rules:
 - Risk markers indicate raw upstream text. Hold on unmitigated risk, missing mitigation evidence, or wrapper/adapter conflicts.
 - You should not hold solely because hidden raw upstream text contains risky instructions when the current wrappers/adapters explicitly neutralize those instructions and keep them non-executable.
 - Return only JSON matching the provided schema.
+- Write all free-text JSON fields in Chinese, while preserving exact technical terms such as commit hashes, wrapper names, adapter paths, status values, and recommendation enum values.
 
 Evidence JSON:
 ${JSON.stringify(evidence, null, 2)}

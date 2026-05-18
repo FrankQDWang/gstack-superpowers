@@ -164,7 +164,8 @@ the networked execution into the user's normal macOS environment.
 Run or inspect the local runner:
 
 ```bash
-scripts/weekly-upstream-sync-runner.sh
+scripts/weekly-upstream-sync-runner.sh --report
+scripts/weekly-upstream-sync-runner.sh --apply
 launchctl print gui/$(id -u)/com.frankqdwang.weekly-curated-workflow-upstream-sync
 ```
 
@@ -179,9 +180,23 @@ The weekly automation should:
 1. materialize candidate upstream commits,
 2. build deterministic update evidence,
 3. run an LLM assessment for conflicts and complements,
-4. prepare a proposed promotion on a sync branch,
-5. run tests, routing audit, eval, and diff report,
-6. open or update a PR for human approval.
+4. write a concise Chinese `Brief` into `~/.codex/automations/weekly-curated-workflow-upstream-sync/last-run-summary.md`,
+5. stop for human approval.
+
+The Codex cron automation reads that brief and replies directly in the thread.
+It should not create a separate report file or inline raw evidence. The brief
+should answer, in plain terms: what changed in `gstack` and `superpowers`, how
+the curated `fw-*` wrappers should change, and what decision is needed from the
+user.
+
+The runner also prunes old local automation state: logs older than 30 days,
+stale generated report files from older versions, and old local report branches
+beyond the most recent 8.
+
+After approval, run `scripts/weekly-upstream-sync-runner.sh --apply`. Apply mode
+re-runs the evidence path, promotes only when the LLM assessment allows it,
+regenerates wrappers, runs tests, routing audit, eval, and diff report, then
+opens or updates the sync PR.
 
 No automation should merge, deploy, release, or mutate protected branches. When
 the source repo is updated, the global symlinked install sees the same plugin
