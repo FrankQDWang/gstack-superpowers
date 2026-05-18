@@ -1,552 +1,18 @@
 {
-  "timestamp": "2026-05-14T08:00:56.723Z",
-  "step": "eval-routing",
+  "timestamp": "2026-05-18T06:27:33.830Z",
+  "step": "diff-report",
   "status": "success",
   "error_code": null,
   "details": {
     "status": "success",
-    "cases": [
-      {
-        "id": "intake-demand-reality",
-        "status": "passed",
-        "expected_wrapper": "fw-office-hours",
-        "actual_wrapper": "fw-office-hours",
-        "errors": []
-      },
-      {
-        "id": "ceo-review-after-office-hours",
-        "status": "passed",
-        "expected_wrapper": "fw-ceo-review",
-        "actual_wrapper": "fw-ceo-review",
-        "errors": []
-      },
-      {
-        "id": "plan-after-direction",
-        "status": "passed",
-        "expected_wrapper": "fw-plan",
-        "actual_wrapper": "fw-plan",
-        "errors": []
-      },
-      {
-        "id": "plan-review-after-plan",
-        "status": "passed",
-        "expected_wrapper": "fw-plan-review",
-        "actual_wrapper": "fw-plan-review",
-        "errors": []
-      },
-      {
-        "id": "build-approved-plan",
-        "status": "passed",
-        "expected_wrapper": "fw-build",
-        "actual_wrapper": "fw-build",
-        "errors": []
-      },
-      {
-        "id": "debug-root-cause",
-        "status": "passed",
-        "expected_wrapper": "fw-debug",
-        "actual_wrapper": "fw-debug",
-        "errors": []
-      },
-      {
-        "id": "review-finished-implementation",
-        "status": "passed",
-        "expected_wrapper": "fw-review",
-        "actual_wrapper": "fw-review",
-        "errors": []
-      },
-      {
-        "id": "ship-lite-readiness",
-        "status": "passed",
-        "expected_wrapper": "fw-ship-lite",
-        "actual_wrapper": "fw-ship-lite",
-        "errors": []
-      },
-      {
-        "id": "pressure-native-review-request",
-        "status": "passed",
-        "expected_wrapper": "fw-review",
-        "actual_wrapper": "fw-review",
-        "errors": []
-      },
-      {
-        "id": "pressure-direct-deploy-request",
-        "status": "passed",
-        "expected_wrapper": "fw-ship-lite",
-        "actual_wrapper": "fw-ship-lite",
-        "errors": []
-      }
-    ],
-    "errors": []
+    "output_path": "plugins/frank-gstack-superpowers/artifacts/upstream-diff-report.md",
+    "root_copy_path": "upstream-diff-report.md",
+    "evidence_present": true,
+    "assessment_present": true,
+    "stale_assessment": false,
+    "stale_reasons": []
   },
   "history": [
-    {
-      "timestamp": "2026-05-12T02:29:36.597Z",
-      "step": "audit-routing",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-12T02:29:36.646Z",
-      "step": "audit-routing",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "status": "success",
-        "manifest_hash": "sha256:b3fc08bd648d6ca0467e2fe51b6c9c737649ed457b345bf2df315df96ce5dc02",
-        "errors": [],
-        "warnings": []
-      }
-    },
-    {
-      "timestamp": "2026-05-12T02:29:39.298Z",
-      "step": "eval-routing",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-12T02:29:39.334Z",
-      "step": "eval-routing",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "status": "success",
-        "cases": [
-          {
-            "id": "intake-demand-reality",
-            "status": "passed",
-            "expected_wrapper": "fw-intake",
-            "actual_wrapper": "fw-intake",
-            "errors": []
-          },
-          {
-            "id": "plan-after-direction",
-            "status": "passed",
-            "expected_wrapper": "fw-plan",
-            "actual_wrapper": "fw-plan",
-            "errors": []
-          },
-          {
-            "id": "build-approved-plan",
-            "status": "passed",
-            "expected_wrapper": "fw-build",
-            "actual_wrapper": "fw-build",
-            "errors": []
-          },
-          {
-            "id": "debug-root-cause",
-            "status": "passed",
-            "expected_wrapper": "fw-debug",
-            "actual_wrapper": "fw-debug",
-            "errors": []
-          },
-          {
-            "id": "review-finished-implementation",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "ship-lite-readiness",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          },
-          {
-            "id": "pressure-native-review-request",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "pressure-direct-deploy-request",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          }
-        ],
-        "errors": []
-      }
-    },
-    {
-      "timestamp": "2026-05-12T09:41:16.561Z",
-      "step": "generate-plugin",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-12T09:41:16.651Z",
-      "step": "generate-plugin",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
-        "skills": [
-          "skills/fw-office-hours/SKILL.md",
-          "skills/fw-ceo-review/SKILL.md",
-          "skills/fw-plan/SKILL.md",
-          "skills/fw-plan-review/SKILL.md",
-          "skills/fw-build/SKILL.md",
-          "skills/fw-debug/SKILL.md",
-          "skills/fw-review/SKILL.md",
-          "skills/fw-ship-lite/SKILL.md"
-        ],
-        "adapters": [
-          "references/adapters/gstack/common-safety.md",
-          "references/adapters/superpowers/orchestration-boundary.md",
-          "references/adapters/gstack/ship-readiness.md",
-          "references/adapters/superpowers/finish-readiness.md",
-          "references/adapters/superpowers/review-synthesis.md"
-        ],
-        "warnings": []
-      }
-    },
-    {
-      "timestamp": "2026-05-12T09:41:43.434Z",
-      "step": "audit-routing",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-12T09:41:43.474Z",
-      "step": "audit-routing",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "status": "success",
-        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
-        "errors": [],
-        "warnings": []
-      }
-    },
-    {
-      "timestamp": "2026-05-12T09:41:48.239Z",
-      "step": "eval-routing",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-12T09:41:48.270Z",
-      "step": "eval-routing",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "status": "success",
-        "cases": [
-          {
-            "id": "intake-demand-reality",
-            "status": "passed",
-            "expected_wrapper": "fw-office-hours",
-            "actual_wrapper": "fw-office-hours",
-            "errors": []
-          },
-          {
-            "id": "ceo-review-after-office-hours",
-            "status": "passed",
-            "expected_wrapper": "fw-ceo-review",
-            "actual_wrapper": "fw-ceo-review",
-            "errors": []
-          },
-          {
-            "id": "plan-after-direction",
-            "status": "passed",
-            "expected_wrapper": "fw-plan",
-            "actual_wrapper": "fw-plan",
-            "errors": []
-          },
-          {
-            "id": "plan-review-after-plan",
-            "status": "passed",
-            "expected_wrapper": "fw-plan-review",
-            "actual_wrapper": "fw-plan-review",
-            "errors": []
-          },
-          {
-            "id": "build-approved-plan",
-            "status": "passed",
-            "expected_wrapper": "fw-build",
-            "actual_wrapper": "fw-build",
-            "errors": []
-          },
-          {
-            "id": "debug-root-cause",
-            "status": "passed",
-            "expected_wrapper": "fw-debug",
-            "actual_wrapper": "fw-debug",
-            "errors": []
-          },
-          {
-            "id": "review-finished-implementation",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "ship-lite-readiness",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          },
-          {
-            "id": "pressure-native-review-request",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "pressure-direct-deploy-request",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          }
-        ],
-        "errors": []
-      }
-    },
-    {
-      "timestamp": "2026-05-14T07:58:01.081Z",
-      "step": "generate-plugin",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-14T07:58:01.179Z",
-      "step": "generate-plugin",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
-        "skills": [
-          "skills/fw-office-hours/SKILL.md",
-          "skills/fw-ceo-review/SKILL.md",
-          "skills/fw-plan/SKILL.md",
-          "skills/fw-plan-review/SKILL.md",
-          "skills/fw-build/SKILL.md",
-          "skills/fw-debug/SKILL.md",
-          "skills/fw-review/SKILL.md",
-          "skills/fw-ship-lite/SKILL.md"
-        ],
-        "adapters": [
-          "references/adapters/gstack/common-safety.md",
-          "references/adapters/superpowers/orchestration-boundary.md",
-          "references/adapters/gstack/ship-readiness.md",
-          "references/adapters/superpowers/finish-readiness.md",
-          "references/adapters/superpowers/review-synthesis.md"
-        ],
-        "warnings": []
-      }
-    },
-    {
-      "timestamp": "2026-05-14T07:58:53.474Z",
-      "step": "eval-routing",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-14T07:58:53.527Z",
-      "step": "eval-routing",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "status": "success",
-        "cases": [
-          {
-            "id": "intake-demand-reality",
-            "status": "passed",
-            "expected_wrapper": "fw-office-hours",
-            "actual_wrapper": "fw-office-hours",
-            "errors": []
-          },
-          {
-            "id": "ceo-review-after-office-hours",
-            "status": "passed",
-            "expected_wrapper": "fw-ceo-review",
-            "actual_wrapper": "fw-ceo-review",
-            "errors": []
-          },
-          {
-            "id": "plan-after-direction",
-            "status": "passed",
-            "expected_wrapper": "fw-plan",
-            "actual_wrapper": "fw-plan",
-            "errors": []
-          },
-          {
-            "id": "plan-review-after-plan",
-            "status": "passed",
-            "expected_wrapper": "fw-plan-review",
-            "actual_wrapper": "fw-plan-review",
-            "errors": []
-          },
-          {
-            "id": "build-approved-plan",
-            "status": "passed",
-            "expected_wrapper": "fw-build",
-            "actual_wrapper": "fw-build",
-            "errors": []
-          },
-          {
-            "id": "debug-root-cause",
-            "status": "passed",
-            "expected_wrapper": "fw-debug",
-            "actual_wrapper": "fw-debug",
-            "errors": []
-          },
-          {
-            "id": "review-finished-implementation",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "ship-lite-readiness",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          },
-          {
-            "id": "pressure-native-review-request",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "pressure-direct-deploy-request",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          }
-        ],
-        "errors": []
-      }
-    },
-    {
-      "timestamp": "2026-05-14T07:58:53.533Z",
-      "step": "audit-routing",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "status": "success",
-        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
-        "errors": [],
-        "warnings": []
-      }
-    },
-    {
-      "timestamp": "2026-05-14T08:00:09.024Z",
-      "step": "eval-routing",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
-    {
-      "timestamp": "2026-05-14T08:00:09.078Z",
-      "step": "eval-routing",
-      "status": "success",
-      "error_code": null,
-      "details": {
-        "status": "success",
-        "cases": [
-          {
-            "id": "intake-demand-reality",
-            "status": "passed",
-            "expected_wrapper": "fw-office-hours",
-            "actual_wrapper": "fw-office-hours",
-            "errors": []
-          },
-          {
-            "id": "ceo-review-after-office-hours",
-            "status": "passed",
-            "expected_wrapper": "fw-ceo-review",
-            "actual_wrapper": "fw-ceo-review",
-            "errors": []
-          },
-          {
-            "id": "plan-after-direction",
-            "status": "passed",
-            "expected_wrapper": "fw-plan",
-            "actual_wrapper": "fw-plan",
-            "errors": []
-          },
-          {
-            "id": "plan-review-after-plan",
-            "status": "passed",
-            "expected_wrapper": "fw-plan-review",
-            "actual_wrapper": "fw-plan-review",
-            "errors": []
-          },
-          {
-            "id": "build-approved-plan",
-            "status": "passed",
-            "expected_wrapper": "fw-build",
-            "actual_wrapper": "fw-build",
-            "errors": []
-          },
-          {
-            "id": "debug-root-cause",
-            "status": "passed",
-            "expected_wrapper": "fw-debug",
-            "actual_wrapper": "fw-debug",
-            "errors": []
-          },
-          {
-            "id": "review-finished-implementation",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "ship-lite-readiness",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          },
-          {
-            "id": "pressure-native-review-request",
-            "status": "passed",
-            "expected_wrapper": "fw-review",
-            "actual_wrapper": "fw-review",
-            "errors": []
-          },
-          {
-            "id": "pressure-direct-deploy-request",
-            "status": "passed",
-            "expected_wrapper": "fw-ship-lite",
-            "actual_wrapper": "fw-ship-lite",
-            "errors": []
-          }
-        ],
-        "errors": []
-      }
-    },
-    {
-      "timestamp": "2026-05-14T08:00:43.550Z",
-      "step": "audit-routing",
-      "status": "running",
-      "error_code": null,
-      "details": {}
-    },
     {
       "timestamp": "2026-05-14T08:00:43.663Z",
       "step": "audit-routing",
@@ -562,6 +28,428 @@
     {
       "timestamp": "2026-05-14T08:00:56.679Z",
       "step": "eval-routing",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-14T08:00:56.723Z",
+      "step": "eval-routing",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "cases": [
+          {
+            "id": "intake-demand-reality",
+            "status": "passed",
+            "expected_wrapper": "fw-office-hours",
+            "actual_wrapper": "fw-office-hours",
+            "errors": []
+          },
+          {
+            "id": "ceo-review-after-office-hours",
+            "status": "passed",
+            "expected_wrapper": "fw-ceo-review",
+            "actual_wrapper": "fw-ceo-review",
+            "errors": []
+          },
+          {
+            "id": "plan-after-direction",
+            "status": "passed",
+            "expected_wrapper": "fw-plan",
+            "actual_wrapper": "fw-plan",
+            "errors": []
+          },
+          {
+            "id": "plan-review-after-plan",
+            "status": "passed",
+            "expected_wrapper": "fw-plan-review",
+            "actual_wrapper": "fw-plan-review",
+            "errors": []
+          },
+          {
+            "id": "build-approved-plan",
+            "status": "passed",
+            "expected_wrapper": "fw-build",
+            "actual_wrapper": "fw-build",
+            "errors": []
+          },
+          {
+            "id": "debug-root-cause",
+            "status": "passed",
+            "expected_wrapper": "fw-debug",
+            "actual_wrapper": "fw-debug",
+            "errors": []
+          },
+          {
+            "id": "review-finished-implementation",
+            "status": "passed",
+            "expected_wrapper": "fw-review",
+            "actual_wrapper": "fw-review",
+            "errors": []
+          },
+          {
+            "id": "ship-lite-readiness",
+            "status": "passed",
+            "expected_wrapper": "fw-ship-lite",
+            "actual_wrapper": "fw-ship-lite",
+            "errors": []
+          },
+          {
+            "id": "pressure-native-review-request",
+            "status": "passed",
+            "expected_wrapper": "fw-review",
+            "actual_wrapper": "fw-review",
+            "errors": []
+          },
+          {
+            "id": "pressure-direct-deploy-request",
+            "status": "passed",
+            "expected_wrapper": "fw-ship-lite",
+            "actual_wrapper": "fw-ship-lite",
+            "errors": []
+          }
+        ],
+        "errors": []
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:26:52.185Z",
+      "step": "sync-upstreams:candidate",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:26:59.388Z",
+      "step": "sync-upstreams:candidate",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "checked_at": "2026-05-18T06:26:52.223Z",
+        "preflight": {
+          "status": "success",
+          "checked_at": "2026-05-18T06:26:54.493Z",
+          "environment": {
+            "cwd": "/Users/frankqdwang/.codex/worktrees/weekly-curated-workflow-upstream-sync/gstack-superpowers",
+            "codex_ci": "1",
+            "codex_shell": "1",
+            "codex_thread_id": "019e39ba-0466-7662-b261-52682a75cab7",
+            "bundle_identifier": "com.openai.codex",
+            "proxy_env": {
+              "HTTP_PROXY": "unset",
+              "HTTPS_PROXY": "unset",
+              "ALL_PROXY": "unset",
+              "NO_PROXY": "unset",
+              "http_proxy": "unset",
+              "https_proxy": "unset",
+              "all_proxy": "unset",
+              "no_proxy": "unset"
+            }
+          },
+          "upstreams": {
+            "gstack": {
+              "repo": "https://github.com/garrytan/gstack.git",
+              "branch": "main",
+              "commit": "026751ea2012ec7cbedc149ba615929a20026501",
+              "status": "success",
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "started_at": "2026-05-18T06:26:52.223Z",
+                  "status": "success"
+                }
+              ]
+            },
+            "superpowers": {
+              "repo": "https://github.com/obra/superpowers.git",
+              "branch": "main",
+              "commit": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7",
+              "status": "success",
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "started_at": "2026-05-18T06:26:53.399Z",
+                  "status": "success"
+                }
+              ]
+            }
+          },
+          "failures": []
+        },
+        "materialized": [
+          {
+            "upstream": "gstack",
+            "commit": "026751ea2012ec7cbedc149ba615929a20026501",
+            "copied": [
+              "benchmark/SKILL.md",
+              "canary/SKILL.md",
+              "cso/SKILL.md",
+              "document-release/SKILL.md",
+              "investigate/SKILL.md",
+              "land-and-deploy/SKILL.md",
+              "office-hours/SKILL.md",
+              "plan-ceo-review/SKILL.md",
+              "plan-design-review/SKILL.md",
+              "plan-eng-review/SKILL.md",
+              "qa-only/SKILL.md",
+              "review/SKILL.md",
+              "ship/SKILL.md"
+            ],
+            "materialized_root": "/Users/frankqdwang/.codex/worktrees/weekly-curated-workflow-upstream-sync/gstack-superpowers/plugins/frank-gstack-superpowers/references/upstreams/gstack/commits/026751ea2012ec7cbedc149ba615929a20026501"
+          },
+          {
+            "upstream": "superpowers",
+            "commit": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7",
+            "copied": [
+              "skills/executing-plans/SKILL.md",
+              "skills/finishing-a-development-branch/SKILL.md",
+              "skills/receiving-code-review/SKILL.md",
+              "skills/requesting-code-review/SKILL.md",
+              "skills/subagent-driven-development/SKILL.md",
+              "skills/systematic-debugging/SKILL.md",
+              "skills/test-driven-development/SKILL.md",
+              "skills/using-git-worktrees/SKILL.md",
+              "skills/verification-before-completion/SKILL.md",
+              "skills/writing-plans/SKILL.md"
+            ],
+            "materialized_root": "/Users/frankqdwang/.codex/worktrees/weekly-curated-workflow-upstream-sync/gstack-superpowers/plugins/frank-gstack-superpowers/references/upstreams/superpowers/commits/f2cbfbefebbfef77321e4c9abc9e949826bea9d7"
+          }
+        ],
+        "assessment_invalidated": true,
+        "invalidated_assessment_artifacts": [
+          "/Users/frankqdwang/.codex/worktrees/weekly-curated-workflow-upstream-sync/gstack-superpowers/plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.json",
+          "/Users/frankqdwang/.codex/worktrees/weekly-curated-workflow-upstream-sync/gstack-superpowers/plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.md"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:26:59.597Z",
+      "step": "build-update-evidence",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:26:59.654Z",
+      "step": "build-update-evidence",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "output_path": "plugins/frank-gstack-superpowers/artifacts/update-evidence.json",
+        "changed_files": 13,
+        "missing_files": 0,
+        "risk_markers": 18,
+        "policy_violations": 0
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:26:59.836Z",
+      "step": "llm-assess-updates",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:27:31.997Z",
+      "step": "llm-assess-updates",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "output_json": "plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.json",
+        "output_markdown": "plugins/frank-gstack-superpowers/artifacts/llm-update-assessment.md",
+        "status": "ready",
+        "recommendation": "promote",
+        "llm_used": true
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:27:32.263Z",
+      "step": "diff-report",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:27:32.267Z",
+      "step": "diff-report",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "output_path": "plugins/frank-gstack-superpowers/artifacts/upstream-diff-report.md",
+        "root_copy_path": "upstream-diff-report.md",
+        "evidence_present": true,
+        "assessment_present": true,
+        "stale_assessment": false,
+        "stale_reasons": []
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:27:32.488Z",
+      "step": "sync-upstreams:promote-candidate",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:27:32.549Z",
+      "step": "sync-upstreams:promote-candidate",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "promoted": {
+          "gstack": "026751ea2012ec7cbedc149ba615929a20026501",
+          "superpowers": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:27:32.711Z",
+      "step": "generate-plugin",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:27:32.782Z",
+      "step": "generate-plugin",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
+        "skills": [
+          "skills/fw-office-hours/SKILL.md",
+          "skills/fw-ceo-review/SKILL.md",
+          "skills/fw-plan/SKILL.md",
+          "skills/fw-plan-review/SKILL.md",
+          "skills/fw-build/SKILL.md",
+          "skills/fw-debug/SKILL.md",
+          "skills/fw-review/SKILL.md",
+          "skills/fw-ship-lite/SKILL.md"
+        ],
+        "adapters": [
+          "references/adapters/gstack/common-safety.md",
+          "references/adapters/superpowers/orchestration-boundary.md",
+          "references/adapters/gstack/ship-readiness.md",
+          "references/adapters/superpowers/finish-readiness.md",
+          "references/adapters/superpowers/review-synthesis.md"
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:27:33.387Z",
+      "step": "audit-routing",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:27:33.416Z",
+      "step": "audit-routing",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "manifest_hash": "sha256:96ce573cf6726198db016437609570b3170330c0ea1f001329dacb822cbaaee4",
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:27:33.588Z",
+      "step": "eval-routing",
+      "status": "running",
+      "error_code": null,
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T06:27:33.614Z",
+      "step": "eval-routing",
+      "status": "success",
+      "error_code": null,
+      "details": {
+        "status": "success",
+        "cases": [
+          {
+            "id": "intake-demand-reality",
+            "status": "passed",
+            "expected_wrapper": "fw-office-hours",
+            "actual_wrapper": "fw-office-hours",
+            "errors": []
+          },
+          {
+            "id": "ceo-review-after-office-hours",
+            "status": "passed",
+            "expected_wrapper": "fw-ceo-review",
+            "actual_wrapper": "fw-ceo-review",
+            "errors": []
+          },
+          {
+            "id": "plan-after-direction",
+            "status": "passed",
+            "expected_wrapper": "fw-plan",
+            "actual_wrapper": "fw-plan",
+            "errors": []
+          },
+          {
+            "id": "plan-review-after-plan",
+            "status": "passed",
+            "expected_wrapper": "fw-plan-review",
+            "actual_wrapper": "fw-plan-review",
+            "errors": []
+          },
+          {
+            "id": "build-approved-plan",
+            "status": "passed",
+            "expected_wrapper": "fw-build",
+            "actual_wrapper": "fw-build",
+            "errors": []
+          },
+          {
+            "id": "debug-root-cause",
+            "status": "passed",
+            "expected_wrapper": "fw-debug",
+            "actual_wrapper": "fw-debug",
+            "errors": []
+          },
+          {
+            "id": "review-finished-implementation",
+            "status": "passed",
+            "expected_wrapper": "fw-review",
+            "actual_wrapper": "fw-review",
+            "errors": []
+          },
+          {
+            "id": "ship-lite-readiness",
+            "status": "passed",
+            "expected_wrapper": "fw-ship-lite",
+            "actual_wrapper": "fw-ship-lite",
+            "errors": []
+          },
+          {
+            "id": "pressure-native-review-request",
+            "status": "passed",
+            "expected_wrapper": "fw-review",
+            "actual_wrapper": "fw-review",
+            "errors": []
+          },
+          {
+            "id": "pressure-direct-deploy-request",
+            "status": "passed",
+            "expected_wrapper": "fw-ship-lite",
+            "actual_wrapper": "fw-ship-lite",
+            "errors": []
+          }
+        ],
+        "errors": []
+      }
+    },
+    {
+      "timestamp": "2026-05-18T06:27:33.827Z",
+      "step": "diff-report",
       "status": "running",
       "error_code": null,
       "details": {}

@@ -30,12 +30,12 @@ Generated wrapper skill for the curated gstack + Superpowers workflow.
 - adapters/gstack/common-safety.md
   - Read: `../../references/adapters/gstack/common-safety.md`
 - gstack/plan-eng-review/SKILL.md
-  - Read active materialization: `../../references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/plan-eng-review/SKILL.md`
+  - Read active materialization: `../../references/upstreams/gstack/commits/026751ea2012ec7cbedc149ba615929a20026501/plan-eng-review/SKILL.md`
 
 ## Conditional References
 
 - gstack/plan-design-review/SKILL.md
-  - Read active materialization: `../../references/upstreams/gstack/commits/74895062fb8a3acbf9f66cd088a83359aaaa56cd/plan-design-review/SKILL.md`
+  - Read active materialization: `../../references/upstreams/gstack/commits/026751ea2012ec7cbedc149ba615929a20026501/plan-design-review/SKILL.md`
 
 ## Suppressed Routes
 
