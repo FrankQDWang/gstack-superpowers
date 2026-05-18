@@ -196,11 +196,14 @@ beyond the most recent 8.
 After approval, run `scripts/weekly-upstream-sync-runner.sh --apply`. Apply mode
 re-runs the evidence path, promotes only when the LLM assessment allows it,
 regenerates wrappers, runs tests, routing audit, eval, and diff report, then
-opens or updates the sync PR.
+fast-forwards local `main` so the curated workflow is immediately usable from
+the local source repo and global symlinked install.
 
-No automation should merge, deploy, release, or mutate protected branches. When
-the source repo is updated, the global symlinked install sees the same plugin
-contents without copying workflow files into individual project repositories.
+Push, PR creation, merge, deploy, release, and canary are separate explicit
+gates. The weekly runner must not perform them as part of report or apply. When
+the source repo is updated locally, the global symlinked install sees the same
+plugin contents without copying workflow files into individual project
+repositories.
 
 ## Upstream Attribution
 

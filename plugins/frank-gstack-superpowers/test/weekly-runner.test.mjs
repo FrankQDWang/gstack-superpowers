@@ -19,12 +19,26 @@ test("weekly upstream sync runner defaults to report mode and requires explicit 
   assert.match(source, /--apply\)/);
   assert.match(source, /--report\)/);
   assert.match(source, /weekly-curated-workflow-upstream-sync-report-\$RUN_TS/);
+  assert.match(source, /weekly-curated-workflow-upstream-sync-apply-\$RUN_TS/);
 
   const reportGate = source.indexOf('if [ "$MODE" = "report" ]; then');
   const promote = source.indexOf("npm run sync:upstreams -- --promote-candidate");
   assert.ok(reportGate > -1, "runner should stop in report mode before apply-only steps");
   assert.ok(promote > -1, "runner should retain explicit apply promotion support");
   assert.ok(reportGate < promote, "report stop must happen before candidate promotion");
+});
+
+test("weekly upstream sync apply updates local main and does not push or open PRs", async () => {
+  const source = await readRunner();
+
+  assert.match(source, /ensure_source_repo_ready_for_local_apply/);
+  assert.match(source, /merge --ff-only "\$BRANCH"/);
+  assert.match(source, /Weekly upstream sync was applied locally/);
+  assert.match(source, /push、PR、merge、release 需要单独明确批准/);
+  assert.doesNotMatch(source, /git push/);
+  assert.doesNotMatch(source, /gh -R/);
+  assert.doesNotMatch(source, /pr create/);
+  assert.doesNotMatch(source, /PR_URL/);
 });
 
 test("weekly upstream sync runner installs missing dependencies before npm scripts", async () => {
